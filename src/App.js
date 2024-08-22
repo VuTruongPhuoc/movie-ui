@@ -1,25 +1,45 @@
-import logo from './logo.svg';
+import { BrowserRouter as Router, useRoutes, Outlet } from 'react-router-dom';
+import Home from '~/pages/Home';
+import Profile from '~/pages/Profile';
+import NoPage from '~/pages/NoPage';
 import './App.css';
 
+// Thành phần chứa các tuyến con
+function AppRoutes() {
+    const routes = useRoutes([
+        {
+            path: '/',
+            element: (
+                <Home>
+                    <Outlet /> {/* Chèn các phần tử con vào đây */}
+                </Home>
+            ),
+            children: [
+                {
+                    path: 'profile',
+                    element: <Profile />,
+                },
+                {
+                    path: 'nopage',
+                    element: <NoPage />,
+                },
+                {
+                    path: '*',
+                    element: <NoPage />, // Trang không tìm thấy
+                },
+            ],
+        },
+    ]);
+
+    return routes;
+}
+
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            <AppRoutes />
+        </Router>
+    );
 }
 
 export default App;
