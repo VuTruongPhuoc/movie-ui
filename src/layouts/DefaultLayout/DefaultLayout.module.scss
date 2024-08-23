@@ -1,0 +1,25 @@
+.wrapper {
+    width: 1050px;
+    max-width: 1050px;
+    margin: 0 auto;
+    background-color: #28282d;
+    color: var(--text-color);
+    box-shadow: 0 0 10px rgb(0 0 0);
+}
+
+.navbar {
+    height: 140px;
+    color: var(--white);
+}
+
+.container {
+    background-color: aqua;
+}
+
+.content {
+}
+
+.footer {
+    height: 100px;
+    background-color: red;
+}

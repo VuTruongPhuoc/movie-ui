@@ -1,44 +1,38 @@
-import { BrowserRouter as Router, useRoutes, Outlet } from 'react-router-dom';
-import Home from '~/pages/Home';
-import Profile from '~/pages/Profile';
-import NoPage from '~/pages/NoPage';
 import './App.css';
 
-// Thành phần chứa các tuyến con
-function AppRoutes() {
-    const routes = useRoutes([
-        {
-            path: '/',
-            element: (
-                <Home>
-                    <Outlet /> {/* Chèn các phần tử con vào đây */}
-                </Home>
-            ),
-            children: [
-                {
-                    path: 'profile',
-                    element: <Profile />,
-                },
-                {
-                    path: 'nopage',
-                    element: <NoPage />,
-                },
-                {
-                    path: '*',
-                    element: <NoPage />, // Trang không tìm thấy
-                },
-            ],
-        },
-    ]);
-
-    return routes;
-}
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import DefaultLayout from '~/layouts/DefaultLayout';
+import { publicroutes } from './routes';
+import { Fragment } from 'react';
 
 function App() {
     return (
-        <Router>
-            <AppRoutes />
-        </Router>
+        <BrowserRouter>
+            <Routes>
+                {publicroutes.map((route, index) => {
+                    let Layout = DefaultLayout;
+
+                    if (route.layout) {
+                        Layout = route.layout;
+                    } else if (route.layout === null) {
+                        Layout = Fragment;
+                    }
+
+                    const Page = route.component;
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <Layout>
+                                    <Page />
+                                </Layout>
+                            }
+                        />
+                    );
+                })}
+            </Routes>
+        </BrowserRouter>
     );
 }
 
