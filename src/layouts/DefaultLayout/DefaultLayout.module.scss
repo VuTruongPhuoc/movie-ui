@@ -1,21 +1,36 @@
 .wrapper {
-    width: 1050px;
-    max-width: 1050px;
     margin: 0 auto;
-    background-color: #28282d;
-    color: var(--text-color);
-    box-shadow: 0 0 10px rgb(0 0 0);
+    color: var(--white);
 }
 
-.navbar {
-    height: 140px;
-    color: var(--white);
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: auto;
+    min-height: 70px;
+    z-index: 1;
+    width: calc(100% + 0px);
 }
 
 .container {
     background-color: aqua;
+    height: 300px;
+    position: relative;
 }
-
+.image img {
+    background-position: 50%;
+    background-size: cover;
+    width: 100%;
+    left: 0;
+    opacity: 1;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
+    width: 100%;
+}
 .content {
 }
 

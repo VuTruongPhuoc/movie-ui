@@ -3,7 +3,8 @@
 :root {
     --white: #fff;
     --black: #000;
-    --text-color: #cac9c9;
+    --text-color: #e5e5e5;
+    --background-color: #141414;
 }
 
 * {
@@ -22,6 +23,7 @@ body {
     line-height: 1.5;
     text-rendering: optimizeSpeed;
     overflow-y: auto;
+    background-color: var(--background-color);
 }
 
 a {

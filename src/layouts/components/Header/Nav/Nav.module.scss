@@ -1,0 +1,23 @@
+.primary-nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    display: block;
+    font-size: 1.4rem;
+    list-style: none;
+    color: var(--text-color);
+
+    &:hover {
+        color: #b3b3b3;
+    }
+}
+.primary-nav .active {
+    color: var(--white);
+    cursor: default;
+    font-weight: 500;
+}
+.title {
+    margin-left: 18px;
+}
