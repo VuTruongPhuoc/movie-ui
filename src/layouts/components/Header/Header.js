@@ -22,7 +22,7 @@ const Header = () => {
                         <NavLink className={cx('menu-trigger')}>Browse</NavLink>
                     </div>
                     <NavItem title="Thể loại" to={config.routes.profile} />
-                    <NavItem title="Năm" to="/d" />
+                    <NavItem title="Năm" to="/#/" />
                     <NavItem title="Theo dõi" to={config.routes.track} />
                     <NavItem title="Lịch sử" to={config.routes.history} />
                 </Nav>

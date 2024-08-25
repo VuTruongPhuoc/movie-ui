@@ -15,23 +15,14 @@
 
 .container {
     background-color: aqua;
-    height: 300px;
     position: relative;
 }
-.image img {
-    background-position: 50%;
-    background-size: cover;
-    width: 100%;
-    left: 0;
-    opacity: 1;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    transition: opacity 0.4s cubic-bezier(0.665, 0.235, 0.265, 0.8) 0s;
-    width: 100%;
+.slider {
+    height: 100vh;
+    min-height: 100vh;
 }
 .content {
+    min-height: 60vh;
 }
 
 .footer {
