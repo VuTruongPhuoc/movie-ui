@@ -47,9 +47,8 @@ const Slider = () => {
         <div className={cx('slider-column')}>
             <div className={cx('slider-images')}>
                 {imagesUrl.map((url, index) => (
-                    <div className={cx('image-item')}>
+                    <div className={cx('image-item')} key={index}>
                         <img
-                            key={index}
                             src={url}
                             className={cx('image-item-slider')}
                             alt=""

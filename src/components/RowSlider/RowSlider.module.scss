@@ -1,0 +1,189 @@
+.wrapper {
+    padding: 16px 13px 36px;
+    position: relative;
+}
+.row-slider {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 40px 51px;
+}
+.title {
+    font-size: 3rem;
+    color: var(--white);
+    line-height: 32px;
+    font-weight: 600;
+    padding-left: 60px;
+    display: inline-block;
+    transition-delay: 0.2s;
+    padding: 20px 0;
+}
+.child-container {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    overflow: hidden;
+}
+
+.child-item {
+    min-width: calc(16.6667% - 9.8px);
+    margin-right: 10px;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.child-img {
+    object-fit: cover;
+    width: 100%;
+    height: 240px;
+    border-radius: 10px;
+}
+.child-name {
+    margin: 8px 0;
+}
+
+.slider-arrows {
+}
+
+.slider-arrows svg {
+    width: 40px;
+    height: 30px;
+    opacity: 0.7;
+    background-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+        opacity: 1;
+    }
+}
+
+.left-arrow {
+    margin-top: 16px;
+    top: 50%;
+    left: -5.5rem;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 16px;
+    position: absolute;
+    transform: scale(1);
+    z-index: 2;
+}
+
+.right-arrow {
+    margin-top: 16px;
+    top: 50%;
+    right: -5rem;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 0px 16px;
+    position: absolute;
+    transform: scale(1);
+    z-index: 2;
+}
+
+//model detail
+
+.detail-pop-modal {
+    display: block;
+    position: absolute;
+    top: 10%;
+    left: 580.025px;
+    width: 233.262px;
+    background: #1a1c22;
+    border-radius: 6px;
+    animation: 0.25s ease 0s 1 normal none running sacleImg;
+    overflow: hidden;
+    z-index: 1;
+}
+
+@keyframes sacleImg {
+    from {
+        transform: scale(0.8);
+    }
+    to {
+        transform: scale(1);
+    }
+}
+
+.pop-container {
+}
+
+.pop-img {
+    background: url('https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp') center center /
+        cover no-repeat;
+    object-fit: fill;
+    width: 100%;
+    padding-top: 56%;
+}
+
+.pop-content {
+    height: 200px;
+    padding: 0 8px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.film-name {
+    font-size: 1.6rem;
+    margin-top: 8px;
+}
+
+.film-info {
+    margin: unset;
+    margin-top: 8px;
+    font-size: 1.2rem;
+    letter-spacing: 0;
+    line-height: 22px;
+    display: flex;
+}
+
+.rate {
+    margin-right: 10px;
+}
+
+.film-type {
+    margin-right: 10px;
+}
+
+.year {
+}
+
+.category {
+    background-color: #ffffff14;
+    margin-right: 8px;
+    margin-bottom: 6px;
+    color: #ececec;
+    font-size: 1.1rem;
+    line-height: 1.2;
+    padding: 2px 4px;
+    font-weight: 500;
+    border-radius: 2px;
+    display: inline-block;
+}
+
+.brief {
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.episode-more-info {
+    position: absolute;
+    bottom: 10px;
+    right: 8px;
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: right;
+    color: green;
+    cursor: pointer;
+}
