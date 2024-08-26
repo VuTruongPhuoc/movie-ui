@@ -47,33 +47,17 @@
     background-color: transparent;
 }
 
-.search-box {
-    padding: 1px 6px;
-    cursor: pointer;
-}
-.search-box svg {
-    width: 2.4rem;
-    height: 2.4rem;
-}
-
-.notify {
-    padding: 1px 6px;
-    cursor: pointer;
-
-    &:focus {
-        transform: scale(1.2);
-    }
-}
-
-.notify svg {
-    width: 2.4rem;
-    height: 2.4rem;
-}
-
+//account tippy
 .account-menu {
     cursor: pointer;
     display: flex;
     align-items: center;
+}
+
+.account-menu:hover {
+    .caret {
+        transform: rotate(180deg);
+    }
 }
 
 .caret {
@@ -84,4 +68,32 @@
     border-style: solid;
     border-width: 5px 5px 0;
     transition: transform 367ms cubic-bezier(0.21, 0, 0.07, 1);
+
+    &:hover {
+        transform: rotate(180deg);
+    }
+}
+
+//The loai tippy
+.genres-list-tippy {
+    position: absolute;
+    top: 8px;
+}
+.genres-list {
+    color: var(--text-color);
+    padding: 10px;
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.genre-item {
+    text-align: center;
+    padding: 5px 10px;
+
+    &:hover {
+        color: #b3b3b3;
+        cursor: pointer;
+    }
 }

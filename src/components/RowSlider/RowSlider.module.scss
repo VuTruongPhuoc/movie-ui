@@ -1,12 +1,15 @@
 .wrapper {
-    padding: 16px 13px 36px;
+    padding: 8px 13px;
     position: relative;
 }
 .row-slider {
     display: flex;
     flex-direction: column;
     position: relative;
-    margin: 40px 51px;
+    margin: 50px 51px 0;
+}
+.row-content {
+    overflow: hidden;
 }
 .title {
     font-size: 3rem;
@@ -22,7 +25,7 @@
     display: flex;
     flex-direction: row;
     position: relative;
-    overflow: hidden;
+    transition: translate 300ms ease-in-out;
 }
 
 .child-item {
@@ -39,6 +42,13 @@
     height: 240px;
     border-radius: 10px;
 }
+
+.child-item img {
+    height: 100%;
+    width: 100%;
+    background: center center/ cover no-repeat;
+}
+
 .child-name {
     margin: 8px 0;
 }
@@ -91,7 +101,7 @@
 .detail-pop-modal {
     display: block;
     position: absolute;
-    top: 10%;
+    top: 25%;
     left: 580.025px;
     width: 233.262px;
     background: #1a1c22;

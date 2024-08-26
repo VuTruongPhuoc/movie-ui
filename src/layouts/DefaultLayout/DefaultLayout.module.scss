@@ -2,15 +2,19 @@
     margin: 0 auto;
     color: var(--white);
 }
-
 .header {
     position: fixed;
     top: 0;
     left: 0;
     height: auto;
     min-height: 70px;
-    z-index: 1;
+    z-index: 10;
     width: calc(100% + 0px);
+    transition: background-color 0.5s linear 0s;
+}
+
+.scrolled {
+    background-color: var(--black);
 }
 
 .container {
@@ -25,6 +29,8 @@
 }
 
 .footer {
-    height: 100px;
-    background-color: red;
+    margin-top: 120px;
+    border-top: 1px solid #30343d;
+    background: var(--black);
+    padding-bottom: 20px;
 }

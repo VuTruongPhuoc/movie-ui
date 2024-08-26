@@ -1,0 +1,19 @@
+.wrapper {
+    display: flex;
+    color: var(--text-color);
+    align-items: center;
+    padding: 5px 10px;
+}
+.icon {
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+}
+.icon svg {
+    width: 1.6rem;
+    height: 1.6rem;
+}
+
+.title {
+    flex: 1;
+}

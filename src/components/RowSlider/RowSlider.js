@@ -1,118 +1,142 @@
 import classNames from 'classnames/bind';
 import styles from './RowSlider.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
 const filmsList = [
     {
-        id: 1,
-        title: 'phim chieu rap moi',
-        children: [
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-        ],
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
     },
     {
-        id: 2,
-        title: 'phim hanh dong moi',
-        children: [
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan gao',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan gao',
-            },
-            {
-                img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-                name: 'Sieu nhan gao',
-            },
-        ],
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
+    },
+    {
+        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        name: 'Sieu nhan',
     },
 ];
 
-const RowSlider = () => {
-    const handleClickLeftArrow = () => {};
+const RowSlider = ({ title }) => {
+    const [imageIndex, setImageIndex] = useState(0);
+    const containerRef = useRef(null);
 
-    const handleClickRightArrow = () => {};
+    const setImageRightArrow = () => {
+        setImageIndex((prevIndex) => {
+            if (prevIndex === filmsList.length - 6) return 0;
+            else return prevIndex + 1;
+        });
+    };
 
+    const handleClickLeftArrow = () => {
+        setImageIndex((prevIndex) => {
+            console.log(prevIndex);
+            if (prevIndex === 0) return filmsList.length - 6;
+            else return prevIndex - 1;
+        });
+    };
+    const handleClickRightArrow = () => {
+        setImageRightArrow();
+    };
+    useEffect(() => {
+        const intervalId = setInterval(() => {
+            setImageRightArrow();
+        }, 5000);
+
+        return () => clearInterval(intervalId);
+    }, []);
     return (
         <div className={cx('wrapper')}>
-            {filmsList.map((item) => (
-                <section className={cx('row-slider')} key={item.id}>
-                    <h2 className={cx('title')}>{item.title}</h2>
-                    <div className={cx('child-container')}>
-                        {item.children.map((child, index) => (
+            <section className={cx('row-slider')}>
+                <div className={cx('row-content')}>
+                    <h2 className={cx('title')}>{title}</h2>
+                    <div
+                        className={cx('child-container')}
+                        style={{ translate: `${(-100 / 6) * imageIndex}%` }}
+                        ref={containerRef}
+                    >
+                        {console.log(imageIndex)}
+                        {filmsList.map((child, index) => (
                             <div className={cx('child-item')} key={index}>
                                 <img className={cx('child-img')} src={child.img} alt={child.name} />
                                 <span className={cx('child-name')}>{child.name}</span>
                             </div>
                         ))}
                     </div>
-                    <div className={cx('slider-arrows')}>
-                        <div className={cx('left-arrow')} role="button" onClick={handleClickLeftArrow}>
-                            <FontAwesomeIcon icon={faChevronLeft} />
-                        </div>
-                        <div className={cx('right-arrow')} onClick={handleClickRightArrow}>
-                            <FontAwesomeIcon icon={faChevronRight} />
-                        </div>
+                </div>
+                <div className={cx('slider-arrows')}>
+                    <div className={cx('left-arrow')} role="button" onClick={handleClickLeftArrow}>
+                        <FontAwesomeIcon icon={faChevronLeft} />
                     </div>
-                </section>
-            ))}
+                    <div className={cx('right-arrow')} onClick={handleClickRightArrow}>
+                        <FontAwesomeIcon icon={faChevronRight} />
+                    </div>
+                </div>
+            </section>
 
             <div className={cx('detail-pop-modal')}>
                 <div className={cx('pop-container')}>
@@ -120,7 +144,9 @@ const RowSlider = () => {
                     <div className={cx('pop-content')}>
                         <div className={cx('film-name')}>Black Myth: WuKong</div>
                         <div className={cx('film-info')}>
-                            <div className={cx('rate')}>8.0</div>
+                            <div className={cx('rate')}>
+                                <FontAwesomeIcon icon={faStar} /> 8.0
+                            </div>
                             <div className={cx('film-type')}>Phim bộ</div>
                             <div className={cx('year')}>2024</div>
                         </div>

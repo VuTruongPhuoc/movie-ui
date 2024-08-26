@@ -1,0 +1,21 @@
+.wrapper {
+}
+.list-menu {
+    width: 220px;
+    border: #ffffff26;
+    font-size: 1.3rem;
+    line-height: 2.1rem;
+    padding: 8px;
+    margin-top: 10px;
+}
+.menu-item {
+    color: var(--text-color);
+
+    &:hover {
+        color: #b3b3b3;
+    }
+}
+.separate {
+    display: flex;
+    font-size: 1.4rem;
+}
