@@ -47,7 +47,8 @@
     background-color: transparent;
 }
 
-//account tippy
+//account menu tippy
+.account,
 .account-menu {
     cursor: pointer;
     display: flex;
@@ -72,6 +73,33 @@
     &:hover {
         transform: rotate(180deg);
     }
+}
+//account tippy
+.account {
+}
+.user-icon {
+    width: 2.6rem;
+    height: 2.6rem;
+}
+.text {
+    display: block;
+    margin: 8px 16px;
+}
+.login-content {
+    margin-top: 5px;
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    position: relative;
+}
+.login-btn {
+    text-align: center;
+    position: absolute;
+    bottom: 15%;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 //The loai tippy

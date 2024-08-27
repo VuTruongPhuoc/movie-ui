@@ -1,8 +1,8 @@
 .wrapper {
-    display: flex;
     color: var(--text-color);
-    align-items: center;
     padding: 5px 10px;
+    display: flex;
+    cursor: pointer;
 }
 .icon {
     margin-right: 10px;
@@ -14,6 +14,15 @@
     height: 1.6rem;
 }
 
-.title {
-    flex: 1;
+.primary {
+    background-color: var(--primary);
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    padding: 8px 32px;
+    text-align: center;
+
+    &:hover {
+        opacity: 0.8;
+    }
 }

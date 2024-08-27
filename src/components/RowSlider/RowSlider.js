@@ -6,9 +6,9 @@ import { useEffect, useRef, useState } from 'react';
 
 const cx = classNames.bind(styles);
 
-const filmsList = [
+let filmsList = [
     {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
+        img: 'https://www.iq.com/album/hard-noble-lady-2024-102s7pyqifx?lang=en_us',
         name: 'Sieu nhan',
     },
     {
@@ -80,22 +80,27 @@ const filmsList = [
         name: 'Sieu nhan',
     },
 ];
+let length = filmsList.length;
+let filmsFirstHalfList = filmsList.slice(-length, -length + 8);
+let firmsSecondHalfList = filmsList.slice(-length + 8);
+
+filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
 
 const RowSlider = ({ title }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const containerRef = useRef(null);
-
     const setImageRightArrow = () => {
         setImageIndex((prevIndex) => {
-            if (prevIndex === filmsList.length - 6) return 0;
-            else return prevIndex + 1;
+            if (prevIndex === filmsList.length - 7) {
+                return filmsList.length - 7;
+            } else {
+                return prevIndex + 1;
+            }
         });
     };
-
     const handleClickLeftArrow = () => {
         setImageIndex((prevIndex) => {
-            console.log(prevIndex);
-            if (prevIndex === 0) return filmsList.length - 6;
+            if (prevIndex === 0) return 0;
             else return prevIndex - 1;
         });
     };
@@ -109,17 +114,17 @@ const RowSlider = ({ title }) => {
 
         return () => clearInterval(intervalId);
     }, []);
+    useEffect(() => {
+        if (containerRef.current) {
+            containerRef.current.style.transform = `translateX(-${(100 / 6) * imageIndex}%)`;
+        }
+    }, [imageIndex]);
     return (
         <div className={cx('wrapper')}>
             <section className={cx('row-slider')}>
                 <div className={cx('row-content')}>
                     <h2 className={cx('title')}>{title}</h2>
-                    <div
-                        className={cx('child-container')}
-                        style={{ translate: `${(-100 / 6) * imageIndex}%` }}
-                        ref={containerRef}
-                    >
-                        {console.log(imageIndex)}
+                    <div className={cx('child-container')} ref={containerRef}>
                         {filmsList.map((child, index) => (
                             <div className={cx('child-item')} key={index}>
                                 <img className={cx('child-img')} src={child.img} alt={child.name} />

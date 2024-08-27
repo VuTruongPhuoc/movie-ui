@@ -10,7 +10,6 @@ function Home() {
         <div className={cx('wrapper')}>
             <div className={cx('row-container')}>
                 <RowSlider title={'Phim hành động mới'} />
-                <RowSlider title={'Phim siêu nhân mới'} />
                 <FilmByGenre title={'Phim hay nhat'} />
                 <FilmByGenre title={'Phim dam boc'} />
             </div>

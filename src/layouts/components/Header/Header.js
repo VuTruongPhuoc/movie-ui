@@ -1,16 +1,17 @@
-import React, { useRef } from 'react';
+import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
-import Nav, { NavItem } from './Nav';
-import config from '~/config';
-import Tippy from '@tippyjs/react/headless';
-import { PopperWrapper } from '~/components/Popper';
+import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+
 import Menu from '~/components/Popper/Menu';
 import Search from '~/components/Search';
+import Button from '~/components/Button';
+import config from '~/config';
+import styles from './Header.module.scss';
+import Nav, { NavItem } from './Nav';
+import { PopperWrapper } from '~/components/Popper';
 
 const cx = classNames.bind(styles);
 
@@ -76,6 +77,8 @@ const menuItems = [
     },
 ];
 
+const currentUser = false;
+
 const Header = () => {
     return (
         <div className={cx('wrapper')}>
@@ -126,16 +129,41 @@ const Header = () => {
                     </div>
 
                     <div className={cx('nav-element')}>
-                        <Menu items={menuItems}>
-                            <div className={cx('account-menu')}>
-                                <img
-                                    className="profile-icon"
-                                    src="https://occ-0-395-58.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABdEyUfiGKB_IE32uWZW3KcuE4Vk5kEFKQM1HrVqjN4jNv-Robrvl9ctyTBXJkMcZBfIjTnqQDRqsf7TQTr_RwCEwgwqxhME.png?r=d47"
-                                    alt="profile"
-                                />
-                                <span className={cx('caret')}></span>
-                            </div>
-                        </Menu>
+                        {true ? (
+                            <Menu items={menuItems}>
+                                <div className={cx('account-menu')}>
+                                    <img
+                                        className="profile-icon"
+                                        src="https://occ-0-395-58.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABdEyUfiGKB_IE32uWZW3KcuE4Vk5kEFKQM1HrVqjN4jNv-Robrvl9ctyTBXJkMcZBfIjTnqQDRqsf7TQTr_RwCEwgwqxhME.png?r=d47"
+                                        alt="profile"
+                                    />
+                                    <span className={cx('caret')}></span>
+                                </div>
+                            </Menu>
+                        ) : (
+                            <Tippy
+                                interactive={true}
+                                delay={[200, 3000]}
+                                placement="bottom-end"
+                                zIndex={997}
+                                render={(attrs) => (
+                                    <div className={cx('login-content')} tabIndex={-1} {...attrs}>
+                                        <PopperWrapper>
+                                            <div className={cx('login-item')}>
+                                                <span className={cx('text')}>Đăng nhập để xem phim</span>
+                                                <div className={cx('login-btn')}>
+                                                    <Button primary>Login</Button>
+                                                </div>
+                                            </div>
+                                        </PopperWrapper>
+                                    </div>
+                                )}
+                            >
+                                <div className={cx('account')}>
+                                    <FontAwesomeIcon icon={faUserCircle} className={cx('user-icon')} />
+                                </div>
+                            </Tippy>
+                        )}
                     </div>
                 </div>
             </div>
