@@ -19,15 +19,15 @@
     font-weight: 500;
     line-height: 1.5;
 }
-.item-list {
+.menu-list {
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
-.item-title {
+.title {
     color: var(--white);
 }
-.item {
+.link {
     color: var(--gray);
     margin-top: 20px;
 }

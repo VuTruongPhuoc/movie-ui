@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
@@ -84,18 +84,18 @@ const Header = () => {
         <div className={cx('wrapper')}>
             <div className={cx('main-header')}>
                 <NavLink className={cx('logo')} to={config.routes.home}>
-                    logo
+                    PMovie
                 </NavLink>
                 <Nav>
                     <div className={cx('nav-menu')}>
                         <NavLink className={cx('menu-trigger')}>Browse</NavLink>
                     </div>
-                    <NavItem title="Thể loại" to={config.routes.profile} />
-                    <NavItem title="Năm" to="/#/" />
+                    <NavItem title="Trang chủ" to={config.routes.home} />
+                    <NavItem title="Phim mới" to={config.routes.latest} />
 
-                    <NavItem title="Theo dõi" to={config.routes.track} />
+                    <NavItem title="Phim bộ" to={config.routes.tvshows} />
 
-                    <NavItem title="Lịch sử" to={config.routes.history} />
+                    <NavItem title="Phim lẻ" to={config.routes.movies} />
 
                     <Tippy
                         interactive={true}
@@ -118,7 +118,14 @@ const Header = () => {
                             </div>
                         )}
                     >
-                        <NavItem title="Thể loại" to="/a/">
+                        <NavItem
+                            title="Thể loại"
+                            to="/genre"
+                            onClick={(e) => {
+                                e.preventDefault();
+                                console.log('Link clicked, but navigation prevented');
+                            }}
+                        >
                             Thể loại
                         </NavItem>
                     </Tippy>

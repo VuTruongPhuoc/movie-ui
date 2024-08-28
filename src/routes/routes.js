@@ -4,6 +4,9 @@ import NoPage from '~/pages/NoPage';
 import History from '~/pages/History';
 import Track from '~/pages/Track';
 import config from '~/config';
+import TVShows from '~/pages/TVShows';
+import Movies from '~/pages/Movies';
+import Latest from '~/pages/Latest';
 
 //Public routes
 const publicroutes = [
@@ -11,6 +14,9 @@ const publicroutes = [
     { path: config.routes.profile, component: Profile },
     { path: config.routes.history, component: History },
     { path: config.routes.track, component: Track },
+    { path: config.routes.tvshows, component: TVShows },
+    { path: config.routes.movies, component: Movies },
+    { path: config.routes.latest, component: Latest },
     { path: config.routes.nopage, component: NoPage, layout: null },
 ];
 

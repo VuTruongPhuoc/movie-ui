@@ -4,6 +4,7 @@ import styles from './DefaultLayout.module.scss';
 import Header from '~/layouts/components/Header';
 import Footer from '~/layouts/components/Footer';
 import Slider from '../components/Slider';
+import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -12,16 +13,20 @@ const DefaultLayout = ({ children }) => {
     window.addEventListener('scroll', () => {
         setIsScroll(window.scrollY > 0);
     });
-
+    const location = useLocation();
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header', { scrolled: isScroll })}>
                 <Header />
             </div>
             <div className={cx('container')}>
-                <div className={cx('slider')}>
-                    <Slider />
-                </div>
+                {location.pathname === '/' ? (
+                    <div className={cx('slider')}>
+                        <Slider />
+                    </div>
+                ) : (
+                    <div className={cx('breadcrumb')}></div>
+                )}
                 <div className={cx('content')}>{children}</div>
             </div>
             <div className={cx('footer')}>
