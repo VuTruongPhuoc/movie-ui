@@ -1,0 +1,140 @@
+.wrapper {
+}
+.film-banner {
+    width: 100%;
+    margin: 0 0 0 64px;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+.col-left {
+    width: 40%;
+    margin-top: 70px;
+}
+.film-info {
+}
+.film-info-title h1 {
+    font-size: 4rem;
+    line-height: 1.2;
+    color: var(--white);
+    text-align: left;
+    font-weight: 800;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    white-space: normal;
+    text-shadow: #000000b3 1px 1px 0px;
+}
+.film-info-top {
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-right: 10px;
+    padding-right: 8px;
+    min-width: 50px;
+    height: 24px;
+    border-radius: 2px;
+    background: #ffffff33;
+}
+.film-info-top .top {
+    display: inline-block;
+    padding: 0 8px;
+    margin-right: 8px;
+    border-radius: 2px 0 0 2px;
+    height: 24px;
+    line-height: 24px;
+    background-image: linear-gradient(90deg, #00d639 0%, #00c234 100%);
+}
+.film-info-detail {
+    display: flex;
+    font-size: 1.5rem;
+    margin: 16px 0;
+    line-height: 2;
+    font-weight: 500;
+}
+.film-info-tag {
+    margin: 24px 0;
+}
+.rate {
+    color: var(--primary);
+}
+.year {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    text-shadow: #00000080 0 1px 2px;
+}
+.year::before {
+    content: '';
+    height: 1.2rem;
+    margin: 0 10px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.year::after {
+    content: '';
+    height: 1.2rem;
+    margin: 0 10px;
+    width: 2px;
+    background: rgba(255, 255, 255, 0.2);
+}
+.film-info-tag a {
+    color: var(--white);
+
+    &:hover {
+        color: #b3b3b3;
+    }
+}
+.key {
+    color: var(--gray);
+}
+.film-info-content {
+    position: relative;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.film-info-content .more-info {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--primary);
+    cursor: pointer;
+    text-align: right;
+    text-shadow: rgba(0, 0, 0, 0.7) 1px 1px 0px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    background: #111319;
+    padding-left: 2rem;
+}
+.more-info .more-info-icon {
+    font-weight: 900;
+    line-height: 1;
+    margin-left: 4px;
+}
+.film-info-desc {
+}
+.group-btn {
+    margin: 24px 0;
+}
+.film-info-btn {
+}
+.col-right {
+    flex-grow: 1;
+}
+.film-img {
+    width: 100%;
+}
+.film-img img {
+    width: 100%;
+    object-fit: cover;
+    height: 500px;
+}

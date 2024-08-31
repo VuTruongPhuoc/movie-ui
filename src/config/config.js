@@ -7,6 +7,7 @@ const routes = {
     tvshows: '/list/tvshows',
     movies: '/list/movies',
     latest: '/latest',
+    album: '/album',
     watch: `/watch`,
 };
 const config = { routes };
