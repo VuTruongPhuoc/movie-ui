@@ -1,6 +1,8 @@
 import React from 'react';
 import classNames from 'classnames/bind';
 import styles from './FilmByGenre.module.scss';
+import { Link } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 const filmsList = [
@@ -73,11 +75,11 @@ const FilmByGenre = ({ title }) => {
                 <div className={cx('title')}>{title}</div>
                 <div className={cx('child-container')}>
                     {filmsList.map((child, index) => (
-                        <div className={cx('child-item')} key={index}>
+                        <Link className={cx('child-item')} key={index} to={config.routes.album}>
                             <img className={cx('child-img')} src={child.img} alt={child.name} />
                             <span className={cx('child-episode')}>{child.episode}</span>
                             <span className={cx('child-name')}>{child.name}</span>
-                        </div>
+                        </Link>
                     ))}
                 </div>
             </section>

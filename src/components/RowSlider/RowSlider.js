@@ -3,6 +3,8 @@ import styles from './RowSlider.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -89,6 +91,8 @@ filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
 const RowSlider = ({ title }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const containerRef = useRef(null);
+    const childItemRef = useRef(null);
+    const location = useLocation();
     const setImageRightArrow = () => {
         setImageIndex((prevIndex) => {
             if (prevIndex === filmsList.length - 7) {
@@ -119,6 +123,8 @@ const RowSlider = ({ title }) => {
             containerRef.current.style.transform = `translateX(-${(100 / 6) * imageIndex}%)`;
         }
     }, [imageIndex]);
+    console.log(childItemRef.current);
+    console.log(location);
     return (
         <div className={cx('wrapper')}>
             <section className={cx('row-slider')}>
@@ -126,10 +132,10 @@ const RowSlider = ({ title }) => {
                     <h2 className={cx('title')}>{title}</h2>
                     <div className={cx('child-container')} ref={containerRef}>
                         {filmsList.map((child, index) => (
-                            <div className={cx('child-item')} key={index}>
+                            <Link className={cx('child-item')} key={index} ref={childItemRef} to={config.routes.album}>
                                 <img className={cx('child-img')} src={child.img} alt={child.name} />
                                 <span className={cx('child-name')}>{child.name}</span>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -142,7 +148,6 @@ const RowSlider = ({ title }) => {
                     </div>
                 </div>
             </section>
-
             <div className={cx('detail-pop-modal')}>
                 <div className={cx('pop-container')}>
                     <div className={cx('pop-img')}></div>

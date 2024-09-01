@@ -1,16 +1,17 @@
 import classNames from 'classnames/bind';
-import styles from './Album.module.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faStar } from '@fortawesome/free-regular-svg-icons';
-import Button from '~/components/Button';
-import { faChevronDown, faChevronUp, faPlay } from '@fortawesome/free-solid-svg-icons';
-import FilmPropose from './FilmPropose';
 import { Link } from 'react-router-dom';
-import { Fragment, useEffect, useRef, useState } from 'react';
+import { Fragment, useRef, useState } from 'react';
+import { faStar } from '@fortawesome/free-regular-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown, faChevronUp, faPlay, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+
+import Button from '~/components/Button';
+import FilmPropose from './FilmPropose';
+import styles from './Album.module.scss';
 
 const cx = classNames.bind(styles);
 const film = {
-    img: 'ad',
+    img: 'https://gophim.co/storage/images/tinh-yeu-tro-ve-mai-am/tinh-yeu-tro-ve-mai-am-1.jpg',
     name: 'One Piece',
     content:
         'Monkey D. Luffy là một cậu bé đam mê Đảo Hải Tặc và ước mơ trở thành Vua Hải Tặc. Khi cậu nhỏ, Luffy ăn phải trái quỉ Gomu Gomu, biến cơ thể cậu thành cao su nhưng không biết bơi. Sau khi được Shank cứu thoát và để lại cho cậu chiếc mũ rơm, Luffy quyết định trở thành 1 cướp biển thực thụ để tìm kho báu One Piece và trở thành Vua Hải Tặc. Liệu Luffy có thể hoàn thành ước mơ của mình không? Hãy theo dõi câu chuyện hấp dẫn này trong phim Đảo Hải Tặc (One Piece)',
@@ -50,41 +51,65 @@ const film = {
 
 const filmProPoseList = [
     {
-        img: 'asd',
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
         newepisode: '22',
-        name: 'onpiece',
+        name: 'one piece',
     },
     {
-        img: 'asd',
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
         newepisode: '22',
         name: 'naruto',
     },
     {
-        img: 'asd',
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
         newepisode: '22',
-        name: 'mavel',
+        name: 'marvel',
     },
     {
-        img: 'asd',
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
         newepisode: '22',
         name: 'jack',
     },
     {
-        img: 'asd',
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
+        newepisode: '22',
+        name: 'messi',
+    },
+    {
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
+        newepisode: '22',
+        name: 'messi',
+    },
+    {
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
+        newepisode: '22',
+        name: 'messi',
+    },
+    {
+        img: 'https://gophim.co/storage/hinh-anh/vong-xoay-than-toc-phan-6-thumb.jpg',
         newepisode: '22',
         name: 'messi',
     },
 ];
+
+const buttonsNav = [{ name: 'Đề xuất cho bạn' }, { name: 'Danh sách tập' }];
 const Album = () => {
     const [isExpanded, setIsExpaned] = useState(false);
+    const [state, setState] = useState(buttonsNav[0]);
+    const [defaultActive, setDefaultActive] = useState(buttonsNav[0]);
+    const [isActive, setIsActive] = useState(true);
+
     const divref = useRef();
     if (divref.current) {
-        divref.current.style.webkitLineClamp = isExpanded ? 3 : 'unset';
+        divref.current.style.webkitLineClamp = isExpanded ? 'unset' : 3;
     }
-
-    useEffect(() => {}, []);
-    const handleClick = () => {
+    const handleClickExpaned = () => {
         setIsExpaned(!isExpanded);
+    };
+    const handleClickNav = (name) => {
+        setState({ active: name });
+        setDefaultActive();
+        setIsActive(!isActive);
     };
     return (
         <div className={cx('wrapper')}>
@@ -117,15 +142,15 @@ const Album = () => {
                             </div>
                             <div className={cx('film-info-content')} ref={divref}>
                                 {film.content}
-                                <div className={cx('more-info')} onClick={handleClick}>
+                                <div className={cx('more-info')} onClick={handleClickExpaned}>
                                     <span className={cx('more-info-text')}>
-                                        {isExpanded ? 'Hiển thị thêm' : 'Thu gọn giới thiệu'}
+                                        {isExpanded ? 'Thu gọn giới thiệu' : 'Hiển thị thêm'}
                                     </span>
                                     <div className={cx('more-info-icon')}>
                                         {isExpanded ? (
-                                            <FontAwesomeIcon icon={faChevronDown} />
-                                        ) : (
                                             <FontAwesomeIcon icon={faChevronUp} />
+                                        ) : (
+                                            <FontAwesomeIcon icon={faChevronDown} />
                                         )}
                                     </div>
                                 </div>
@@ -152,32 +177,44 @@ const Album = () => {
                                 alt=""
                             />
                         </div>
+                        <div className={cx('left-layer')}></div>
+                        <div className={cx('bottom-layer')}></div>
                     </div>
                 </div>
             </div>
             <div className={cx('film-option')}>
-                <div className={cx('col-bottom')}>
+                <div className={cx('col')}>
                     <div className={cx('nav')}>
-                        <div className={cx('nav-item')}>
-                            <Button title="Đề xuất cho bạn" />
-                        </div>
-                        <div className={cx('nav-item')}>
-                            <Button title="Danh sách tập" />
-                        </div>
+                        {buttonsNav.map((item, index) => (
+                            <Button
+                                key={index}
+                                className={cx('nav-item', {
+                                    active: defaultActive === item || state.active === item.name,
+                                })}
+                                onClick={() => handleClickNav(item.name)}
+                            >
+                                {item.name}
+                            </Button>
+                        ))}
                     </div>
                     <div className={cx('content')}>
-                        {false ? (
+                        {isActive ? (
                             <FilmPropose filmProPoseList={filmProPoseList} />
                         ) : (
                             <div className={cx('film-episodes-list')}>
-                                <div className={cx('film-episode-item')}>
-                                    <img className={cx('episode-img')} src={film.img} alt="" />
-                                    {film.episode.map((item, index) => (
+                                {film.episode.map((item, index) => (
+                                    <div className={cx('film-episode-item')}>
+                                        <div className={cx('episode-img')}>
+                                            <img src={film.img} alt="" />
+                                            <div className={cx('episode-play')}>
+                                                <FontAwesomeIcon icon={faPlayCircle} className={cx('episode-icon')} />
+                                            </div>
+                                        </div>
                                         <div className={cx('episode-name')} key={index} src="" alt="">
                                             {film.name + ' - ' + item.name}
                                         </div>
-                                    ))}
-                                </div>
+                                    </div>
+                                ))}
                             </div>
                         )}
                     </div>
