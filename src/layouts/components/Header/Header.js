@@ -12,6 +12,9 @@ import config from '~/config';
 import styles from './Header.module.scss';
 import Nav, { NavItem } from './Nav';
 import { PopperWrapper } from '~/components/Popper';
+import Modal, { ModalLogin } from '~/components/Modal';
+import ModalRegister from '~/components/Modal/ModalRegister';
+import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -80,6 +83,13 @@ const menuItems = [
 const currentUser = false;
 
 const Header = () => {
+    const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
+    const [isFormLogin, setIsFormLogin] = useState(true);
+
+    const CloseFormLogin = () => {
+        setIsOpenFormLogin(false);
+        setIsFormLogin(true);
+    };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('main-header')}>
@@ -136,7 +146,7 @@ const Header = () => {
                     </div>
 
                     <div className={cx('nav-element')}>
-                        {true ? (
+                        {false ? (
                             <Menu items={menuItems}>
                                 <div className={cx('account-menu')}>
                                     <img
@@ -159,7 +169,9 @@ const Header = () => {
                                             <div className={cx('login-item')}>
                                                 <span className={cx('text')}>Đăng nhập để xem phim</span>
                                                 <div className={cx('login-btn')}>
-                                                    <Button primary>Login</Button>
+                                                    <Button primary onClick={() => setIsOpenFormLogin(true)}>
+                                                        Login
+                                                    </Button>
                                                 </div>
                                             </div>
                                         </PopperWrapper>
@@ -174,6 +186,15 @@ const Header = () => {
                     </div>
                 </div>
             </div>
+            {isOpenFormLogin && (
+                <Modal onClose={CloseFormLogin}>
+                    {isFormLogin ? (
+                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} />
+                    ) : (
+                        <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
+                    )}
+                </Modal>
+            )}
         </div>
     );
 };

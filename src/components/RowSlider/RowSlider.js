@@ -123,8 +123,8 @@ const RowSlider = ({ title }) => {
             containerRef.current.style.transform = `translateX(-${(100 / 6) * imageIndex}%)`;
         }
     }, [imageIndex]);
-    console.log(childItemRef.current);
-    console.log(location);
+    // console.log(childItemRef.current);
+    // console.log(location);
     return (
         <div className={cx('wrapper')}>
             <section className={cx('row-slider')}>
