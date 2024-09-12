@@ -49,7 +49,7 @@ const ModalRegister = ({ onClickLogin }) => {
                     <div className={cx('modal-content-btn')}>
                         <Link className={cx('forgot-password')}></Link>
                         <Button primary className={cx('modal-btn')}>
-                            Đăng Ký
+                            Xác nhận
                         </Button>
                     </div>
                 </div>

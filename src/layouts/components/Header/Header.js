@@ -1,3 +1,4 @@
+import { useContext, useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { Link, NavLink } from 'react-router-dom';
@@ -14,7 +15,7 @@ import Nav, { NavItem } from './Nav';
 import { PopperWrapper } from '~/components/Popper';
 import Modal, { ModalLogin } from '~/components/Modal';
 import ModalRegister from '~/components/Modal/ModalRegister';
-import { useState } from 'react';
+import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
 
@@ -60,31 +61,39 @@ const genresList = [
         name: 'hanh dong',
     },
 ];
-
-const menuItems = [
-    {
-        icon: <FontAwesomeIcon icon={faUserCircle} />,
-        title: 'Phuoc vu',
-        to: '@/phuocvu',
-        separate: true,
-    },
-    {
-        icon: <FontAwesomeIcon icon={faUser} />,
-        title: 'Account',
-        to: '/account',
-    },
-    {
-        icon: <FontAwesomeIcon icon={faSignOut} />,
-        title: 'Đăng xuất',
-        to: '/signout',
-    },
-];
-
-const currentUser = false;
-
+let isCurrentUser = false;
 const Header = () => {
+    const menuItems = [
+        {
+            icon: <FontAwesomeIcon icon={faUserCircle} />,
+            title: 'Phuoc vu',
+            to: '@/phuocvu',
+            separate: true,
+        },
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Account',
+            to: '/account',
+        },
+        {
+            icon: <FontAwesomeIcon icon={faSignOut} />,
+            title: 'Đăng xuất',
+            to: '/logout',
+            onClick: (e) => {
+                e.preventDefault();
+                setAuth({});
+            },
+        },
+    ];
+    const { auth, setAuth } = useContext(AuthContext);
+
     const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
+
+    useEffect(() => {
+        isCurrentUser = !!auth.username;
+        setIsOpenFormLogin(false);
+    }, [auth.username]);
 
     const CloseFormLogin = () => {
         setIsOpenFormLogin(false);
@@ -133,7 +142,6 @@ const Header = () => {
                             to="/genre"
                             onClick={(e) => {
                                 e.preventDefault();
-                                console.log('Link clicked, but navigation prevented');
                             }}
                         >
                             Thể loại
@@ -146,7 +154,7 @@ const Header = () => {
                     </div>
 
                     <div className={cx('nav-element')}>
-                        {false ? (
+                        {isCurrentUser ? (
                             <Menu items={menuItems}>
                                 <div className={cx('account-menu')}>
                                     <img
@@ -189,7 +197,7 @@ const Header = () => {
             {isOpenFormLogin && (
                 <Modal onClose={CloseFormLogin}>
                     {isFormLogin ? (
-                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} />
+                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} isCurrentUser={isCurrentUser} />
                     ) : (
                         <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
                     )}

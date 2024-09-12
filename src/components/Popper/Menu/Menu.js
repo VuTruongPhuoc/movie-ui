@@ -17,7 +17,7 @@ const Menu = ({ children, items = [] }) => {
                     <div tabIndex={-1} {...attrs}>
                         <PopperWrapper className={cx('list-menu')}>
                             {items.map((item, index) => {
-                                return <MenuItem key={item.title} data={item} />;
+                                return <MenuItem key={item.title} data={item} onClick={item.onClick} />;
                             })}
                         </PopperWrapper>
                     </div>

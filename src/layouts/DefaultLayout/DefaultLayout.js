@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
+import { useLocation } from 'react-router-dom';
+
 import styles from './DefaultLayout.module.scss';
 import Header from '~/layouts/components/Header';
 import Footer from '~/layouts/components/Footer';
 import Slider from '../components/Slider';
-import { useLocation } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
