@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import styles from './DefaultLayout.module.scss';
 import Header from '~/layouts/components/Header';
@@ -33,6 +35,7 @@ const DefaultLayout = ({ children }) => {
             <div className={cx('footer')}>
                 <Footer />
             </div>
+            <ToastContainer />
         </div>
     );
 };

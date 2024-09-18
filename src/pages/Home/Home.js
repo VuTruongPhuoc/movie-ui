@@ -8,13 +8,13 @@ import AuthContext from '~/context/AuthProvider';
 import httpRequest from '~/utils/httpRequest';
 
 const cx = classNames.bind(styles);
-const getFilmsUrl = 'role/getall';
+const getFilmsUrl = '';
 
 function Home() {
     const { auth } = useContext(AuthContext);
     const getAllFilms = async () => {
         try {
-            const response = await httpRequest.get(getFilmsUrl, {
+            const response = await httpRequest.get('role/all', {
                 headers: {
                     Authorization: `Bearer ${auth.accessToken}`,
                 },

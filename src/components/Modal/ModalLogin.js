@@ -4,40 +4,20 @@ import { Link } from 'react-router-dom';
 
 import styles from './Modal.module.scss';
 import Button from '../Button';
-import AuthContext from '~/context/AuthProvider';
-import httpRequest from '~/utils/httpRequest';
+import * as authServices from '~/services/authServices';
 
 const cx = classNames.bind(styles);
-const LOGIN_URL = 'account/login';
 
-const ModalLogin = ({ onClickRegister }) => {
-    const { setAuth } = useContext(AuthContext);
-    const userRef = useRef();
-    const errRef = useRef();
-
+const ModalLogin = ({ onClickRegister, onClickSubmit }) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmitEvent = async (e) => {
         e.preventDefault();
-        try {
-            const response = await httpRequest.post(LOGIN_URL, JSON.stringify({ username, password }), {
-                headers: { 'Content-Type': 'application/json' },
-            });
-            console.log(JSON.stringify(response?.data));
-            const accessToken = response?.data?.token;
-            setAuth({ username, password, accessToken });
-        } catch (err) {
-            if (!err?.response) {
-                alert('No Server Response');
-            } else if (err.response?.status === 400) {
-                alert('Missing username and password');
-            } else if (err.response?.status === 401) {
-                alert('Unauthorized');
-            } else {
-                alert('Login failed');
-            }
-        }
+        const fetchApi = async () => {
+            await authServices.login(username, password);
+        };
+        fetchApi();
     };
 
     return (
@@ -70,13 +50,14 @@ const ModalLogin = ({ onClickRegister }) => {
                         />
                         <div className={cx('modal-content-btn')}>
                             <Link className={cx('forgot-password')}>Quên mật khẩu?</Link>
-                            <Button primary className={cx('modal-btn')}>
+                            <Button primary className={cx('modal-btn')} onClick={onClickSubmit}>
                                 Xác nhận
                             </Button>
                         </div>
                     </div>
                 </div>
             </form>
+
             <div className={cx('modal-footer')}>
                 <p className={cx('footer-content')}>Không có tài khoản?</p>
                 <Link className={cx('footer-link')} onClick={onClickRegister}>

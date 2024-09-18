@@ -15,6 +15,7 @@ import Nav, { NavItem } from './Nav';
 import { PopperWrapper } from '~/components/Popper';
 import Modal, { ModalLogin } from '~/components/Modal';
 import ModalRegister from '~/components/Modal/ModalRegister';
+import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
@@ -61,7 +62,6 @@ const genresList = [
         name: 'hanh dong',
     },
 ];
-let isCurrentUser = false;
 const Header = () => {
     const menuItems = [
         {
@@ -81,20 +81,20 @@ const Header = () => {
             to: '/logout',
             onClick: (e) => {
                 e.preventDefault();
-                setAuth({});
+                localStorage.removeItem(process.env.REACT_APP_TOKEN_NAME);
+                setIsCurrentUser(false);
             },
         },
     ];
-    const { auth, setAuth } = useContext(AuthContext);
-
+    const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
-
+    const [jwtToken, setJwtToken] = useState(jwtTokenHandler());
     useEffect(() => {
-        isCurrentUser = !!auth.username;
         setIsOpenFormLogin(false);
-    }, [auth.username]);
-
+        setIsCurrentUser(!!jwtToken);
+    }, [jwtToken]);
+    const handleClickSubmit = () => {};
     const CloseFormLogin = () => {
         setIsOpenFormLogin(false);
         setIsFormLogin(true);
@@ -121,6 +121,7 @@ const Header = () => {
                         placement="bottom-start"
                         delay={[200, 500]}
                         zIndex={998}
+                        hideOnClick={false}
                         render={(attrs) => (
                             <div className={cx('genres-list-tippy')} tabIndex="-1" {...attrs}>
                                 <PopperWrapper>
@@ -168,9 +169,10 @@ const Header = () => {
                         ) : (
                             <Tippy
                                 interactive={true}
-                                delay={[200, 3000]}
+                                delay={[200, 2000]}
                                 placement="bottom-end"
                                 zIndex={997}
+                                hideOnClick={false}
                                 render={(attrs) => (
                                     <div className={cx('login-content')} tabIndex={-1} {...attrs}>
                                         <PopperWrapper>
@@ -197,7 +199,7 @@ const Header = () => {
             {isOpenFormLogin && (
                 <Modal onClose={CloseFormLogin}>
                     {isFormLogin ? (
-                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} isCurrentUser={isCurrentUser} />
+                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} onClickSubmit={handleClickSubmit} />
                     ) : (
                         <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
                     )}
