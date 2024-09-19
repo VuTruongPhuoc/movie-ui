@@ -2,13 +2,11 @@ import classNames from 'classnames/bind';
 import styles from './Home.module.scss';
 import RowSlider from '~/components/RowSlider';
 import FilmByGenre from '~/components/FilmByGenre';
-import axios from 'axios';
 import { useContext, useEffect } from 'react';
 import AuthContext from '~/context/AuthProvider';
 import httpRequest from '~/utils/httpRequest';
 
 const cx = classNames.bind(styles);
-const getFilmsUrl = '';
 
 function Home() {
     const { auth } = useContext(AuthContext);
@@ -33,7 +31,6 @@ function Home() {
         <div className={cx('wrapper')}>
             <div className={cx('row-container')}>
                 <RowSlider title={'Phim hành động mới'} />
-                <div onClick={getAllFilms}>get all films</div>
                 <FilmByGenre title={'Phim hay nhat'} />
                 <FilmByGenre title={'Phim dam boc'} />
             </div>

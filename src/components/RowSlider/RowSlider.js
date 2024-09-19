@@ -92,7 +92,6 @@ const RowSlider = ({ title }) => {
     const [imageIndex, setImageIndex] = useState(0);
     const containerRef = useRef(null);
     const childItemRef = useRef(null);
-    const location = useLocation();
     const setImageRightArrow = () => {
         setImageIndex((prevIndex) => {
             if (prevIndex === filmsList.length - 7) {

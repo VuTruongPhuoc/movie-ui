@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { Link, NavLink } from 'react-router-dom';
@@ -16,7 +16,6 @@ import { PopperWrapper } from '~/components/Popper';
 import Modal, { ModalLogin } from '~/components/Modal';
 import ModalRegister from '~/components/Modal/ModalRegister';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
-import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
 
@@ -89,12 +88,13 @@ const Header = () => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
-    const [jwtToken, setJwtToken] = useState(jwtTokenHandler());
+    const jwtToken = jwtTokenHandler();
+    const formRef = useRef();
+
     useEffect(() => {
         setIsOpenFormLogin(false);
         setIsCurrentUser(!!jwtToken);
     }, [jwtToken]);
-    const handleClickSubmit = () => {};
     const CloseFormLogin = () => {
         setIsOpenFormLogin(false);
         setIsFormLogin(true);
@@ -199,7 +199,7 @@ const Header = () => {
             {isOpenFormLogin && (
                 <Modal onClose={CloseFormLogin}>
                     {isFormLogin ? (
-                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} onClickSubmit={handleClickSubmit} />
+                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} ref={formRef} />
                     ) : (
                         <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
                     )}

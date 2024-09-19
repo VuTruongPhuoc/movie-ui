@@ -1,4 +1,4 @@
-import { useRef, useState, useContext } from 'react';
+import { useRef, useState, useContext, forwardRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
 
@@ -8,7 +8,7 @@ import * as authServices from '~/services/authServices';
 
 const cx = classNames.bind(styles);
 
-const ModalLogin = ({ onClickRegister, onClickSubmit }) => {
+const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
@@ -25,7 +25,7 @@ const ModalLogin = ({ onClickRegister, onClickSubmit }) => {
             <header className={cx('modal-header')}>
                 <p className={cx('title')}>Đăng nhập</p>
             </header>
-            <form onSubmit={handleSubmitEvent}>
+            <form onSubmit={handleSubmitEvent} ref={ref}>
                 <div className={cx('modal-login-content')}>
                     <div className={cx('modal-body')}>
                         <p className={cx('label')}>Username: </p>
@@ -50,7 +50,7 @@ const ModalLogin = ({ onClickRegister, onClickSubmit }) => {
                         />
                         <div className={cx('modal-content-btn')}>
                             <Link className={cx('forgot-password')}>Quên mật khẩu?</Link>
-                            <Button primary className={cx('modal-btn')} onClick={onClickSubmit}>
+                            <Button primary className={cx('modal-btn')}>
                                 Xác nhận
                             </Button>
                         </div>
@@ -66,6 +66,6 @@ const ModalLogin = ({ onClickRegister, onClickSubmit }) => {
             </div>
         </div>
     );
-};
+});
 
 export default ModalLogin;

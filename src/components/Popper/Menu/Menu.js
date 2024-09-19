@@ -13,6 +13,7 @@ const Menu = ({ children, items = [] }) => {
                 placement="bottom-end"
                 delay={[200, 500]}
                 zIndex={997}
+                hideOnClick={false}
                 render={(attrs) => (
                     <div tabIndex={-1} {...attrs}>
                         <PopperWrapper className={cx('list-menu')}>

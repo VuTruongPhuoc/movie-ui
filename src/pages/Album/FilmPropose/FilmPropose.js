@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import styles from './FilmPropose.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 

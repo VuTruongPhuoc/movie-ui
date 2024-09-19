@@ -1,7 +1,7 @@
 import React from 'react';
 
-const Strack = () => {
-    return <div>Strack page</div>;
+const Track = () => {
+    return <div>Track page</div>;
 };
 
-export default Strack;
+export default Track;

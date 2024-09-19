@@ -9,6 +9,7 @@ const cx = classNames.bind(styles);
 const Button = ({
     to,
     href,
+    ref,
     primary,
     disabled = false,
     text = false,

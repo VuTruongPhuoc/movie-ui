@@ -8,6 +8,7 @@ import TVShows from '~/pages/TVShows';
 import Movies from '~/pages/Movies';
 import Latest from '~/pages/Latest';
 import Album from '~/pages/Album';
+import Watch from '~/pages/Watch';
 
 //Public routes
 const publicroutes = [
@@ -19,6 +20,7 @@ const publicroutes = [
     { path: config.routes.movies, component: Movies },
     { path: config.routes.latest, component: Latest },
     { path: config.routes.album, component: Album },
+    { path: config.routes.watch, component: Watch },
     { path: config.routes.nopage, component: NoPage, layout: null },
 ];
 
