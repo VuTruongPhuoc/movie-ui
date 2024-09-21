@@ -1,11 +1,12 @@
+import { useContext, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Modal.module.scss';
-import Modal from './Modal';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 import Button from '../Button';
-import httpRequest from '~/utils/httpRequest';
+import styles from './Modal.module.scss';
+import AuthContext from '~/context/AuthProvider';
 import * as authServices from '~/services/authServices';
-import { useState } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -14,11 +15,23 @@ const ModalRegister = ({ onClickLogin }) => {
     const [displayname, setDisplayname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
+    const { login } = useContext(AuthContext);
 
     const handleSubmitEvent = async (e) => {
         e.preventDefault();
         const fetchApi = async () => {
-            await authServices.register(email, username, displayname, password);
+            try {
+                const response = await authServices.register(email, username, displayname, password);
+                login(username, password);
+                toast.success(response.message);
+            } catch (err) {
+                if (!err.response) {
+                    toast.error('Server không phản hồi');
+                } else {
+                    toast.error(err.response.data.message);
+                }
+            }
         };
 
         fetchApi();

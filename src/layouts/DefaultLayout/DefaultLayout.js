@@ -35,7 +35,7 @@ const DefaultLayout = ({ children }) => {
             <div className={cx('footer')}>
                 <Footer />
             </div>
-            <ToastContainer />
+            <ToastContainer autoClose={2000} />
         </div>
     );
 };

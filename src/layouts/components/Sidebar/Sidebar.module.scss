@@ -1,0 +1,29 @@
+.wrapper {
+    top: 60px;
+    left: 0;
+    bottom: 0;
+    z-index: 9;
+    min-height: 100%;
+    width: 240px;
+    padding: 20px 0px 106px;
+    display: flex;
+
+    flex-direction: column;
+    overflow: hidden auto;
+    &:hover {
+        height: calc(100vh);
+        overflow-y: auto;
+    }
+}
+.user-exit-following {
+    width: 32px;
+    height: 32px;
+    font-size: 24px;
+    padding: 4px;
+}
+.user-avatar {
+    width: 32px;
+    height: 32px;
+    padding: 4px;
+    border-radius: 50%;
+}

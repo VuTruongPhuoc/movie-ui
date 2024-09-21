@@ -16,6 +16,7 @@ import { PopperWrapper } from '~/components/Popper';
 import Modal, { ModalLogin } from '~/components/Modal';
 import ModalRegister from '~/components/Modal/ModalRegister';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
+import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
 
@@ -62,6 +63,7 @@ const genresList = [
     },
 ];
 const Header = () => {
+    const { username, logout } = useContext(AuthContext);
     const menuItems = [
         {
             icon: <FontAwesomeIcon icon={faUserCircle} />,
@@ -72,31 +74,31 @@ const Header = () => {
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'Account',
-            to: '/account',
+            to: '/profiles',
         },
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Đăng xuất',
-            to: '/logout',
+            to: '/',
             onClick: (e) => {
-                e.preventDefault();
-                localStorage.removeItem(process.env.REACT_APP_TOKEN_NAME);
+                // e.preventDefault();
+                logout();
                 setIsCurrentUser(false);
             },
         },
     ];
     const [isCurrentUser, setIsCurrentUser] = useState(false);
-    const [isOpenFormLogin, setIsOpenFormLogin] = useState(false);
+    const [isShowFormLogin, setIsShowFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
-    const jwtToken = jwtTokenHandler();
+    jwtTokenHandler();
     const formRef = useRef();
 
     useEffect(() => {
-        setIsOpenFormLogin(false);
-        setIsCurrentUser(!!jwtToken);
-    }, [jwtToken]);
+        setIsShowFormLogin(false);
+        setIsCurrentUser(!!username);
+    }, [username]);
     const CloseFormLogin = () => {
-        setIsOpenFormLogin(false);
+        setIsShowFormLogin(false);
         setIsFormLogin(true);
     };
     return (
@@ -179,7 +181,10 @@ const Header = () => {
                                             <div className={cx('login-item')}>
                                                 <span className={cx('text')}>Đăng nhập để xem phim</span>
                                                 <div className={cx('login-btn')}>
-                                                    <Button primary onClick={() => setIsOpenFormLogin(true)}>
+                                                    <Button
+                                                        primary
+                                                        onClick={() => (setIsShowFormLogin(true), setIsFormLogin(true))}
+                                                    >
                                                         Login
                                                     </Button>
                                                 </div>
@@ -196,7 +201,7 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            {isOpenFormLogin && (
+            {isShowFormLogin && (
                 <Modal onClose={CloseFormLogin}>
                     {isFormLogin ? (
                         <ModalLogin onClickRegister={() => setIsFormLogin(false)} ref={formRef} />

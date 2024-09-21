@@ -162,6 +162,7 @@ const Album = () => {
                                         className={cx('btn-play')}
                                         leftIcon={<FontAwesomeIcon icon={faPlay} />}
                                         primary
+                                        to="/watch"
                                     >
                                         Xem phim
                                     </Button>

@@ -1,23 +1,22 @@
 import { useRef, useState, useContext, forwardRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import styles from './Modal.module.scss';
 import Button from '../Button';
-import * as authServices from '~/services/authServices';
+import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
 
 const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
+    const { login } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
     const handleSubmitEvent = async (e) => {
         e.preventDefault();
-        const fetchApi = async () => {
-            await authServices.login(username, password);
-        };
-        fetchApi();
+        login(username, password);
     };
 
     return (

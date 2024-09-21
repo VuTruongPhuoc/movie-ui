@@ -1,0 +1,23 @@
+.wrapper {
+    margin: 0 4%;
+}
+.container {
+    width: 100%;
+    max-width: 100%;
+    margin-top: 2rem;
+    display: flex;
+    height: 100%;
+}
+.sidebar {
+    position: relative;
+    height: 100%;
+    width: 240px;
+    bottom: 0;
+}
+
+.content {
+    flex-grow: 1;
+    display: flex;
+
+    height: 100vh;
+}

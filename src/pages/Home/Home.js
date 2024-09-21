@@ -9,12 +9,12 @@ import httpRequest from '~/utils/httpRequest';
 const cx = classNames.bind(styles);
 
 function Home() {
-    const { auth } = useContext(AuthContext);
+    const { accessToken } = useContext(AuthContext);
     const getAllFilms = async () => {
         try {
             const response = await httpRequest.get('role/all', {
                 headers: {
-                    Authorization: `Bearer ${auth.accessToken}`,
+                    Authorization: `Bearer ${accessToken}`,
                 },
             });
             console.log(response.data);

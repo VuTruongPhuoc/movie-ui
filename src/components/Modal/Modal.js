@@ -5,13 +5,16 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
 
-const Modal = ({ children, onClose }) => {
+const Modal = ({ children, onClose, title }) => {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('global-modal')}>
                 <div className={cx('modal-container')}>
-                    <div className={cx('modal-close')} onClick={onClose}>
-                        <FontAwesomeIcon icon={faClose} />
+                    <div className={cx('modal-header')}>
+                        <div className={cx('modal-title')}>{title}</div>
+                        <div className={cx('modal-close')} onClick={onClose}>
+                            <FontAwesomeIcon icon={faClose} />
+                        </div>
                     </div>
 
                     {children}
