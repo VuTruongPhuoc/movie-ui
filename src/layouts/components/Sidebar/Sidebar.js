@@ -1,10 +1,9 @@
 import classNames from 'classnames/bind';
-import { faBars, faClockRotateLeft, faGear, faList, faLowVision } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faClockRotateLeft, faGear, faList } from '@fortawesome/free-solid-svg-icons';
 
 import config from '~/config';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
-import { faFaceAngry } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 

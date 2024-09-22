@@ -11,6 +11,9 @@ import Album from '~/pages/Album';
 import Watch from '~/pages/Watch';
 import Account from '~/pages/Account';
 import Sidebar from '~/layouts/components/Sidebar';
+import HomeAdmin from '~/pages/HomeAdmin';
+import SectionAdmin from '~/pages/SectionAdmin';
+import FilmAdmin from '~/pages/FilmAdmin';
 
 //Public routes
 const publicroutes = [
@@ -28,6 +31,10 @@ const publicroutes = [
 ];
 
 //Private routes
-const privateroutes = [{ path: config.adminroutes.admin }];
+const privateroutes = [
+    { path: config.adminroutes.admin, component: HomeAdmin },
+    { path: config.adminroutes.section, component: SectionAdmin },
+    { path: config.adminroutes.film, component: FilmAdmin },
+];
 
 export { publicroutes, privateroutes };

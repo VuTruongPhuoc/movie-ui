@@ -1,6 +1,6 @@
 const routes = {
     home: '/',
-    profile: '/profiles',
+    profile: '/profile',
     nopage: '/nopage',
     history: '/profile/history',
     track: '/track',
@@ -14,6 +14,7 @@ const routes = {
 const adminroutes = {
     admin: '/admin',
     section: '/admin/section',
+    film: '/admin/film',
 };
 const config = { routes, adminroutes };
 

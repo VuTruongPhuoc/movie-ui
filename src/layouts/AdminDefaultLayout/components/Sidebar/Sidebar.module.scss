@@ -1,0 +1,29 @@
+.wrapper {
+    background-color: #343a40;
+    color: var(--white);
+    height: 100%;
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+}
+.user-profile {
+    height: 100px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid gray;
+}
+.avatar {
+    padding: 0 20px;
+}
+.avatar img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.name {
+}
+.nav {
+}
+.menu {
+}
+.menu-item {
+}

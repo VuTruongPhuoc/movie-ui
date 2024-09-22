@@ -1,6 +1,6 @@
 import classNames from 'classnames/bind';
 import PropTypes from 'prop-types';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import styles from './Menu.module.scss';
@@ -9,7 +9,7 @@ const cx = classNames.bind(styles);
 
 function MenuItem({ title, to, icon }) {
     return (
-        <NavLink className={({ isActive }) => cx('menu-item', { active: isActive })} to={to}>
+        <NavLink className={({ isActive }) => cx('menu-item', { active: isActive })} to={to} end>
             {({ isActive }) => (
                 <>
                     <FontAwesomeIcon icon={icon} />

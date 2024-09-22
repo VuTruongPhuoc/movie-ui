@@ -1,11 +1,13 @@
-import './App.css';
-
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import DefaultLayout from '~/layouts/DefaultLayout';
-import { publicroutes } from './routes';
 import { Fragment } from 'react';
+
+import './App.css';
+import DefaultLayout from '~/layouts/DefaultLayout';
+import { privateroutes, publicroutes } from './routes';
 import SideBar from './layouts/components/Sidebar/Sidebar';
 import LayoutAccount from './layouts/LayoutAccount';
+import AdminDefaultLayout from '~/layouts/AdminDefaultLayout';
+import NoPage from './pages/NoPage';
 
 function App() {
     return (
@@ -35,6 +37,31 @@ function App() {
                         />
                     );
                 })}
+
+                {privateroutes.map((route, index) => {
+                    const LayoutAdmin = AdminDefaultLayout;
+
+                    const PageAdmin = route.component;
+                    return (
+                        <Route
+                            key={index}
+                            path={route.path}
+                            element={
+                                <LayoutAdmin>
+                                    <PageAdmin />
+                                </LayoutAdmin>
+                            }
+                        />
+                    );
+                })}
+                <Route
+                    path="*"
+                    element={
+                        <DefaultLayout>
+                            <NoPage />
+                        </DefaultLayout>
+                    }
+                />
             </Routes>
         </BrowserRouter>
     );
