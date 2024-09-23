@@ -3,6 +3,7 @@ import styles from './Sidebar.module.scss';
 import Menu, { MenuItem } from '~/layouts/components/Sidebar/Menu';
 import config from '~/config';
 import { faArrowLeft, faFilm, faLineChart, faPassport } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classNames.bind(styles);
 
@@ -15,14 +16,22 @@ function Sidebar() {
                 </div>
                 <div className={cx('name')}>Phuoc vt</div>
             </div>
-            <nav className={cx('nav')}>
+            <div className={cx('menu-list')}>
                 <Menu>
-                    <MenuItem title="Trang chủ" to={config.adminroutes.admin} icon={faLineChart} />
-                    <MenuItem title="Phần" to={config.adminroutes.section} icon={faPassport} />
-                    <MenuItem title="Phim" to={config.adminroutes.film} icon={faFilm} />
-                    <MenuItem title="Thoát" to={config.routes.home} icon={faArrowLeft} />
+                    <MenuItem
+                        title="Trang chủ"
+                        to={config.adminroutes.admin}
+                        icon={<FontAwesomeIcon icon={faLineChart} />}
+                    />
+                    <MenuItem
+                        title="Phần"
+                        to={config.adminroutes.section}
+                        icon={<FontAwesomeIcon icon={faPassport} />}
+                    />
+                    <MenuItem title="Phim" to={config.adminroutes.film} icon={<FontAwesomeIcon icon={faFilm} />} />
+                    <MenuItem title="Thoát" to={config.routes.home} icon={<FontAwesomeIcon icon={faArrowLeft} />} />
                 </Menu>
-            </nav>
+            </div>
         </div>
     );
 }

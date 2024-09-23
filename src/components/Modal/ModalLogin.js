@@ -21,7 +21,7 @@ const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
 
     return (
         <div className={cx('modal-login')}>
-            <header className={cx('modal-header')}>
+            <header className={cx('login-header')}>
                 <p className={cx('title')}>Đăng nhập</p>
             </header>
             <form onSubmit={handleSubmitEvent} ref={ref}>

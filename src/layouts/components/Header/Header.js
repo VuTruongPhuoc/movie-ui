@@ -63,25 +63,24 @@ const genresList = [
     },
 ];
 const Header = () => {
-    const { username, logout } = useContext(AuthContext);
+    let { username, logout } = useContext(AuthContext);
     const menuItems = [
+        {
+            icon: <FontAwesomeIcon icon={faUser} />,
+            title: 'Thông tin',
+            to: '/profile',
+        },
         {
             icon: <FontAwesomeIcon icon={faUserCircle} />,
             title: 'Phuoc vu',
-            to: '@/phuocvu',
+            to: '/account',
             separate: true,
-        },
-        {
-            icon: <FontAwesomeIcon icon={faUser} />,
-            title: 'Account',
-            to: '/profiles',
         },
         {
             icon: <FontAwesomeIcon icon={faSignOut} />,
             title: 'Đăng xuất',
             to: '/',
             onClick: (e) => {
-                // e.preventDefault();
                 logout();
                 setIsCurrentUser(false);
             },
@@ -90,6 +89,10 @@ const Header = () => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isShowFormLogin, setIsShowFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
+    if (!username) {
+        username = localStorage.getItem(process.env.REACT_APP_USER_NAME);
+        console.log(username);
+    }
     jwtTokenHandler();
     const formRef = useRef();
 

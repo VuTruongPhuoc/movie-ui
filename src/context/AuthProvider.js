@@ -12,6 +12,7 @@ export const AuthProvider = ({ children }) => {
             const response = await authServices.login(username, password);
             const accessToken = response?.accessToken;
             localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, accessToken);
+            localStorage.setItem(process.env.REACT_APP_USER_NAME, response.username);
             setAccessToken(accessToken);
             setUsername(response.username);
             toast.success(response.message);
@@ -25,6 +26,7 @@ export const AuthProvider = ({ children }) => {
     };
     const logout = () => {
         localStorage.removeItem(process.env.REACT_APP_TOKEN_NAME);
+        localStorage.removeItem(process.env.REACT_APP_USER_NAME);
         setAccessToken(null);
         setUsername(null);
     };

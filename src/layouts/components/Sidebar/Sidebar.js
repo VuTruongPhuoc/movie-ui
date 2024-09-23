@@ -4,6 +4,7 @@ import { faBars, faClockRotateLeft, faGear, faList } from '@fortawesome/free-sol
 import config from '~/config';
 import Menu, { MenuItem } from './Menu';
 import styles from './Sidebar.module.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const cx = classNames.bind(styles);
 
@@ -12,9 +13,13 @@ function SideBar() {
         <>
             <aside className={cx('wrapper')}>
                 <Menu>
-                    <MenuItem title="Hồ sơ" to={config.routes.profile} icon={faList} />
-                    <MenuItem title="Tài khoản" to={config.routes.account} icon={faGear} />
-                    <MenuItem title="Lịch sử" to={config.routes.history} icon={faClockRotateLeft} />
+                    <MenuItem title="Hồ sơ" to={config.routes.profile} icon={<FontAwesomeIcon icon={faList} />} />
+                    <MenuItem title="Tài khoản" to={config.routes.account} icon={<FontAwesomeIcon icon={faGear} />} />
+                    <MenuItem
+                        title="Lịch sử"
+                        to={config.routes.history}
+                        icon={<FontAwesomeIcon icon={faClockRotateLeft} />}
+                    />
 
                     {/* <MenuItem title="Profile" to="/@hoaa" icon="hhi"></MenuItem> */}
                 </Menu>

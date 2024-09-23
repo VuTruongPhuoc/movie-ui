@@ -38,7 +38,7 @@ const ModalRegister = ({ onClickLogin }) => {
     };
     return (
         <div className={cx('modal-login')}>
-            <header className={cx('modal-header')}>
+            <header className={cx('login-header')}>
                 <p className={cx('title')}>Đăng ký</p>
             </header>
             <form onSubmit={handleSubmitEvent}>

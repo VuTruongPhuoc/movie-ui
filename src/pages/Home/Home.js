@@ -17,7 +17,6 @@ function Home() {
                     Authorization: `Bearer ${accessToken}`,
                 },
             });
-            console.log(response.data);
         } catch (error) {
             console.log(error);
         }

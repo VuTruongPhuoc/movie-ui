@@ -1,4 +1,3 @@
-import 'react-toastify/dist/ReactToastify.css';
 import * as httpRequest from '~/utils/httpRequest';
 
 const login = async (username, password) => {
