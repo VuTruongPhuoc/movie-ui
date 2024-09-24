@@ -15,7 +15,6 @@ const ModalRegister = ({ onClickLogin }) => {
     const [displayname, setDisplayname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate();
     const { login } = useContext(AuthContext);
 
     const handleSubmitEvent = async (e) => {
