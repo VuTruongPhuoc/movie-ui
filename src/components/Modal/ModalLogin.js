@@ -1,7 +1,6 @@
 import { useRef, useState, useContext, forwardRef } from 'react';
 import classNames from 'classnames/bind';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import styles from './Modal.module.scss';
 import Button from '../Button';

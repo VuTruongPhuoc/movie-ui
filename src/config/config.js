@@ -15,6 +15,8 @@ const adminroutes = {
     admin: '/admin',
     section: '/admin/section',
     film: '/admin/film',
+    category: '/admin/category',
+    user: '/admin/user',
 };
 const config = { routes, adminroutes };
 

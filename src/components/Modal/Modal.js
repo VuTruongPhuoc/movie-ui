@@ -16,7 +16,6 @@ const Modal = ({ children, onClose, title }) => {
                             <FontAwesomeIcon icon={faClose} />
                         </div>
                     </div>
-
                     {children}
                 </div>
                 <div className={cx('modal-mask')}></div>

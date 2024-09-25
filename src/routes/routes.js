@@ -14,6 +14,8 @@ import Sidebar from '~/layouts/components/Sidebar';
 import HomeAdmin from '~/pages/HomeAdmin';
 import SectionAdmin from '~/pages/SectionAdmin';
 import FilmAdmin from '~/pages/FilmAdmin';
+import CategoryAdmin from '~/pages/CategoryAdmin';
+import UserAdmin from '~/pages/UserAdmin';
 
 //Public routes
 const publicroutes = [
@@ -35,6 +37,8 @@ const privateroutes = [
     { path: config.adminroutes.admin, component: HomeAdmin },
     { path: config.adminroutes.section, component: SectionAdmin },
     { path: config.adminroutes.film, component: FilmAdmin },
+    { path: config.adminroutes.category, component: CategoryAdmin },
+    { path: config.adminroutes.user, component: UserAdmin },
 ];
 
 export { publicroutes, privateroutes };

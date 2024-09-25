@@ -1,0 +1,126 @@
+.wrapper {
+    padding: 20px;
+    box-shadow: 2px salmon;
+}
+//title
+.title {
+    height: 60px;
+    background-color: aquamarine;
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 4px;
+    align-items: center;
+    padding: 0 20px;
+}
+.title-name {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+.header-area {
+    display: flex;
+    justify-content: space-between;
+}
+.action-add {
+    padding: 8px 12px;
+}
+//input search
+.search {
+    position: relative;
+    margin: 10px 0;
+}
+
+.search input {
+    padding: 4px 40px 4px 12px;
+    outline: none;
+    border: 1px solid #8af2cf;
+    border-radius: 4px;
+
+    &:hover {
+        border: 1px solid #20b482;
+    }
+}
+.search-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #20b482;
+    color: var(--white);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+//add
+.input-add-name {
+    width: 100%;
+    padding: 4px 8px;
+    margin: 10px 0;
+    outline: none;
+    border: 1px solid #3dd7a4;
+    border-radius: 4px;
+
+    &:focus {
+        border: 1px solid #28bb8a;
+    }
+}
+.avatar {
+    width: 60px;
+    height: 60px;
+}
+.role {
+    display: inline;
+    padding: 4px 8px;
+    background-color: #d7ebe5;
+    border-radius: 5px;
+    &:hover {
+        cursor: pointer;
+    }
+}
+.role-wrapper {
+    position: relative;
+}
+.changerole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(160, 145, 145, 0.5);
+    z-index: 1000;
+}
+.changerole-content {
+    display: flex;
+    flex-direction: column;
+}
+.changerole-content .role {
+    margin-bottom: 10px;
+    background-color: #eff8f5;
+}
+//action
+.update-icon {
+    background-color: #20b482;
+    padding: 8px;
+    color: var(--white);
+    margin: 0px 10px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+.delete-icon {
+    background-color: #cc2222;
+    padding: 8px;
+    color: var(--white);
+
+    &:hover {
+        cursor: pointer;
+    }
+}
