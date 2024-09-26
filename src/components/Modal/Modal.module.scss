@@ -161,3 +161,10 @@
     justify-content: center;
     flex-direction: column;
 }
+.upload-area img {
+    width: 300px;
+    clip-path: square(50% at center);
+}
+.btn-upload {
+    margin: 10px 0;
+}

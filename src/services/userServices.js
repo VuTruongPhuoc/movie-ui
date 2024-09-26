@@ -31,4 +31,17 @@ const changerole = async (username, rolename) => {
     const response = await httpRequest.post(`/user/changerole/${username}/${rolename}`);
     return response;
 };
-export { getall, add, update, del, changerole };
+const changeAvatar = async (username, avatar, avatarFile) => {
+    const formData = new FormData();
+    formData.append('userName', username);
+    formData.append('avatar', avatar);
+    formData.append('avatarFile', avatarFile);
+    const response = await httpRequest.post(`/user/changeavatar/${username}`, formData, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)}`,
+        },
+    });
+    console.log(response);
+    return response;
+};
+export { getall, add, update, del, changerole, changeAvatar };

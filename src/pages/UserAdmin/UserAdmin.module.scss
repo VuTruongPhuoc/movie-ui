@@ -73,6 +73,10 @@
 .avatar {
     width: 60px;
     height: 60px;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 .role {
     display: inline;

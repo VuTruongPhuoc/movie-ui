@@ -15,7 +15,8 @@ import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-ico
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDeleteUser from './ModalDeleteUser';
 import { toast } from 'react-toastify';
-import { Modal } from 'react-bootstrap';
+import ModalCustom from '~/components/Modal';
+import ModalChangeAvatar from '~/components/Modal/ModalChangeAvatar';
 
 const cx = classNames.bind(styles);
 
@@ -32,15 +33,16 @@ function UserAdmin() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [showModalChangeRole, setShowModalChangeRole] = useState(false);
     const [selectedUser, setSelectedUser] = useState({});
+    const [isShowModalChangeAvatar, setIsShowModalChangeAvatar] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
     useEffect(() => {
         const fetchData = async (page, pageSize) => {
             const result = await userServices.getall(page, pageSize);
             setCurrentPage(result.pageNumber);
             setPageCount(result.totalPages);
-            const filtered = result.items.filter((item) =>
-                item.displayName?.toLowerCase().includes(debouncedValue.toLowerCase()),
-            );
+            const filtered = result.items
+                .filter((item) => item.displayName?.toLowerCase().includes(debouncedValue.toLowerCase()))
+                .sort((a, b) => a.userName.localeCompare(b.userName));
             setUsers(filtered);
         };
         fetchData(currentPage, itemsPerPage);
@@ -48,12 +50,10 @@ function UserAdmin() {
     const handleClickChangeRole = (rolename) => {
         const fetchApi = async () => {
             try {
-                console.log(selectedUser);
                 const response = await userServices.changerole(selectedUser.userName, rolename);
 
                 toast.success(response.message);
             } catch (err) {
-                console.log(err);
                 if (!err.response) {
                     toast.error('Server không phản hồi');
                 } else {
@@ -86,6 +86,10 @@ function UserAdmin() {
         let cloneUsers = _.cloneDeep(users);
         cloneUsers = cloneUsers.filter((item) => item.id !== data.id);
         setUsers(cloneUsers);
+    };
+
+    const closeModalChangeAvatar = () => {
+        setIsShowModalChangeAvatar(false);
     };
     return (
         <div className={cx('wrapper')}>
@@ -129,15 +133,18 @@ function UserAdmin() {
                                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                                 <td>{item.userName}</td>
                                 <td>
-                                    {' '}
                                     <img
                                         className={cx('avatar')}
                                         src={
                                             item.avatar
-                                                ? item.avatar
+                                                ? item.avatarUrl
                                                 : 'https://animehay.cam/upload/avatar/37371.jpg?t=1726814583'
                                         }
                                         alt="hihi"
+                                        onClick={() => {
+                                            setIsShowModalChangeAvatar(true);
+                                            setSelectedUser(item);
+                                        }}
                                     />
                                 </td>
                                 <td>{item.displayName}</td>
@@ -247,6 +254,12 @@ function UserAdmin() {
                 user={selectedUser}
                 handleDeleteFromModal={handleDeleteFromModal}
             />
+
+            {isShowModalChangeAvatar && (
+                <ModalCustom onClose={closeModalChangeAvatar} title="Tải lên ảnh đại diện mới">
+                    <ModalChangeAvatar user={selectedUser} handleClose={() => setIsShowModalChangeAvatar(false)} />
+                </ModalCustom>
+            )}
 
             <Pagination handlePageClick={handlePageClick} pageCount={pageCount} />
         </div>

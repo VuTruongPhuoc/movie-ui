@@ -13,7 +13,7 @@ import config from '~/config';
 import styles from './Header.module.scss';
 import Nav, { NavItem } from './Nav';
 import { PopperWrapper } from '~/components/Popper';
-import Modal, { ModalLogin } from '~/components/Modal';
+import ModalCustom, { ModalLogin } from '~/components/Modal';
 import ModalRegister from '~/components/Modal/ModalRegister';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
@@ -205,13 +205,13 @@ const Header = () => {
                 </div>
             </div>
             {isShowFormLogin && (
-                <Modal onClose={CloseFormLogin}>
+                <ModalCustom onClose={CloseFormLogin}>
                     {isFormLogin ? (
                         <ModalLogin onClickRegister={() => setIsFormLogin(false)} ref={formRef} />
                     ) : (
                         <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
                     )}
-                </Modal>
+                </ModalCustom>
             )}
         </div>
     );
