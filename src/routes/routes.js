@@ -16,29 +16,36 @@ import SectionAdmin from '~/pages/SectionAdmin';
 import FilmAdmin from '~/pages/FilmAdmin';
 import CategoryAdmin from '~/pages/CategoryAdmin';
 import UserAdmin from '~/pages/UserAdmin';
+import NoAccess from '~/pages/NoAccess';
+import CountryAdmin from '~/pages/CountryAdmin';
+import ScheduleAdmin from '~/pages/ScheduleAdmin';
 
 //Public routes
 const publicroutes = [
     { path: config.routes.home, component: Home },
-    { path: config.routes.profile, component: Profile, doublelayout: Sidebar },
-    { path: config.routes.history, component: History, doublelayout: Sidebar },
-    { path: config.routes.track, component: Track },
     { path: config.routes.tvshows, component: TVShows },
     { path: config.routes.movies, component: Movies },
     { path: config.routes.latest, component: Latest },
     { path: config.routes.album, component: Album },
     { path: config.routes.watch, component: Watch },
-    { path: config.routes.account, component: Account, doublelayout: Sidebar },
-    { path: config.routes.nopage, component: NoPage, layout: null },
+    { path: config.routes.nopage, component: NoPage },
+    { path: config.routes.noaccess, component: NoAccess },
 ];
-
-//Private routes
 const privateroutes = [
+    { path: config.privateroutes.profile, component: Profile, doublelayout: Sidebar },
+    { path: config.privateroutes.history, component: History, doublelayout: Sidebar },
+    { path: config.privateroutes.track, component: Track },
+    { path: config.privateroutes.account, component: Account, doublelayout: Sidebar },
+];
+//admin routes
+const adminroutes = [
     { path: config.adminroutes.admin, component: HomeAdmin },
     { path: config.adminroutes.section, component: SectionAdmin },
     { path: config.adminroutes.film, component: FilmAdmin },
     { path: config.adminroutes.category, component: CategoryAdmin },
     { path: config.adminroutes.user, component: UserAdmin },
+    { path: config.adminroutes.country, component: CountryAdmin },
+    { path: config.adminroutes.schedule, component: ScheduleAdmin },
 ];
 
-export { publicroutes, privateroutes };
+export { publicroutes, privateroutes, adminroutes };

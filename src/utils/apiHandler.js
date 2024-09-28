@@ -1,7 +1,9 @@
+import { getToken } from '~/services/authServices';
+
 export const getHeaderConfig = (contentType) => {
     return {
         headers: {
-            Authorization: `Bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)}`,
+            Authorization: `Bearer ${getToken()}`,
             'Content-Type': 'application/json',
         },
     };

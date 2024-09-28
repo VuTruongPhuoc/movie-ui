@@ -2,20 +2,29 @@ import classNames from 'classnames/bind';
 import styles from './Sidebar.module.scss';
 import Menu, { MenuItem } from '~/layouts/components/Sidebar/Menu';
 import config from '~/config';
-import { faArrowLeft, faCableCar, faFilm, faLineChart, faPassport } from '@fortawesome/free-solid-svg-icons';
+import {
+    faArrowLeft,
+    faCableCar,
+    faCloudSun,
+    faFilm,
+    faLineChart,
+    faPassport,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faClock, faUser } from '@fortawesome/free-regular-svg-icons';
 
 const cx = classNames.bind(styles);
 
 function Sidebar() {
+    const currentUser = JSON.parse(localStorage.getItem(process.env.REACT_APP_CURRENT_USER));
+    const avatarUrl = currentUser.avatarUrl;
     return (
         <div className={cx('wrapper')}>
             <div className={cx('user-profile')}>
                 <div className={cx('avatar')}>
-                    <img src="https://animehay.cam/upload/avatar/37371.jpg?t=1726814583" alt="?" />
+                    <img src={avatarUrl ? avatarUrl : 'hihi'} alt="?" />
                 </div>
-                <div className={cx('name')}>Phuoc vt</div>
+                <div className={cx('name')}>Hello, {currentUser.displayName}</div>
             </div>
             <div className={cx('menu-list')}>
                 <Menu>
@@ -40,6 +49,16 @@ function Sidebar() {
                         title="Thể loại"
                         to={config.adminroutes.category}
                         icon={<FontAwesomeIcon icon={faCableCar} />}
+                    />
+                    <MenuItem
+                        title="Đất nước"
+                        to={config.adminroutes.country}
+                        icon={<FontAwesomeIcon icon={faCloudSun} />}
+                    />
+                    <MenuItem
+                        title="Lịch phim"
+                        to={config.adminroutes.schedule}
+                        icon={<FontAwesomeIcon icon={faClock} />}
                     />
 
                     <MenuItem title="Thoát" to={config.routes.home} icon={<FontAwesomeIcon icon={faArrowLeft} />} />

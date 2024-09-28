@@ -1,6 +1,13 @@
 import { getHeaderConfig } from '~/utils/apiHandler';
 import * as httpRequest from '~/utils/httpRequest';
 
+const get = async (username) => {
+    try {
+        const response = await httpRequest.get(`/user/${username}`, getHeaderConfig());
+        return response;
+    } catch (err) {}
+};
+
 const getall = async (page, pageSize) => {
     try {
         const response = await httpRequest.get(`/user/all?pageNumber=${page}&pageSize=${pageSize}`, getHeaderConfig());
@@ -19,10 +26,12 @@ const add = async (username, displayname, email) => {
     );
     return response;
 };
-const update = async (id, username, displayname, email) => {
-    const response = await httpRequest.post(`/user/update/${id}`, { username, displayname, email }, getHeaderConfig());
+const update = async (username, displayname, email) => {
+    const response = await httpRequest.post(`/user/update/${username}`, { displayname, email }, getHeaderConfig());
+    console.log(response.data);
     return response;
 };
+
 const del = async (id) => {
     const response = await httpRequest.del(`/user/delete/${id}`, getHeaderConfig());
     return response;
@@ -31,10 +40,9 @@ const changerole = async (username, rolename) => {
     const response = await httpRequest.post(`/user/changerole/${username}/${rolename}`);
     return response;
 };
-const changeAvatar = async (username, avatar, avatarFile) => {
+const changeAvatar = async (username, avatarFile) => {
     const formData = new FormData();
     formData.append('userName', username);
-    formData.append('avatar', avatar);
     formData.append('avatarFile', avatarFile);
     const response = await httpRequest.post(`/user/changeavatar/${username}`, formData, {
         headers: {
@@ -44,4 +52,4 @@ const changeAvatar = async (username, avatar, avatarFile) => {
     console.log(response);
     return response;
 };
-export { getall, add, update, del, changerole, changeAvatar };
+export { get, getall, add, update, del, changerole, changeAvatar };

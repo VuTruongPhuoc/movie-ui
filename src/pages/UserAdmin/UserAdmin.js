@@ -36,6 +36,9 @@ function UserAdmin() {
     const [isShowModalChangeAvatar, setIsShowModalChangeAvatar] = useState(false);
     const [modalPosition, setModalPosition] = useState({ top: 0, left: 0 });
     useEffect(() => {
+        refreshUserList();
+    }, [currentPage, debouncedValue, showModalChangeRole]);
+    const refreshUserList = () => {
         const fetchData = async (page, pageSize) => {
             const result = await userServices.getall(page, pageSize);
             setCurrentPage(result.pageNumber);
@@ -46,12 +49,11 @@ function UserAdmin() {
             setUsers(filtered);
         };
         fetchData(currentPage, itemsPerPage);
-    }, [currentPage, debouncedValue, showModalChangeRole]);
+    };
     const handleClickChangeRole = (rolename) => {
         const fetchApi = async () => {
             try {
                 const response = await userServices.changerole(selectedUser.userName, rolename);
-
                 toast.success(response.message);
             } catch (err) {
                 if (!err.response) {
@@ -75,11 +77,11 @@ function UserAdmin() {
         setUsers([data, ...users]);
     };
     const handleUpdateFromModal = (data) => {
+        console.log(data);
         let cloneUsers = _.cloneDeep(users);
         let index = users.findIndex((item) => item.id === data.id);
         cloneUsers[index].name = data.name;
-        cloneUsers[index].isActive = data.isActive;
-
+        cloneUsers[index].displayName = data.displayname;
         setUsers(cloneUsers);
     };
     const handleDeleteFromModal = (data) => {
@@ -87,9 +89,11 @@ function UserAdmin() {
         cloneUsers = cloneUsers.filter((item) => item.id !== data.id);
         setUsers(cloneUsers);
     };
-
-    const closeModalChangeAvatar = () => {
-        setIsShowModalChangeAvatar(false);
+    const handleUpdateFromModalChangeAvatar = (data) => {
+        let cloneUsers = _.cloneDeep(users);
+        let index = users.findIndex((item) => item.id === data.id);
+        cloneUsers[index].avatarUrl = data.avatarUrl;
+        setUsers(cloneUsers);
     };
     return (
         <div className={cx('wrapper')}>
@@ -256,8 +260,13 @@ function UserAdmin() {
             />
 
             {isShowModalChangeAvatar && (
-                <ModalCustom onClose={closeModalChangeAvatar} title="Tải lên ảnh đại diện mới">
-                    <ModalChangeAvatar user={selectedUser} handleClose={() => setIsShowModalChangeAvatar(false)} />
+                <ModalCustom onClose={() => setIsShowModalChangeAvatar(false)} title="Tải lên ảnh đại diện mới">
+                    <ModalChangeAvatar
+                        user={selectedUser}
+                        handleClose={() => setIsShowModalChangeAvatar(false)}
+                        handleUpdateFromModalChangeAvatar={handleUpdateFromModalChangeAvatar}
+                        handleRefreshUserList={refreshUserList}
+                    />
                 </ModalCustom>
             )}
 

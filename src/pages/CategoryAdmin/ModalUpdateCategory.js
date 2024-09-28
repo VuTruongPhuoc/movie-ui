@@ -1,34 +1,33 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import classNames from 'classnames/bind';
-import styles from './UserAdmin.module.scss';
-import * as userServices from '~/services/userServices';
+import styles from './CategoryAdmin.module.scss';
+import * as categoryServices from '~/services/categoryServices';
 import { toast } from 'react-toastify';
+import { slugHandler } from '~/utils/slugHandler';
 
 const cx = classNames.bind(styles);
 
-function UpdateUserModal(props) {
-    const { show, handleClose, user, handleUpdateFromModal } = props;
-    const [displayname, setDisplayName] = useState('');
-    const [email, setEmail] = useState('');
-
+function UpdateCategoryModal(props) {
+    const { show, handleClose, category, handleUpdateFromModal } = props;
+    const [name, setName] = useState('');
+    const [slug, setSlug] = useState('');
     useEffect(() => {
         if (show) {
-            setDisplayName(user.displayName);
-            setEmail(user.email);
+            setName(category.name || '');
+            setSlug(category.slug || '');
         }
-    }, [show, user]);
+    }, [category, show]);
 
-    const handleSaveUser = (e) => {
-        e.preventDefault();
+    const handleSaveCategory = (e) => {
         const fetchApi = async () => {
             try {
-                const response = await userServices.update(user.userName, displayname, email);
+                const response = await categoryServices.update(category.id, name, slug);
                 if (response && response.success) {
                     handleUpdateFromModal({
-                        displayname: displayname,
-                        email: email,
-                        id: user.id,
+                        name: name,
+                        slug: slug,
+                        id: category.id,
                     });
                 }
                 toast.success(response.message);
@@ -44,37 +43,39 @@ function UpdateUserModal(props) {
         };
         fetchApi();
     };
-
+    const handleNameChange = (e) => {
+        const value = e.target.value;
+        setName(value);
+        setSlug(slugHandler(value));
+    };
     return (
         <div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Cập nhật người dùng</Modal.Title>
+                    <Modal.Title>Cập nhật thể loại</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <label>Tên hiển thị:</label>
+                        <label>Tên phần: </label>
                         <input
                             className={cx('input-add-name')}
-                            placeholder="Nhập tên người dùng"
-                            value={displayname}
-                            required
-                            onChange={(e) => setDisplayName(e.target.value)}
+                            placeholder="Nhập tên phần"
+                            value={name}
+                            onChange={handleNameChange}
                         ></input>
                     </div>
                     <div>
-                        <label>Email:</label>
+                        <label>Slug: </label>
                         <input
                             className={cx('input-add-name')}
-                            placeholder="Nhập email"
-                            value={email}
-                            required
-                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Nhập slug:"
+                            value={slug}
+                            onChange={(e) => setSlug(e.target.value)}
                         ></input>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" size="lg" onClick={handleSaveUser}>
+                    <Button variant="primary" size="lg" onClick={handleSaveCategory}>
                         Lưu thay đổi
                     </Button>
                 </Modal.Footer>
@@ -83,4 +84,4 @@ function UpdateUserModal(props) {
     );
 }
 
-export default UpdateUserModal;
+export default UpdateCategoryModal;

@@ -4,21 +4,21 @@ import _ from 'lodash';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 
-import * as categoryServices from '~/services/categoryServices';
-import styles from './CategoryAdmin.module.scss';
+import * as countryServices from '~/services/countryServices';
+import styles from './CountryAdmin.module.scss';
 import formatDate from '~/utils/formatDate';
 import useDebounce from '~/hooks/useDebounce';
 import Pagination from '~/components/Pagination';
-import ModalAddCategory from './ModalAddCategory';
-import ModalUpdateCategory from './ModalUpdateCategory';
+import ModalAddCountry from './ModalAddCountry';
+import ModalUpdateCountry from './ModalUpdateCountry';
 import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ModalDeleteCategory from './ModalDeleteCategory';
+import ModalDeleteCountry from './ModalDeleteCountry';
 
 const cx = classNames.bind(styles);
 
-function CategoryAdmin() {
-    const [categrories, setCategorys] = useState([]);
+function CountryAdmin() {
+    const [countries, setCountries] = useState([]);
     const [pageCount, setPageCount] = useState(0);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchValue, setSearchValue] = useState('');
@@ -28,17 +28,17 @@ function CategoryAdmin() {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState({});
+    const [selectedCountry, setSelectedCountry] = useState({});
     useEffect(() => {
         const fetchData = async (page, pageSize) => {
-            const result = await categoryServices.getall(page, pageSize);
+            const result = await countryServices.getall(page, pageSize);
             setCurrentPage(result.pageNumber);
             setPageCount(result.totalPages);
 
             const filtered = result.items.filter((item) =>
                 item.name.toLowerCase().includes(debouncedValue.toLowerCase()),
             );
-            setCategorys(filtered);
+            setCountries(filtered);
         };
         fetchData(currentPage, itemsPerPage);
     }, [currentPage, debouncedValue]);
@@ -52,26 +52,25 @@ function CategoryAdmin() {
     };
 
     const handleUpdateData = (data) => {
-        setCategorys([data, ...categrories]);
+        setCountries([data, ...countries]);
     };
     const handleUpdateFromModal = (data) => {
-        let cloneCategorys = _.cloneDeep(categrories);
-        let index = categrories.findIndex((item) => item.id === data.id);
-        cloneCategorys[index].name = data.name;
-        cloneCategorys[index].slug = data.slug;
-        cloneCategorys[index].isActive = data.isActive;
+        let clonecountries = _.cloneDeep(countries);
+        let index = countries.findIndex((item) => item.id === data.id);
+        clonecountries[index].name = data.name;
+        clonecountries[index].isActive = data.isActive;
 
-        setCategorys(cloneCategorys);
+        setCountries(clonecountries);
     };
     const handleDeleteFromModal = (data) => {
-        let cloneCategorys = _.cloneDeep(categrories);
-        cloneCategorys = cloneCategorys.filter((item) => item.id !== data.id);
-        setCategorys(cloneCategorys);
+        let clonecountries = _.cloneDeep(countries);
+        clonecountries = clonecountries.filter((item) => item.id !== data.id);
+        setCountries(clonecountries);
     };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
-                <div className={cx('title-name')}>Quản lý thể loại</div>
+                <div className={cx('title-name')}>Quản lý quốc gia</div>
             </div>
             <div className={cx('header-area')}>
                 <div className={cx('search')}>
@@ -87,7 +86,7 @@ function CategoryAdmin() {
                         onClick={() => setShowAddModal(true)}
                         size="lg"
                     >
-                        <FontAwesomeIcon icon={faAdd} /> Thêm thể loại
+                        <FontAwesomeIcon icon={faAdd} /> Thêm quốc gia
                     </Button>
                 </div>
             </div>
@@ -95,27 +94,25 @@ function CategoryAdmin() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tên thể loại</th>
-                        <th>Slug</th>
+                        <th>Tên quốc gia</th>
                         <th>Ngày tạo</th>
 
                         <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {categrories.length > 0 ? (
-                        categrories.map((item, index) => (
+                    {countries.length > 0 ? (
+                        countries.map((item, index) => (
                             <tr key={item.id}>
                                 <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
                                 <td>{item.name}</td>
-                                <td>{item.slug}</td>
                                 <td>{formatDate(new Date(item.createDate))}</td>
 
                                 <td>
                                     <FontAwesomeIcon
                                         className={cx('update-icon')}
                                         onClick={() => {
-                                            setSelectedCategory(item);
+                                            setSelectedCountry(item);
                                             setShowUpdateModal(true);
                                         }}
                                         icon={faPen}
@@ -124,7 +121,7 @@ function CategoryAdmin() {
                                     <FontAwesomeIcon
                                         className={cx('delete-icon')}
                                         onClick={() => {
-                                            setSelectedCategory(item);
+                                            setSelectedCountry(item);
                                             setShowDeleteModal(true);
                                         }}
                                         icon={faTrash}
@@ -141,21 +138,21 @@ function CategoryAdmin() {
                     )}
                 </tbody>
             </Table>
-            <ModalAddCategory
+            <ModalAddCountry
                 show={showAddModal}
                 handleClose={() => setShowAddModal(false)}
                 handleUpdateData={handleUpdateData}
             />
-            <ModalUpdateCategory
+            <ModalUpdateCountry
                 show={showUpdateModal}
                 handleClose={() => setShowUpdateModal(false)}
-                category={selectedCategory}
+                country={selectedCountry}
                 handleUpdateFromModal={handleUpdateFromModal}
             />
-            <ModalDeleteCategory
+            <ModalDeleteCountry
                 show={showDeleteModal}
                 handleClose={() => setShowDeleteModal(false)}
-                category={selectedCategory}
+                country={selectedCountry}
                 handleDeleteFromModal={handleDeleteFromModal}
             />
 
@@ -164,4 +161,4 @@ function CategoryAdmin() {
     );
 }
 
-export default CategoryAdmin;
+export default CountryAdmin;

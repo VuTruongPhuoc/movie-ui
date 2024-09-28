@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 const cx = classNames.bind(styles);
 
 const ModalChangeAvatar = (props) => {
-    const { user, handleClose } = props;
+    const { user, handleClose, handleRefreshUserList } = props;
     const [image, setImage] = useState(null);
     const inputRef = useRef(null);
 
@@ -26,14 +26,16 @@ const ModalChangeAvatar = (props) => {
     const handleAccept = async () => {
         const fetchApi = async () => {
             try {
-                const response = await userServices.changeAvatar(user.userName, user.avatar, image);
+                const response = await userServices.changeAvatar(user.userName, image);
                 if (response && response.success) {
+                    handleRefreshUserList();
                     handleClose();
                 }
                 toast.success(response.message);
             } catch (err) {
+                console.log(err);
                 if (!err.response) {
-                    toast.error('Server không phản hồi');
+                    toast.error('Có lỗi xảy ra trong quá trình thay đổi ảnh');
                 } else {
                     toast.error(err.response.data.message);
                 }

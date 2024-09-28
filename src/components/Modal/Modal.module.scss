@@ -162,8 +162,11 @@
     flex-direction: column;
 }
 .upload-area img {
-    width: 300px;
+    width: 250px;
+    height: 250px;
+    object-fit: cover;
     clip-path: square(50% at center);
+    height: auto;
 }
 .btn-upload {
     margin: 10px 0;

@@ -5,16 +5,17 @@ import * as authServices from '~/services/authServices';
 const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }) => {
-    const [username, setUsername] = useState();
+    const [currentUser, setCurrentUser] = useState();
     const [accessToken, setAccessToken] = useState();
     const login = async (username, password) => {
         try {
             const response = await authServices.login(username, password);
             const accessToken = response?.accessToken;
-            localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, accessToken);
-            localStorage.setItem(process.env.REACT_APP_USER_NAME, response.username);
+
+            authServices.setToken(accessToken);
+            localStorage.setItem(process.env.REACT_APP_CURRENT_USER, JSON.stringify(response.user));
             setAccessToken(accessToken);
-            setUsername(response.username);
+            setCurrentUser(response.user);
             toast.success(response.message);
         } catch (err) {
             if (!err.response) {
@@ -25,13 +26,13 @@ export const AuthProvider = ({ children }) => {
         }
     };
     const logout = () => {
-        localStorage.removeItem(process.env.REACT_APP_TOKEN_NAME);
-        localStorage.removeItem(process.env.REACT_APP_USER_NAME);
+        authServices.removeToken();
+        localStorage.removeItem(process.env.REACT_APP_CURRENT_USER);
         setAccessToken(null);
-        setUsername(null);
+        setCurrentUser(null);
     };
 
-    return <AuthContext.Provider value={{ username, accessToken, login, logout }}>{children}</AuthContext.Provider>;
+    return <AuthContext.Provider value={{ currentUser, accessToken, login, logout }}>{children}</AuthContext.Provider>;
 };
 
 export default AuthContext;

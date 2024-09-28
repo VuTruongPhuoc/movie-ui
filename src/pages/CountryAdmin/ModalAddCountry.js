@@ -1,37 +1,25 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Button, Modal } from 'react-bootstrap';
 import classNames from 'classnames/bind';
-import styles from './SectionAdmin.module.scss';
-import * as sectionServices from '~/services/sectionServices';
+import styles from './CountryAdmin.module.scss';
+import * as countryServices from '~/services/countryServices';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-function UpdateSectionModal(props) {
-    const { show, handleClose, section, handleUpdateFromModal } = props;
+function AddCountryModal(props) {
+    const { show, handleClose, handleUpdateData } = props;
     const [name, setName] = useState('');
-
-    useEffect(() => {
-        if (show) {
-            setName(section.name);
-        }
-    }, [section]);
-
-    const handleSaveSection = (e) => {
+    const inputRef = useRef();
+    const handleSaveCountry = (e) => {
         const fetchApi = async () => {
             try {
-                const response = await sectionServices.update(section.id, name);
-                if (response && response.success) {
-                    handleUpdateFromModal({
-                        name: name,
-                        id: section.id,
-                        isActive: section.isActive,
-                    });
-                }
+                const response = await countryServices.add(name);
+                handleUpdateData(response.country);
                 toast.success(response.message);
+                setName('');
                 handleClose();
             } catch (err) {
-                console.log(err);
                 if (!err.response) {
                     toast.error('Server không phản hồi');
                 } else {
@@ -46,20 +34,21 @@ function UpdateSectionModal(props) {
         <div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Cập nhật phần</Modal.Title>
+                    <Modal.Title>Thêm quốc gia</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <input
-                        type="text"
+                        name="name"
                         className={cx('input-add-name')}
-                        placeholder="Nhập tên phần"
+                        placeholder="Nhập tên quốc gia"
                         value={name}
                         required
+                        ref={inputRef}
                         onChange={(e) => setName(e.target.value)}
                     ></input>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="primary" size="lg" onClick={handleSaveSection}>
+                    <Button variant="primary" size="lg" onClick={handleSaveCountry}>
                         Lưu thay đổi
                     </Button>
                 </Modal.Footer>
@@ -68,4 +57,4 @@ function UpdateSectionModal(props) {
     );
 }
 
-export default UpdateSectionModal;
+export default AddCountryModal;

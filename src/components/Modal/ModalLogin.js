@@ -1,6 +1,6 @@
-import { useRef, useState, useContext, forwardRef } from 'react';
+import { useState, useContext, forwardRef } from 'react';
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
+import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
 
 import styles from './Modal.module.scss';
 import Button from '../Button';
@@ -12,10 +12,10 @@ const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
     const { login } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-
     const handleSubmitEvent = async (e) => {
         e.preventDefault();
-        login(username, password);
+        await login(username, password);
+        window.location.reload();
     };
 
     return (

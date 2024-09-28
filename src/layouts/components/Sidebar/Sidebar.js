@@ -13,11 +13,19 @@ function SideBar() {
         <>
             <aside className={cx('wrapper')}>
                 <Menu>
-                    <MenuItem title="Hồ sơ" to={config.routes.profile} icon={<FontAwesomeIcon icon={faList} />} />
-                    <MenuItem title="Tài khoản" to={config.routes.account} icon={<FontAwesomeIcon icon={faGear} />} />
+                    <MenuItem
+                        title="Hồ sơ"
+                        to={config.privateroutes.profile}
+                        icon={<FontAwesomeIcon icon={faList} />}
+                    />
+                    <MenuItem
+                        title="Tài khoản"
+                        to={config.privateroutes.account}
+                        icon={<FontAwesomeIcon icon={faGear} />}
+                    />
                     <MenuItem
                         title="Lịch sử"
-                        to={config.routes.history}
+                        to={config.privateroutes.history}
                         icon={<FontAwesomeIcon icon={faClockRotateLeft} />}
                     />
 

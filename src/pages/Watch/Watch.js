@@ -64,7 +64,9 @@ const commentsList = [
 ];
 
 const watch = () => {
-    const videoBlob = new Blob(['https://youtu.be/iu-LBY7NXD4'], { type: 'video/mp4' });
+    const videoBlob = new Blob(['https://vip.opstream11.com/share/98d103999c57b2e26b98ab2404d9e12a'], {
+        type: 'video/mp4',
+    });
     const videoUrl = URL.createObjectURL(videoBlob);
     return (
         <div className={cx('wrapper')}>
@@ -72,7 +74,7 @@ const watch = () => {
                 <div className={cx('video-player')}>
                     <ReactPlayer
                         className={cx('player')}
-                        url="https://youtu.be/mobl4W2aIFA"
+                        url="https://vip.opstream11.com/share/98d103999c57b2e26b98ab2404d9e12a"
                         controls={true}
                         style={{ maxWidth: '1170px', minHeight: '540px' }}
                         width="100%"

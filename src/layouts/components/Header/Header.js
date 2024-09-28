@@ -13,8 +13,7 @@ import config from '~/config';
 import styles from './Header.module.scss';
 import Nav, { NavItem } from './Nav';
 import { PopperWrapper } from '~/components/Popper';
-import ModalCustom, { ModalLogin } from '~/components/Modal';
-import ModalRegister from '~/components/Modal/ModalRegister';
+import ModalCustom, { ModalLogin, ModalRegister } from '~/components/Modal';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
 
@@ -63,12 +62,12 @@ const genresList = [
     },
 ];
 const Header = () => {
-    let { username, logout } = useContext(AuthContext);
+    let { currentUser, logout } = useContext(AuthContext);
     const menuItems = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'Thông tin',
-            to: '/profile',
+            to: config.privateroutes.profile,
         },
         {
             icon: <FontAwesomeIcon icon={faUserCircle} />,
@@ -89,17 +88,16 @@ const Header = () => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isShowFormLogin, setIsShowFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
-    if (!username) {
-        username = localStorage.getItem(process.env.REACT_APP_USER_NAME);
-        console.log(username);
+    if (!currentUser) {
+        currentUser = localStorage.getItem(process.env.REACT_APP_CURRENT_USER);
     }
     jwtTokenHandler();
     const formRef = useRef();
 
     useEffect(() => {
         setIsShowFormLogin(false);
-        setIsCurrentUser(!!username);
-    }, [username]);
+        setIsCurrentUser(!!currentUser);
+    }, [currentUser]);
     const CloseFormLogin = () => {
         setIsShowFormLogin(false);
         setIsFormLogin(true);
