@@ -1,20 +1,18 @@
 import { getHeaderConfig } from '~/utils/apiHandler';
 import * as httpRequest from '~/utils/httpRequest';
 
-const getall = async (page, pageSize) => {
+const getall = async () => {
     try {
-        const response = await httpRequest.get(
-            `/category/all?pageNumber=${page}&pageSize=${pageSize}`,
-            getHeaderConfig(),
-        );
+        const response = await httpRequest.get(`/category/all`, getHeaderConfig());
         return response.data;
     } catch (err) {}
 };
-const add = async (name) => {
+const add = async (name, slug) => {
     const response = await httpRequest.post(
         '/category/add',
         {
             name,
+            slug,
         },
         getHeaderConfig(),
     );

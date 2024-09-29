@@ -4,12 +4,12 @@ import Button from '../Button';
 import { faUpload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useRef, useState } from 'react';
-import * as userServices from '~/services/userServices';
+import * as filmServices from '~/services/filmServices';
 import { toast } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
-const ModalChangeAvatar = (props) => {
+const ModalChangeFilmImage = (props) => {
     const { data, handleClose, handleRefresh } = props;
     const [image, setImage] = useState(null);
     const inputRef = useRef(null);
@@ -26,7 +26,7 @@ const ModalChangeAvatar = (props) => {
     const handleAccept = async () => {
         const fetchApi = async () => {
             try {
-                const response = await userServices.changeAvatar(data.userName, image);
+                const response = await filmServices.changeFilmImage(data.id, image);
                 if (response && response.success) {
                     handleRefresh();
                     handleClose();
@@ -67,4 +67,4 @@ const ModalChangeAvatar = (props) => {
     );
 };
 
-export default ModalChangeAvatar;
+export default ModalChangeFilmImage;

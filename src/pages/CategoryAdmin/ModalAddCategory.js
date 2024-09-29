@@ -15,7 +15,7 @@ function AddCategoryModal(props) {
     const handleSaveCategory = (e) => {
         const fetchApi = async () => {
             try {
-                const response = await categoryServices.add(name);
+                const response = await categoryServices.add(name, slug);
                 handleUpdateData(response.category);
                 toast.success(response.message);
                 setName('');
@@ -43,10 +43,10 @@ function AddCategoryModal(props) {
                 </Modal.Header>
                 <Modal.Body>
                     <div>
-                        <label>Tên phần: </label>
+                        <label>Tên thể loại: </label>
                         <input
                             className={cx('input-add-name')}
-                            placeholder="Nhập tên phần"
+                            placeholder="Nhập tên thể loại"
                             value={name}
                             onChange={handleNameChange}
                         ></input>

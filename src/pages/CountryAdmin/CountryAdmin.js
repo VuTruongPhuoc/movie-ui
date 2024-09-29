@@ -19,33 +19,20 @@ const cx = classNames.bind(styles);
 
 function CountryAdmin() {
     const [countries, setCountries] = useState([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
     const [searchValue, setSearchValue] = useState('');
     const debouncedValue = useDebounce(searchValue, 500);
-    const itemsPerPage = 10;
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedCountry, setSelectedCountry] = useState({});
     useEffect(() => {
-        const fetchData = async (page, pageSize) => {
-            const result = await countryServices.getall(page, pageSize);
-            setCurrentPage(result.pageNumber);
-            setPageCount(result.totalPages);
-
-            const filtered = result.items.filter((item) =>
-                item.name.toLowerCase().includes(debouncedValue.toLowerCase()),
-            );
-            setCountries(filtered);
+        const fetchData = async () => {
+            const result = await countryServices.getall();
+            setCountries(result);
         };
-        fetchData(currentPage, itemsPerPage);
-    }, [currentPage, debouncedValue]);
-
-    const handlePageClick = (event) => {
-        setCurrentPage(+event.selected + 1);
-    };
+        fetchData();
+    }, []);
 
     const handleSearchChange = (e) => {
         setSearchValue(e.target.value.trim());
@@ -104,7 +91,7 @@ function CountryAdmin() {
                     {countries.length > 0 ? (
                         countries.map((item, index) => (
                             <tr key={item.id}>
-                                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                                <td>{index + 1}</td>
                                 <td>{item.name}</td>
                                 <td>{formatDate(new Date(item.createDate))}</td>
 
@@ -155,8 +142,6 @@ function CountryAdmin() {
                 country={selectedCountry}
                 handleDeleteFromModal={handleDeleteFromModal}
             />
-
-            <Pagination handlePageClick={handlePageClick} pageCount={pageCount} />
         </div>
     );
 }

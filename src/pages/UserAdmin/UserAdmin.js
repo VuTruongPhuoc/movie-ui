@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 
 import * as userServices from '~/services/userServices';
 import styles from './UserAdmin.module.scss';
-import formatDate from '~/utils/formatDate';
 import useDebounce from '~/hooks/useDebounce';
 import Pagination from '~/components/Pagination';
 import ModalAddUser from './ModalAddUser';
@@ -262,10 +261,9 @@ function UserAdmin() {
             {isShowModalChangeAvatar && (
                 <ModalCustom onClose={() => setIsShowModalChangeAvatar(false)} title="Tải lên ảnh đại diện mới">
                     <ModalChangeAvatar
-                        user={selectedUser}
+                        data={selectedUser}
                         handleClose={() => setIsShowModalChangeAvatar(false)}
-                        handleUpdateFromModalChangeAvatar={handleUpdateFromModalChangeAvatar}
-                        handleRefreshUserList={refreshUserList}
+                        handleRefresh={refreshUserList}
                     />
                 </ModalCustom>
             )}
