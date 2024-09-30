@@ -8,88 +8,16 @@ import config from '~/config';
 
 const cx = classNames.bind(styles);
 
-let filmsList = [
-    {
-        img: 'https://www.iq.com/album/hard-noble-lady-2024-102s7pyqifx?lang=en_us',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-    {
-        img: 'https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp',
-        name: 'Sieu nhan',
-    },
-];
-let length = filmsList.length;
-let filmsFirstHalfList = filmsList.slice(-length, -length + 8);
-let firmsSecondHalfList = filmsList.slice(-length + 8);
+// let length = filmsList.length;
+// let filmsFirstHalfList = filmsList.slice(-length, -length + 8);
+// let firmsSecondHalfList = filmsList.slice(-length + 8);
 
-filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
+// filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
 
-const RowSlider = ({ title }) => {
+const RowSlider = ({ title, filmsList }) => {
+    console.log(filmsList);
     const [imageIndex, setImageIndex] = useState(0);
+
     const containerRef = useRef(null);
     const childItemRef = useRef(null);
     const setImageRightArrow = () => {
@@ -122,20 +50,28 @@ const RowSlider = ({ title }) => {
             containerRef.current.style.transform = `translateX(-${(100 / 6) * imageIndex}%)`;
         }
     }, [imageIndex]);
-    // console.log(childItemRef.current);
-    // console.log(location);
     return (
         <div className={cx('wrapper')}>
             <section className={cx('row-slider')}>
                 <div className={cx('row-content')}>
                     <h2 className={cx('title')}>{title}</h2>
                     <div className={cx('child-container')} ref={containerRef}>
-                        {filmsList.map((child, index) => (
-                            <Link className={cx('child-item')} key={index} ref={childItemRef} to={config.routes.album}>
-                                <img className={cx('child-img')} src={child.img} alt={child.name} />
-                                <span className={cx('child-name')}>{child.name}</span>
-                            </Link>
-                        ))}
+                        {filmsList &&
+                            filmsList.map((child, index) => (
+                                <Link
+                                    className={cx('child-item')}
+                                    key={index}
+                                    ref={childItemRef}
+                                    to={config.routes.album}
+                                >
+                                    <div className={cx('img-area')}>
+                                        <img className={cx('child-img')} src={child.imageUrl} alt={child.name} />
+                                        <span className={cx('child-episode')}>{child.numberOfEpisodes}</span>
+                                    </div>
+
+                                    <span className={cx('child-name')}>{child.name}</span>
+                                </Link>
+                            ))}
                     </div>
                 </div>
                 <div className={cx('slider-arrows')}>

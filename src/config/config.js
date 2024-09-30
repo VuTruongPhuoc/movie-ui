@@ -5,7 +5,7 @@ const routes = {
     movies: '/list/movies',
     latest: '/latest',
     album: '/album',
-    watch: `/watch`,
+    watch: `/watch/:slug`,
     noaccess: '/no-access',
 };
 const privateroutes = {
@@ -22,6 +22,7 @@ const adminroutes = {
     category: '/admin/category',
     country: '/admin/country',
     schedule: '/admin/schedule',
+    episode: '/admin/episode',
 };
 const config = { routes, privateroutes, adminroutes };
 

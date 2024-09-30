@@ -6,6 +6,7 @@ import {
     faArrowLeft,
     faCableCar,
     faCloudSun,
+    faExplosion,
     faFilm,
     faLineChart,
     faPassport,
@@ -40,6 +41,11 @@ function Sidebar() {
                         icon={<FontAwesomeIcon icon={faUser} />}
                     />
                     <MenuItem title="Phim" to={config.adminroutes.film} icon={<FontAwesomeIcon icon={faFilm} />} />
+                    <MenuItem
+                        title="Tập"
+                        to={config.adminroutes.episode}
+                        icon={<FontAwesomeIcon icon={faExplosion} />}
+                    />
                     <MenuItem
                         title="Phần"
                         to={config.adminroutes.section}

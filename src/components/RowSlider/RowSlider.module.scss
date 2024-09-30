@@ -44,17 +44,25 @@
 
 .child-img {
     object-fit: cover;
-    width: 100%;
+    width: 200px;
     height: 240px;
     border-radius: 10px;
 }
 
 .child-item img {
-    height: 100%;
-    width: 100%;
     background: center center/ cover no-repeat;
 }
-
+.img-area {
+    position: relative;
+}
+.child-episode {
+    position: absolute;
+    bottom: 0;
+    left: 20px;
+    bottom: 20px;
+    color: var(--white);
+    z-index: 1;
+}
 .child-name {
     margin: 8px 0;
     font-weight: 500;

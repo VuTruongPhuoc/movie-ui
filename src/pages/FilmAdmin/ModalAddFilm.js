@@ -38,6 +38,8 @@ function AddFilmModal(props) {
     const [time, setTime] = useState('');
     const [type, setType] = useState('');
     const [year, setYear] = useState('');
+    const [trailer, setTrailer] = useState('');
+    const [numberOfEpisodes, setNumberOfEpisodes] = useState('');
     const [description, setDescription] = useState('');
     const [scheduleId, setScheduleId] = useState(1);
     const [countryId, setCountryId] = useState(1);
@@ -46,7 +48,20 @@ function AddFilmModal(props) {
     const [categories, setCategories] = useState();
     const [categoryIds, setCategoryIds] = useState([]);
 
-    const data = { name, slug, originName, time, type, year, scheduleId, countryId, description, categoryIds };
+    const data = {
+        name,
+        slug,
+        originName,
+        time,
+        type,
+        year,
+        trailer,
+        numberOfEpisodes,
+        scheduleId,
+        countryId,
+        description,
+        categoryIds,
+    };
     useEffect(() => {
         const fetchScheduleData = async () => {
             const response = await scheduleServices.getall();
@@ -148,6 +163,26 @@ function AddFilmModal(props) {
                             value={year}
                             required
                             onChange={(e) => setYear(e.target.value)}
+                        ></input>
+                    </div>
+                    <div>
+                        <label>Số tập phim: </label>
+                        <input
+                            className={cx('input-add')}
+                            placeholder="Nhập số tập phim"
+                            value={numberOfEpisodes}
+                            required
+                            onChange={(e) => setNumberOfEpisodes(e.target.value)}
+                        ></input>
+                    </div>
+                    <div>
+                        <label>Trailer: </label>
+                        <input
+                            className={cx('input-add')}
+                            placeholder="Nhập trailer"
+                            value={trailer}
+                            required
+                            onChange={(e) => setTrailer(e.target.value)}
                         ></input>
                     </div>
                     <div>

@@ -59,6 +59,7 @@ function FilmAdmin() {
         cloneFilms[index].time = data.time;
         cloneFilms[index].type = data.type;
         cloneFilms[index].year = data.year;
+        cloneFilms[index].numberOfEpisodes = data.numberOfEpisodes;
         cloneFilms[index].categories = data.categories;
         cloneFilms[index].country.id = data.countryId;
         cloneFilms[index].schedule.id = data.scheduleId;
@@ -105,6 +106,7 @@ function FilmAdmin() {
                         <th>Hình ảnh</th>
                         <th>Tên gốc</th>
                         <th>Thời lượng</th>
+                        <th>Số tập</th>
                         <th>Loại phim</th>
                         <th>Thể loại</th>
                         <th>Năm</th>
@@ -137,6 +139,8 @@ function FilmAdmin() {
                                 </td>
                                 <td>{item.originName}</td>
                                 <td>{item.time}</td>
+                                <td>{item.numberOfEpisodes}</td>
+
                                 <td>
                                     {(() => {
                                         switch (item.type) {

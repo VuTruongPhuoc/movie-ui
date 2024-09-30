@@ -72,13 +72,14 @@ const watch = () => {
         <div className={cx('wrapper')}>
             <div className={cx('watch-area')}>
                 <div className={cx('video-player')}>
-                    <ReactPlayer
+                    <iframe
                         className={cx('player')}
-                        url="https://vip.opstream11.com/share/98d103999c57b2e26b98ab2404d9e12a"
+                        src="https://vip.opstream11.com/share/69f05392fc2e30ff3eee0b930c42cc3e"
                         controls={true}
                         style={{ maxWidth: '1170px', minHeight: '540px' }}
                         width="100%"
                         height="540px"
+                        allowFullScreen
                     />
                 </div>
                 <div className={cx('video-episode')}>

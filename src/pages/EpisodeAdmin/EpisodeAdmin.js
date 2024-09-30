@@ -3,63 +3,72 @@ import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
-
-import * as categoryServices from '~/services/categoryServices';
-import styles from './CategoryAdmin.module.scss';
-import formatDate from '~/utils/formatDate';
-import useDebounce from '~/hooks/useDebounce';
-import Pagination from '~/components/Pagination';
-import ModalAddCategory from './ModalAddCategory';
-import ModalUpdateCategory from './ModalUpdateCategory';
-import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import ModalDeleteCategory from './ModalDeleteCategory';
+import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+
+import * as episodeServices from '~/services/episodeServices';
+import * as filmServices from '~/services/filmServices';
+import styles from './EpisodeAdmin.module.scss';
+import useDebounce from '~/hooks/useDebounce';
+import ModalAddEpisode from './ModalAddEpisode';
+import ModalUpdateEpisode from './ModalUpdateEpisode';
+import ModalDeleteEpisode from './ModalDeleteEpisode';
 
 const cx = classNames.bind(styles);
 
-function CategoryAdmin() {
-    const [categories, setCategories] = useState([]);
+function EpisodeAdmin() {
+    const [episodes, setEpisodes] = useState();
     const [searchValue, setSearchValue] = useState('');
     const debouncedValue = useDebounce(searchValue, 500);
+    const [slugFilm, setSlugFilm] = useState('dao-hai-tac');
+    const [films, setFilms] = useState();
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState({});
+    const [selectedEpisode, setSelectedEpisode] = useState({});
+
     useEffect(() => {
         const fetchData = async () => {
-            const result = await categoryServices.getall();
-
-            setCategories(result);
+            const result = await filmServices.getbyslug(slugFilm);
+            setEpisodes(result.episodes);
         };
         fetchData();
-    }, [debouncedValue]);
+    }, [slugFilm]);
+    useEffect(() => {
+        const fetchFilmsData = async () => {
+            const result = await filmServices.getall();
+            setFilms(result);
+        };
+        fetchFilmsData();
+    }, []);
 
     const handleSearchChange = (e) => {
-        setSearchValue(e.target.value.trim());
-    };
-
-    const handleUpdateData = (data) => {
-        setCategories([data, ...categories]);
+        var searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
     };
     const handleUpdateFromModal = (data) => {
-        let cloneCategorys = _.cloneDeep(categories);
-        let index = categories.findIndex((item) => item.id === data.id);
-        cloneCategorys[index].name = data.name;
-        cloneCategorys[index].slug = data.slug;
-        cloneCategorys[index].isActive = data.isActive;
-
-        setCategories(cloneCategorys);
+        let cloneEpisodes = _.cloneDeep(episodes);
+        let index = episodes.findIndex((item) => item.id === data.id);
+        cloneEpisodes[index].name = data.name;
+        cloneEpisodes[index].slug = data.slug;
+        cloneEpisodes[index].link = data.link;
+        cloneEpisodes[index].filmName = data.filmName;
+        cloneEpisodes[index].sectionName = data.sectionName;
+        console.log(cloneEpisodes[index]);
+        setEpisodes(cloneEpisodes);
     };
     const handleDeleteFromModal = (data) => {
-        let cloneCategorys = _.cloneDeep(categories);
-        cloneCategorys = cloneCategorys.filter((item) => item.id !== data.id);
-        setCategories(cloneCategorys);
+        let cloneFilms = _.cloneDeep(films);
+        cloneFilms = cloneFilms.filter((item) => item.id !== data.id);
+        setFilms(cloneFilms);
     };
     return (
         <div className={cx('wrapper')}>
             <div className={cx('title')}>
-                <div className={cx('title-name')}>Quản lý thể loại</div>
+                <div className={cx('title-name')}>Quản lý tập</div>
             </div>
             <div className={cx('header-area')}>
                 <div className={cx('search')}>
@@ -68,6 +77,19 @@ function CategoryAdmin() {
                         <FontAwesomeIcon icon={faSearch} />
                     </div>
                 </div>
+                <div>
+                    {/* <label>Chọn phim: </label> */}
+                    <select className={cx('input-add')} onChange={(e) => setSlugFilm(e.target.value)}>
+                        {films &&
+                            films.map((item) => {
+                                return (
+                                    <option key={item.id} value={item.slug}>
+                                        {item.name}
+                                    </option>
+                                );
+                            })}
+                    </select>
+                </div>
                 <div className={cx('action')}>
                     <Button
                         variant="primary"
@@ -75,7 +97,7 @@ function CategoryAdmin() {
                         onClick={() => setShowAddModal(true)}
                         size="lg"
                     >
-                        <FontAwesomeIcon icon={faAdd} /> Thêm thể loại
+                        <FontAwesomeIcon icon={faAdd} /> Thêm tập
                     </Button>
                 </div>
             </div>
@@ -83,27 +105,29 @@ function CategoryAdmin() {
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Tên thể loại</th>
+                        <th>Tên tập</th>
+                        <th>Tên phim</th>
+                        <th>Phần</th>
                         <th>Slug</th>
-                        <th>Ngày tạo</th>
-
+                        <th>Link</th>
                         <th>Hành động</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {categories.length > 0 ? (
-                        categories.map((item, index) => (
+                    {episodes ? (
+                        episodes.map((item, index) => (
                             <tr key={item.id}>
                                 <td>{index + 1}</td>
                                 <td>{item.name}</td>
+                                <td>{item.filmName}</td>
+                                <td>{item.sectionName}</td>
                                 <td>{item.slug}</td>
-                                <td>{formatDate(new Date(item.createDate))}</td>
-
+                                <td colSpan={1}>{item.link}</td>
                                 <td>
                                     <FontAwesomeIcon
                                         className={cx('update-icon')}
                                         onClick={() => {
-                                            setSelectedCategory(item);
+                                            setSelectedEpisode(item);
                                             setShowUpdateModal(true);
                                         }}
                                         icon={faPen}
@@ -112,7 +136,7 @@ function CategoryAdmin() {
                                     <FontAwesomeIcon
                                         className={cx('delete-icon')}
                                         onClick={() => {
-                                            setSelectedCategory(item);
+                                            setSelectedEpisode(item);
                                             setShowDeleteModal(true);
                                         }}
                                         icon={faTrash}
@@ -122,32 +146,33 @@ function CategoryAdmin() {
                         ))
                     ) : (
                         <tr>
-                            <td colSpan="5" className={cx('no-records')}>
+                            <td colSpan="9" className={cx('no-records')}>
                                 Không có bản ghi
                             </td>
                         </tr>
                     )}
                 </tbody>
             </Table>
-            <ModalAddCategory
+
+            <ModalAddEpisode
                 show={showAddModal}
                 handleClose={() => setShowAddModal(false)}
-                handleUpdateData={handleUpdateData}
+                // handleUpdateData={handleUpdateData}
             />
-            <ModalUpdateCategory
+            <ModalUpdateEpisode
                 show={showUpdateModal}
                 handleClose={() => setShowUpdateModal(false)}
-                category={selectedCategory}
+                episode={selectedEpisode}
                 handleUpdateFromModal={handleUpdateFromModal}
             />
-            <ModalDeleteCategory
+            <ModalDeleteEpisode
                 show={showDeleteModal}
                 handleClose={() => setShowDeleteModal(false)}
-                category={selectedCategory}
+                episode={selectedEpisode}
                 handleDeleteFromModal={handleDeleteFromModal}
             />
         </div>
     );
 }
 
-export default CategoryAdmin;
+export default EpisodeAdmin;

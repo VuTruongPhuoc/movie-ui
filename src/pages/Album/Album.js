@@ -1,53 +1,16 @@
 import classNames from 'classnames/bind';
-import { Link } from 'react-router-dom';
-import { Fragment, useRef, useState } from 'react';
+import { Link, useParams } from 'react-router-dom';
+import { Fragment, useEffect, useRef, useState } from 'react';
 import { faStar } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faChevronUp, faPlay, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 
+import * as filmServices from '~/services/filmServices';
 import Button from '~/components/Button';
 import FilmPropose from './FilmPropose';
 import styles from './Album.module.scss';
 
 const cx = classNames.bind(styles);
-const film = {
-    img: 'https://gophim.co/storage/images/tinh-yeu-tro-ve-mai-am/tinh-yeu-tro-ve-mai-am-1.jpg',
-    name: 'One Piece',
-    content:
-        'Monkey D. Luffy là một cậu bé đam mê Đảo Hải Tặc và ước mơ trở thành Vua Hải Tặc. Khi cậu nhỏ, Luffy ăn phải trái quỉ Gomu Gomu, biến cơ thể cậu thành cao su nhưng không biết bơi. Sau khi được Shank cứu thoát và để lại cho cậu chiếc mũ rơm, Luffy quyết định trở thành 1 cướp biển thực thụ để tìm kho báu One Piece và trở thành Vua Hải Tặc. Liệu Luffy có thể hoàn thành ước mơ của mình không? Hãy theo dõi câu chuyện hấp dẫn này trong phim Đảo Hải Tặc (One Piece)',
-    genre: [
-        {
-            id: 1,
-            name: 'action',
-        },
-        {
-            id: 2,
-            name: 'adventure',
-        },
-    ],
-    episode: [
-        {
-            id: 1,
-            name: 'Tập 1',
-            description: 'Mô tả về tập 1',
-        },
-        {
-            id: 2,
-            name: 'Tập 2',
-            description: 'Mô tả về tập 2',
-        },
-        {
-            id: 3,
-            name: 'Tập 3',
-            description: 'Mô tả về tập 3',
-        },
-        {
-            id: 4,
-            name: 'Tập 4',
-            description: 'Mô tả về tập 4',
-        },
-    ],
-};
 
 const filmProPoseList = [
     {
@@ -94,10 +57,24 @@ const filmProPoseList = [
 
 const buttonsNav = [{ name: 'Đề xuất cho bạn' }, { name: 'Danh sách tập' }];
 const Album = () => {
+    const { slug } = useParams();
+    const [film, setFilm] = useState();
     const [isExpanded, setIsExpaned] = useState(false);
     const [state, setState] = useState(buttonsNav[0]);
     const [defaultActive, setDefaultActive] = useState(buttonsNav[0]);
     const [isActive, setIsActive] = useState(true);
+
+    useEffect(() => {
+        const fetchFilmDetailData = async () => {
+            try {
+                const result = await filmServices.getbyslug(slug); // Gọi API để lấy thông tin phim theo slug
+                setFilm(result);
+            } catch (error) {
+                console.error('Error fetching film details:', error);
+            }
+        };
+        fetchFilmDetailData();
+    }, [slug]);
 
     const divref = useRef();
     if (divref.current) {
@@ -122,26 +99,26 @@ const Album = () => {
                             </div>
                             <div className={cx('film-info-top')}>
                                 <span className={cx('top')}>Đang chiếu</span>
-                                One piece (Luffy)
+                                film.originName (Luffy)
                             </div>
                             <div className={cx('film-info-detail')}>
                                 <div className={cx('rate')}>
                                     <FontAwesomeIcon icon={faStar} /> 8.0
                                 </div>
-                                <div className={cx('year')}>2024</div>
+                                <div className={cx('year')}>film.year</div>
                                 <div className={cx('film-type')}>Phim bộ</div>
                             </div>
                             <div className={cx('film-info-tag')}>
                                 <span className={cx('key')}>Thể loại: </span>
-                                {film.genre.map((item, index) => (
+                                {film.category.map((item, index) => (
                                     <Fragment key={index}>
                                         <Link to="">{item.name}</Link>
-                                        {index < film.genre.length - 1 ? ', ' : ''}
+                                        {index < film.category.length - 1 ? ', ' : ''}
                                     </Fragment>
                                 ))}
                             </div>
                             <div className={cx('film-info-content')} ref={divref}>
-                                {film.content}
+                                {film.description}
                                 <div className={cx('more-info')} onClick={handleClickExpaned}>
                                     <span className={cx('more-info-text')}>
                                         {isExpanded ? 'Thu gọn giới thiệu' : 'Hiển thị thêm'}
@@ -172,12 +149,7 @@ const Album = () => {
                         </div>
                     </div>
                     <div className={cx('col-right')}>
-                        <div className={cx('film-img')}>
-                            <img
-                                src="https://pic2.iqiyipic.com/image/20240822/54/60/a_100583425_m_601_en_260_360.webp"
-                                alt=""
-                            />
-                        </div>
+                        <div className={cx('film-img')}>{film.imgUrl}</div>
                         <div className={cx('left-layer')}></div>
                         <div className={cx('bottom-layer')}></div>
                     </div>
@@ -203,19 +175,23 @@ const Album = () => {
                             <FilmPropose filmProPoseList={filmProPoseList} />
                         ) : (
                             <div className={cx('film-episodes-list')}>
-                                {film.episode.map((item, index) => (
-                                    <div className={cx('film-episode-item')}>
-                                        <div className={cx('episode-img')}>
-                                            <img src={film.img} alt="" />
-                                            <div className={cx('episode-play')}>
-                                                <FontAwesomeIcon icon={faPlayCircle} className={cx('episode-icon')} />
+                                {film &&
+                                    film.episode.map((item, index) => (
+                                        <div className={cx('film-episode-item')}>
+                                            <div className={cx('episode-img')}>
+                                                <img src={film.img} alt="" />
+                                                <div className={cx('episode-play')}>
+                                                    <FontAwesomeIcon
+                                                        icon={faPlayCircle}
+                                                        className={cx('episode-icon')}
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className={cx('episode-name')} key={index} src="" alt="">
+                                                {film.name + ' - ' + item.name}
                                             </div>
                                         </div>
-                                        <div className={cx('episode-name')} key={index} src="" alt="">
-                                            {film.name + ' - ' + item.name}
-                                        </div>
-                                    </div>
-                                ))}
+                                    ))}
                             </div>
                         )}
                     </div>

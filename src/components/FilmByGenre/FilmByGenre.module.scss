@@ -47,10 +47,11 @@
 
 .child-img {
     object-fit: cover;
-    width: 100%;
+    width: 200px;
     height: 240px;
     border-radius: 10px;
 }
+
 .child-episode {
     position: absolute;
     bottom: 3rem;
@@ -60,4 +61,13 @@
 .child-name {
     font-weight: 500;
     color: var(--white);
+    white-space: normal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    font-size: 14px;
 }

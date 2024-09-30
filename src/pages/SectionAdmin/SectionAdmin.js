@@ -8,7 +8,6 @@ import * as sectionServices from '~/services/sectionServices';
 import styles from './SectionAdmin.module.scss';
 import formatDate from '~/utils/formatDate';
 import useDebounce from '~/hooks/useDebounce';
-import Pagination from '~/components/Pagination';
 import ModalAddSection from './ModalAddSection';
 import ModalUpdateSection from './ModalUpdateSection';
 import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
@@ -19,36 +18,26 @@ const cx = classNames.bind(styles);
 
 function SectionAdmin() {
     const [sections, setSections] = useState([]);
-    const [pageCount, setPageCount] = useState(0);
-    const [currentPage, setCurrentPage] = useState(1);
     const [searchValue, setSearchValue] = useState('');
     const debouncedValue = useDebounce(searchValue, 500);
-    const itemsPerPage = 10;
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedSection, setSelectedSection] = useState({});
     useEffect(() => {
-        const fetchData = async (page, pageSize) => {
-            const result = await sectionServices.getall(page, pageSize);
-            setCurrentPage(result.pageNumber);
-            setPageCount(result.totalPages);
-
-            const filtered = result.items.filter((item) =>
-                item.name.toLowerCase().includes(debouncedValue.toLowerCase()),
-            );
-            setSections(filtered);
+        const fetchData = async () => {
+            const result = await sectionServices.getall();
+            setSections(result);
         };
-        fetchData(currentPage, itemsPerPage);
-    }, [currentPage, debouncedValue]);
-
-    const handlePageClick = (event) => {
-        setCurrentPage(+event.selected + 1);
-    };
+        fetchData();
+    }, [debouncedValue]);
 
     const handleSearchChange = (e) => {
-        setSearchValue(e.target.value.trim());
+        var searchValue = e.target.value;
+        if (!searchValue.startsWith(' ')) {
+            setSearchValue(searchValue);
+        }
     };
 
     const handleUpdateData = (data) => {
@@ -104,7 +93,7 @@ function SectionAdmin() {
                     {sections.length > 0 ? (
                         sections.map((item, index) => (
                             <tr key={item.id}>
-                                <td>{(currentPage - 1) * itemsPerPage + index + 1}</td>
+                                <td>{index + 1}</td>
                                 <td>{item.name}</td>
                                 <td>{formatDate(new Date(item.createDate))}</td>
                                 <td>{item.isActive ? 'Hoạt động' : 'Không hoạt động'}</td>
@@ -155,8 +144,6 @@ function SectionAdmin() {
                 section={selectedSection}
                 handleDeleteFromModal={handleDeleteFromModal}
             />
-
-            <Pagination handlePageClick={handlePageClick} pageCount={pageCount} />
         </div>
     );
 }

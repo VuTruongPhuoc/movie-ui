@@ -19,6 +19,7 @@ import UserAdmin from '~/pages/UserAdmin';
 import NoAccess from '~/pages/NoAccess';
 import CountryAdmin from '~/pages/CountryAdmin';
 import ScheduleAdmin from '~/pages/ScheduleAdmin';
+import EpisodeAdmin from '~/pages/EpisodeAdmin';
 
 //Public routes
 const publicroutes = [
@@ -46,6 +47,7 @@ const adminroutes = [
     { path: config.adminroutes.user, component: UserAdmin },
     { path: config.adminroutes.country, component: CountryAdmin },
     { path: config.adminroutes.schedule, component: ScheduleAdmin },
+    { path: config.adminroutes.episode, component: EpisodeAdmin },
 ];
 
 export { publicroutes, privateroutes, adminroutes };

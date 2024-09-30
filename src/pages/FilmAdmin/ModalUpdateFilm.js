@@ -37,14 +37,16 @@ function UpdateFilmModal(props) {
     const [type, setType] = useState('');
     const [time, setTime] = useState('');
     const [year, setYear] = useState('');
+    const [trailer, setTrailer] = useState('');
+    const [numberOfEpisodes, setNumberOfEpisodes] = useState('');
     const [scheduleId, setScheduleId] = useState();
     const [countryId, setCountryId] = useState();
     const [schedules, setSchedules] = useState();
     const [countries, setCountries] = useState();
     const [categories, setCategories] = useState();
     const [categoryIds, setCategoryIds] = useState([]);
-
     const [description, setDescription] = useState('');
+
     const data = {
         id: film.id,
         name: name,
@@ -53,6 +55,8 @@ function UpdateFilmModal(props) {
         type: type,
         time: time,
         year: year,
+        numberOfEpisodes: numberOfEpisodes,
+        trailer: trailer,
         categoryIds: categoryIds,
         scheduleId: scheduleId,
         countryId: countryId,
@@ -66,10 +70,13 @@ function UpdateFilmModal(props) {
             setType(film.type);
             setTime(film.time);
             setYear(film.year);
+            setNumberOfEpisodes(film.numberOfEpisodes);
+            setTrailer(film.trailer);
             setCategoryIds(film.categories.map((category) => category.id));
             setScheduleId(film.schedule.id);
             setCountryId(film.country.id);
             setDescription(film.description);
+            console.log(film);
         }
     }, [film, show]);
     useEffect(() => {
@@ -103,6 +110,7 @@ function UpdateFilmModal(props) {
                         type: type,
                         time: time,
                         year: year,
+                        numberOfEpisodes: numberOfEpisodes,
                         countryId: countryId,
                         scheduleId: scheduleId,
                         categories: categoriesupdated,
@@ -196,6 +204,26 @@ function UpdateFilmModal(props) {
                             value={year}
                             required
                             onChange={(e) => setYear(e.target.value)}
+                        ></input>
+                    </div>
+                    <div>
+                        <label>Số tập phim: </label>
+                        <input
+                            className={cx('input-add')}
+                            placeholder="Nhập số tập phim"
+                            value={numberOfEpisodes}
+                            required
+                            onChange={(e) => setNumberOfEpisodes(e.target.value)}
+                        ></input>
+                    </div>
+                    <div>
+                        <label>Trailer: </label>
+                        <input
+                            className={cx('input-add')}
+                            placeholder="Nhập trailer"
+                            value={trailer}
+                            required
+                            onChange={(e) => setTrailer(e.target.value)}
                         ></input>
                     </div>
                     <div>

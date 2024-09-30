@@ -7,6 +7,12 @@ const getall = async () => {
         return response.data;
     } catch (err) {}
 };
+const getbyslug = async (slug) => {
+    try {
+        const response = await httpRequest.get(`film/get/${slug}`, getHeaderConfig());
+        return response;
+    } catch (err) {}
+};
 const add = async (data = {}) => {
     const response = await httpRequest.post('/film/add', data, getHeaderConfig());
     return response;
@@ -31,4 +37,4 @@ const changeFilmImage = async (id, imageFile) => {
     console.log(response);
     return response;
 };
-export { getall, add, update, del, changeFilmImage };
+export { getall, getbyslug, add, update, del, changeFilmImage };
