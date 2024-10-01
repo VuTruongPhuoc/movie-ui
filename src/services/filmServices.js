@@ -37,4 +37,16 @@ const changeFilmImage = async (id, imageFile) => {
     console.log(response);
     return response;
 };
-export { getall, getbyslug, add, update, del, changeFilmImage };
+const changeFilmPoster = async (id, posterFile) => {
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('posterFile', posterFile);
+    const response = await httpRequest.post(`/film/changefilmposter/${id}`, formData, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem(process.env.REACT_APP_TOKEN_NAME)}`,
+        },
+    });
+    console.log(response);
+    return response;
+};
+export { getall, getbyslug, add, update, del, changeFilmImage, changeFilmPoster };

@@ -5,7 +5,9 @@ const routes = {
     movies: '/list/movies',
     latest: '/latest',
     album: '/album',
-    watch: `/watch/:slug`,
+    watch: `/watch`,
+    genre: `/genre`,
+    search: `search`,
     noaccess: '/no-access',
 };
 const privateroutes = {

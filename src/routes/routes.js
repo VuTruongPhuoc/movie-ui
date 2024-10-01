@@ -7,7 +7,7 @@ import config from '~/config';
 import TVShows from '~/pages/TVShows';
 import Movies from '~/pages/Movies';
 import Latest from '~/pages/Latest';
-import Album from '~/pages/Album';
+
 import Watch from '~/pages/Watch';
 import Account from '~/pages/Account';
 import Sidebar from '~/layouts/components/Sidebar';
@@ -20,6 +20,9 @@ import NoAccess from '~/pages/NoAccess';
 import CountryAdmin from '~/pages/CountryAdmin';
 import ScheduleAdmin from '~/pages/ScheduleAdmin';
 import EpisodeAdmin from '~/pages/EpisodeAdmin';
+import Album from '~/pages/Album';
+import Genre from '~/pages/Genre';
+import Search from '~/pages/Search';
 
 //Public routes
 const publicroutes = [
@@ -27,8 +30,10 @@ const publicroutes = [
     { path: config.routes.tvshows, component: TVShows },
     { path: config.routes.movies, component: Movies },
     { path: config.routes.latest, component: Latest },
-    { path: config.routes.album, component: Album },
-    { path: config.routes.watch, component: Watch },
+    { path: config.routes.album + '/:slug', component: Album },
+    { path: config.routes.watch + '/:slug/:episode', component: Watch },
+    { path: config.routes.genre, component: Genre },
+    { path: config.routes.search, component: Search },
     { path: config.routes.nopage, component: NoPage },
     { path: config.routes.noaccess, component: NoAccess },
 ];

@@ -14,6 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDeleteFilm from './ModalDeleteFilm';
 import ModalChangeFilmImage from '~/components/Modal/ModalChangeFilmImage';
 import ModalCustom from '~/components/Modal';
+import ModalChangeFilmPoster from '~/components/Modal/ModalChangeFilmPoster';
 
 const cx = classNames.bind(styles);
 
@@ -27,6 +28,7 @@ function FilmAdmin() {
     const [showDeleteModal, setShowDeleteModal] = useState(false);
     const [selectedFilm, setSelectedFilm] = useState({});
     const [isShowModalChangeImage, setIsShowModalChangeImage] = useState(false);
+    const [isShowModalChangePoster, setIsShowModalChangePoster] = useState(false);
     const refreshFilmList = () => {
         const fetchData = async () => {
             try {
@@ -104,6 +106,7 @@ function FilmAdmin() {
                         <th>Tên phim</th>
                         <th>Slug</th>
                         <th>Hình ảnh</th>
+                        <th>Poster</th>
                         <th>Tên gốc</th>
                         <th>Thời lượng</th>
                         <th>Số tập</th>
@@ -133,6 +136,21 @@ function FilmAdmin() {
                                         alt="hihi"
                                         onClick={() => {
                                             setIsShowModalChangeImage(true);
+                                            setSelectedFilm(item);
+                                        }}
+                                    />
+                                </td>
+                                <td>
+                                    <img
+                                        className={cx('image')}
+                                        src={
+                                            item.poster
+                                                ? item.posterUrl
+                                                : 'https://localhost:7039/Content/Images/marinanime20242328012302.png'
+                                        }
+                                        alt="hihi"
+                                        onClick={() => {
+                                            setIsShowModalChangePoster(true);
                                             setSelectedFilm(item);
                                         }}
                                     />
@@ -221,6 +239,15 @@ function FilmAdmin() {
                     <ModalChangeFilmImage
                         data={selectedFilm}
                         handleClose={() => setIsShowModalChangeImage(false)}
+                        handleRefresh={refreshFilmList}
+                    />
+                </ModalCustom>
+            )}
+            {isShowModalChangePoster && (
+                <ModalCustom onClose={() => setIsShowModalChangePoster(false)} title="Tải lên poster phim mới">
+                    <ModalChangeFilmPoster
+                        data={selectedFilm}
+                        handleClose={() => setIsShowModalChangePoster(false)}
                         handleRefresh={refreshFilmList}
                     />
                 </ModalCustom>

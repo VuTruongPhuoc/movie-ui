@@ -1,59 +1,111 @@
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Slider.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { faChevronLeft, faChevronRight, faPlay } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
+
+import * as filmServices from '~/services/filmServices';
+import { removeTags } from '~/utils/removeTags';
+import Button from '~/components/Button';
+import styles from './Slider.module.scss';
+import { getRandom } from '~/utils/getRandom';
 
 const cx = classNames.bind(styles);
 
-const imagesUrl = [
-    'https://gophim.co/storage/images/du-toi-khong-phai-nguoi-hung-poster.jpg',
-    'https://gophim.co/storage/images/thach-ma-dam-yeu/c29dd17e068eafbcfc8c35d848983c34.jpg',
-    'https://gophim.co/storage/images/hieu-trieu-tich-poster.jpg',
-];
-
 const Slider = () => {
     const [imageIndex, setImageIndex] = useState(0);
+    const [films, setFilms] = useState([]);
+
+    useEffect(() => {
+        const fetchFilmData = async () => {
+            const result = await filmServices.getall();
+            const randomFilms = getRandom(result, 5);
+            setFilms(randomFilms);
+        };
+        fetchFilmData();
+    }, []);
 
     const setImageRightArrow = () => {
-        setImageIndex((index) => {
-            if (index === imagesUrl.length - 1) return 0;
-            else {
-                return index + 1;
+        setImageIndex((prevIndex) => {
+            if (films.length) {
+                return prevIndex === films.length - 1 ? 0 : prevIndex + 1;
             }
+            return prevIndex;
         });
     };
 
     const handleClickLeftArrow = () => {
-        setImageIndex((index) => {
-            if (index === 0) return imagesUrl.length - 1;
-            else {
-                return index - 1;
+        setImageIndex((prevIndex) => {
+            if (films.length) {
+                return prevIndex === 0 ? films.length - 1 : prevIndex - 1;
             }
+            return prevIndex;
         });
     };
+
     const handleClickRightArrow = () => {
         setImageRightArrow();
     };
-    useEffect(() => {
-        const intervalId = setInterval(() => {
-            setImageRightArrow();
-        }, 5000);
 
+    useEffect(() => {
+        const intervalId = setInterval(setImageRightArrow, 5000);
         return () => clearInterval(intervalId);
-    }, []);
+    }, [films]);
 
     return (
         <div className={cx('slider-column')}>
             <div className={cx('slider-images')}>
-                {imagesUrl.map((url, index) => (
+                {films.map((item, index) => (
                     <div className={cx('image-item')} key={index}>
                         <img
-                            src={url}
+                            src={item.posterUrl}
                             className={cx('image-item-slider')}
-                            alt=""
-                            style={{ translate: `${-100 * imageIndex}%` }}
+                            alt={films[imageIndex].name} // Cung cấp giá trị alt cho ảnh
+                            style={{ translate: `${-100 * imageIndex}%` }} // Sử dụng transform
                         />
+                        <div className={cx('image-content')}>
+                            <div className={cx('film-info')}>
+                                <div className={cx('film-info-title')}>
+                                    <h1>{films[imageIndex].name}</h1>
+                                </div>
+                                <div className={cx('film-info-top')}>
+                                    <span className={cx('top')}>Đang chiếu</span>
+                                    {films[imageIndex].originName}
+                                </div>
+                                <div className={cx('film-info-detail')}>
+                                    <div className={cx('rate')}>
+                                        <FontAwesomeIcon icon={faStar} /> 8.0
+                                    </div>
+                                    <div className={cx('year')}>{films[imageIndex].year}</div>
+                                    <div className={cx('film-type')}>Phim bộ</div>
+                                </div>
+                                <div className={cx('film-info-tag')}>
+                                    <span className={cx('key')}>Thể loại: </span>
+                                    {films[imageIndex].categories.map((category, index) => (
+                                        <Fragment key={index}>
+                                            <Link to="">{category.name}</Link>
+                                            {index < films[imageIndex].categories.length - 1 ? ', ' : ''}
+                                        </Fragment>
+                                    ))}
+                                </div>
+                                <div className={cx('film-info-content')}>
+                                    {removeTags(films[imageIndex].description)}
+                                </div>
+                                <div className={cx('film-info-desc')}>
+                                    <div className={cx('group-btn')}>
+                                        <Button
+                                            className={cx('btn-play')}
+                                            leftIcon={<FontAwesomeIcon icon={faPlay} />}
+                                            primary
+                                            to={`/watch/${films[imageIndex].slug}/tap-1`} // Cập nhật đường dẫn
+                                        >
+                                            Phát
+                                        </Button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 ))}
             </div>
@@ -66,10 +118,10 @@ const Slider = () => {
                 </div>
             </div>
             <div className={cx('slider-indicator')}>
-                {imagesUrl.map((item, index) => (
+                {films.map((item, index) => (
                     <span
                         key={index}
-                        className={cx('pag-indicator', { active: imagesUrl[imageIndex] === item })}
+                        className={cx('pag-indicator', { active: index === imageIndex })}
                         onClick={() => setImageIndex(index)}
                     ></span>
                 ))}

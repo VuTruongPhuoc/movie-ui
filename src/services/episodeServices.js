@@ -25,4 +25,4 @@ const del = async (id) => {
     const response = await httpRequest.del(`/episode/delete/${id}`, getHeaderConfig());
     return response;
 };
-export { getall, add, update, del };
+export { getall, getbyfilm, add, update, del };

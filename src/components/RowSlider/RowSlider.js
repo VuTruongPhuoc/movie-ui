@@ -15,18 +15,17 @@ const cx = classNames.bind(styles);
 // filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
 
 const RowSlider = ({ title, filmsList }) => {
-    console.log(filmsList);
     const [imageIndex, setImageIndex] = useState(0);
 
     const containerRef = useRef(null);
     const childItemRef = useRef(null);
     const setImageRightArrow = () => {
         setImageIndex((prevIndex) => {
-            if (prevIndex === filmsList.length - 7) {
-                return filmsList.length - 7;
-            } else {
-                return prevIndex + 1;
+            if (filmsList) {
+                const newIndex = prevIndex + 1;
+                return newIndex >= filmsList.length ? 0 : newIndex;
             }
+            return prevIndex;
         });
     };
     const handleClickLeftArrow = () => {
@@ -62,7 +61,7 @@ const RowSlider = ({ title, filmsList }) => {
                                     className={cx('child-item')}
                                     key={index}
                                     ref={childItemRef}
-                                    to={config.routes.album}
+                                    to={`${config.routes.album}/${child.slug}`}
                                 >
                                     <div className={cx('img-area')}>
                                         <img className={cx('child-img')} src={child.imageUrl} alt={child.name} />

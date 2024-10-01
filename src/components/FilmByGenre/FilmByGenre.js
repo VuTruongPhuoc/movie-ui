@@ -15,8 +15,10 @@ const FilmByGenre = ({ title, filmsList }) => {
                     {filmsList &&
                         filmsList.map((child, index) => (
                             <Link className={cx('child-item')} key={index} to={`${config.routes.album}/${child.slug}`}>
-                                <img className={cx('child-img')} src={child.imageUrl} alt={child.name} />
-                                <span className={cx('child-episode')}>Tập {child.numberOfEpisode}</span>
+                                <div className={cx('img-area')}>
+                                    <img className={cx('child-img')} src={child.imageUrl} alt={child.name} />
+                                    <span className={cx('child-episode')}>Tập {child.numberOfEpisodes}</span>
+                                </div>
                                 <span className={cx('child-name')}>{child.name}</span>
                             </Link>
                         ))}

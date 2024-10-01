@@ -1,80 +1,52 @@
 import classNames from 'classnames/bind';
-import React from 'react';
-import ReactPlayer from 'react-player';
+import React, { useEffect, useState } from 'react';
+import { NavLink, useParams } from 'react-router-dom';
 
 import styles from './Watch.module.scss';
-import RowSlider from '~/components/RowSlider';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faComment } from '@fortawesome/free-solid-svg-icons';
-import Button from '~/components/Button';
+import * as filmServices from '~/services/filmServices';
+import config from '~/config';
+import Comment from './Comment';
 
 const cx = classNames.bind(styles);
 
-const episodesList = [
-    { name: '1', link: 'fsljasf' },
-    { name: '2', link: 'fsljasf' },
-    { name: '3', link: 'fsljasf' },
-    { name: '4', link: 'fsljasf' },
-    { name: '5', link: 'fsljasf' },
-    { name: '6', link: 'fsljasf' },
-];
-const commentsList = [
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-    {
-        avatar: 'https://animehay.biz/upload/avatar/40659.jpg?t=1678591957',
-        displayname: 'hihihi',
-        content: 'phim hay',
-        createdate: 'hihihih',
-    },
-];
+const Watch = () => {
+    const { slug, episode } = useParams();
+    const [film, setFilm] = useState();
+    const [episodes, setEpisodes] = useState();
+    const [currentEpisode, setCurrentEpisode] = useState(episode);
+    const [currentEpisodeLink, setCurrentEpisodeLink] = useState('');
 
-const watch = () => {
-    const videoBlob = new Blob(['https://vip.opstream11.com/share/98d103999c57b2e26b98ab2404d9e12a'], {
-        type: 'video/mp4',
-    });
-    const videoUrl = URL.createObjectURL(videoBlob);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [slug, episode]);
+    useEffect(() => {
+        const fetchFilmData = async () => {
+            const result = await filmServices.getbyslug(slug);
+            setFilm(result.film);
+            setEpisodes(result.episodes);
+        };
+        fetchFilmData();
+    }, [slug]);
+    const handleEpisodeSelect = (item = {}) => {
+        setCurrentEpisode(item.slug);
+    };
+    useEffect(() => {
+        if (episodes) {
+            const selectedEpisode = episodes.find((ep) => ep.slug === currentEpisode);
+            if (selectedEpisode) {
+                setCurrentEpisodeLink(selectedEpisode.link);
+            }
+        }
+    }, [episodes, currentEpisode]);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('watch-area')}>
                 <div className={cx('video-player')}>
                     <iframe
+                        title="xem phim"
                         className={cx('player')}
-                        src="https://vip.opstream11.com/share/69f05392fc2e30ff3eee0b930c42cc3e"
+                        src={currentEpisodeLink}
                         controls={true}
                         style={{ maxWidth: '1170px', minHeight: '540px' }}
                         width="100%"
@@ -85,52 +57,27 @@ const watch = () => {
                 <div className={cx('video-episode')}>
                     <div className={cx('episode-header')}>Danh sách tập</div>
                     <div className={cx('episodes-list')}>
-                        {episodesList.map((item, index) => (
-                            <div className={cx('episode-item')} key={index}>
-                                {item.name}
-                            </div>
-                        ))}
+                        {episodes &&
+                            episodes
+                                .slice()
+                                .reverse()
+                                .map((item, index) => (
+                                    <NavLink
+                                        className={cx('episode-item', { active: item.slug === currentEpisode })}
+                                        key={index}
+                                        onClick={() => handleEpisodeSelect({ slug: item.slug })}
+                                        to={`${config.routes.watch}/${slug}/${item.slug}`}
+                                    >
+                                        {item.name}
+                                    </NavLink>
+                                ))}
                     </div>
                 </div>
             </div>
-            <div className={cx('watch-recommend')}>
-                <RowSlider title={'Đề xuất'} />
-            </div>
-            <div className={cx('watch-comment')}>
-                <div className={cx('comment-title')}>
-                    <FontAwesomeIcon icon={faComment} className={cx('comment-icon')} />
-                    <p className={cx('title')}>Bình luận (1000)</p>
-                </div>
-                <div className={cx('comment-frame')}>
-                    <div className={cx('comment-input')}>
-                        <textarea
-                            className={cx('comment-content')}
-                            placeholder="Nhập bình luận của bạn tại đây"
-                            rows={3}
-                            maxLength={5000}
-                        ></textarea>
-                    </div>
-                    <div className={cx('comment-btn')}>
-                        <Button primary>Gửi</Button>
-                    </div>
-                </div>
-                <div className={cx('comments-list')}>
-                    {commentsList.map((item, index) => (
-                        <div className={cx('comment-item')} key={index}>
-                            <div className={cx('avatar')}>
-                                <img src={item.avatar} alt="" />
-                            </div>
-                            <div className={cx('info')}>
-                                <div className={cx('displayname')}>{item.displayname}</div>
-                                <div className={cx('content')}>{item.content}</div>
-                                <div className={cx('reply-date')}>{item.createdate}</div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </div>
+            <div className={cx('watch-recommend')}>{/* <RowSlider title={'Đề xuất'} /> */}</div>
+            <Comment filmId={film && film.id} />
         </div>
     );
 };
 
-export default watch;
+export default Watch;

@@ -51,9 +51,9 @@ const Profile = () => {
             {isShowFormChangeAvatar && (
                 <ModalCustom onClose={() => setIsShowFormChangeAvatar(false)} title="Tải lên ảnh đại diện mới">
                     <ModalChangeAvatar
-                        user={currentUser}
+                        data={currentUser}
                         handleClose={() => setIsShowFormChangeAvatar(false)}
-                        handleRefreshUserList={refreshUser}
+                        handleRefresh={refreshUser}
                     />
                 </ModalCustom>
             )}
