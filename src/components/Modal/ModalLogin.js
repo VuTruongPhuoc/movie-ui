@@ -15,7 +15,6 @@ const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
     const handleSubmitEvent = async (e) => {
         e.preventDefault();
         await login(username, password);
-        window.location.reload();
     };
 
     return (

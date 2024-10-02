@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import ModalCustom, { ModalLogin, ModalRegister } from '~/components/Modal';
 
-function AuthModals() {
+function AuthModals({ handleClose }) {
     const [isShowFormLogin, setIsShowFormLogin] = useState(true);
     const [isFormLogin, setIsFormLogin] = useState(true);
     const CloseFormLogin = () => {
         setIsShowFormLogin(false);
         setIsFormLogin(true);
+        handleClose();
     };
 
     return (

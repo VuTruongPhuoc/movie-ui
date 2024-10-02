@@ -47,6 +47,7 @@ const isLoggedIn = () => {
         const isLogin = Date.now() < payload.exp * 1000;
         return isLogin;
     }
+    return false;
 };
 
 export { login, register, setToken, getToken, removeToken, getUserRole, isLoggedIn };

@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem(process.env.REACT_APP_CURRENT_USER, JSON.stringify(response.user));
             setAccessToken(accessToken);
             setCurrentUser(response.user);
-            toast.success(response.message);
+            window.location.reload();
         } catch (err) {
             if (!err.response) {
                 toast.error('Server không phản hồi');
