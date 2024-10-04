@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './Modal.module.scss';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose } from '@fortawesome/free-solid-svg-icons';
+import styles from './Modal.module.scss';
 
 const cx = classNames.bind(styles);
 
@@ -22,6 +23,10 @@ const Modal = ({ children, onClose, title }) => {
             </div>
         </div>
     );
+};
+
+Modal.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default Modal;

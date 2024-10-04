@@ -1,9 +1,11 @@
 import classNames from 'classnames/bind';
+import PropTypes from 'prop-types';
+import { ToastContainer } from 'react-toastify';
+
 import styles from './AdminDefaultLayout.module.scss';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Breadcrumb from './components/Breadcrumb';
-import { ToastContainer } from 'react-toastify';
 
 const cx = classNames.bind(styles);
 
@@ -28,5 +30,9 @@ function AdminDefaultLayout({ children }) {
         </div>
     );
 }
+
+AdminDefaultLayout.propTypes = {
+    children: PropTypes.node.isRequired,
+};
 
 export default AdminDefaultLayout;

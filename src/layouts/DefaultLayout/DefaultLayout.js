@@ -3,6 +3,7 @@ import classNames from 'classnames/bind';
 import { useLocation } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import PropTypes from 'prop-types';
 
 import styles from './DefaultLayout.module.scss';
 import Header from '~/layouts/components/Header';
@@ -35,9 +36,13 @@ const DefaultLayout = ({ children }) => {
             <div className={cx('footer')}>
                 <Footer />
             </div>
-            <ToastContainer autoClose={2000} />
+            <ToastContainer autoClose={2000} position="bottom-right" />
         </div>
     );
+};
+
+DefaultLayout.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default DefaultLayout;

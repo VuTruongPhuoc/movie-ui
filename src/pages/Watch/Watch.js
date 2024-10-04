@@ -4,6 +4,7 @@ import { NavLink, useParams } from 'react-router-dom';
 
 import styles from './Watch.module.scss';
 import * as filmServices from '~/services/filmServices';
+import * as historyServices from '~/services/historyServices';
 import config from '~/config';
 import Comment from './Comment';
 
@@ -36,6 +37,9 @@ const Watch = () => {
             if (selectedEpisode) {
                 setCurrentEpisodeLink(selectedEpisode.link);
             }
+
+            const movie = { id: film.id, name: film.name, episode: currentEpisode };
+            historyServices.update(movie);
         }
     }, [episodes, currentEpisode]);
 

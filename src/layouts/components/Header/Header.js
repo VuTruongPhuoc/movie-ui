@@ -1,10 +1,10 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { Link, NavLink } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
-import { faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faUserCircle } from '@fortawesome/free-regular-svg-icons';
+import { faHistory, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import Menu from '~/components/Popper/Menu';
 import Search from '~/components/Search';
@@ -16,53 +16,12 @@ import { PopperWrapper } from '~/components/Popper';
 import ModalCustom, { ModalLogin, ModalRegister } from '~/components/Modal';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
+import * as categoryServices from '~/services/categoryServices';
 
 const cx = classNames.bind(styles);
-
-const genresList = [
-    {
-        id: 1,
-        name: 'hanh dong',
-    },
-    {
-        id: 2,
-        name: 'hanh dong',
-    },
-    {
-        id: 3,
-        name: 'hanh dong',
-    },
-    {
-        id: 4,
-        name: 'hanh dong',
-    },
-    {
-        id: 5,
-        name: 'hanh dong',
-    },
-    {
-        id: 6,
-        name: 'hanh dong',
-    },
-    {
-        id: 7,
-        name: 'hanh dong',
-    },
-    {
-        id: 8,
-        name: 'hanh dong',
-    },
-    {
-        id: 9,
-        name: 'hanh dong',
-    },
-    {
-        id: 10,
-        name: 'hanh dong',
-    },
-];
 const Header = () => {
     let { currentUser, logout } = useContext(AuthContext);
+
     const menuItems = [
         {
             icon: <FontAwesomeIcon icon={faUser} />,
@@ -88,6 +47,16 @@ const Header = () => {
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isShowFormLogin, setIsShowFormLogin] = useState(false);
     const [isFormLogin, setIsFormLogin] = useState(true);
+    const [genres, setGenres] = useState();
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const results = await categoryServices.getall();
+            setGenres(results);
+        };
+        fetchData();
+    }, []);
+
     if (!currentUser) {
         currentUser = localStorage.getItem(process.env.REACT_APP_CURRENT_USER);
     }
@@ -106,7 +75,7 @@ const Header = () => {
         <div className={cx('wrapper')}>
             <div className={cx('main-header')}>
                 <NavLink className={cx('logo')} to={config.routes.home}>
-                    PMovie
+                    <div style={{ fontWeight: 700, fontSize: '1.8rem' }}>PMovie</div>
                 </NavLink>
                 <Nav>
                     <div className={cx('nav-menu')}>
@@ -129,13 +98,14 @@ const Header = () => {
                             <div className={cx('genres-list-tippy')} tabIndex="-1" {...attrs}>
                                 <PopperWrapper>
                                     <div className={cx('genres-list')}>
-                                        {genresList.map((item, index) => {
-                                            return (
-                                                <div className={cx('genre-item')} key={item.id}>
-                                                    {item.name}
-                                                </div>
-                                            );
-                                        })}
+                                        {genres &&
+                                            genres.map((item, index) => {
+                                                return (
+                                                    <div className={cx('genre-item')} key={item.id}>
+                                                        {item.name}
+                                                    </div>
+                                                );
+                                            })}
                                     </div>
                                 </PopperWrapper>
                             </div>
@@ -156,7 +126,50 @@ const Header = () => {
                     <div className={cx('nav-element')}>
                         <Search />
                     </div>
-
+                    <div className={cx('nav-element')}>
+                        <Tippy
+                            interactive={true}
+                            delay={[100, 300]}
+                            placement="bottom"
+                            zIndex={997}
+                            hideOnClick={false}
+                            render={(attrs) => (
+                                <div className={cx('option-content')} tabIndex={-1} {...attrs}>
+                                    <PopperWrapper>
+                                        <div className={cx('option-item')}>
+                                            <span className={cx('text')}>Lịch sử</span>
+                                        </div>
+                                    </PopperWrapper>
+                                </div>
+                            )}
+                        >
+                            <div className={cx('history')}>
+                                <FontAwesomeIcon icon={faHistory} className={cx('history-icon')} />
+                            </div>
+                        </Tippy>
+                    </div>
+                    <div className={cx('nav-element')}>
+                        <Tippy
+                            interactive={true}
+                            delay={[100, 300]}
+                            placement="bottom"
+                            zIndex={997}
+                            hideOnClick={false}
+                            render={(attrs) => (
+                                <div className={cx('option-content')} tabIndex={-1} {...attrs}>
+                                    <PopperWrapper>
+                                        <div className={cx('option-item')}>
+                                            <span className={cx('text')}>Theo dõi</span>
+                                        </div>
+                                    </PopperWrapper>
+                                </div>
+                            )}
+                        >
+                            <div className="follow">
+                                <FontAwesomeIcon icon={faBookmark} className={cx('follow-icon')} />
+                            </div>
+                        </Tippy>
+                    </div>
                     <div className={cx('nav-element')}>
                         {isCurrentUser ? (
                             <Menu items={menuItems}>
@@ -172,7 +185,7 @@ const Header = () => {
                         ) : (
                             <Tippy
                                 interactive={true}
-                                delay={[200, 2000]}
+                                delay={[100, 1000]}
                                 placement="bottom-end"
                                 zIndex={997}
                                 hideOnClick={false}
@@ -184,7 +197,10 @@ const Header = () => {
                                                 <div className={cx('login-btn')}>
                                                     <Button
                                                         primary
-                                                        onClick={() => (setIsShowFormLogin(true), setIsFormLogin(true))}
+                                                        onClick={() => {
+                                                            setIsShowFormLogin(true);
+                                                            setIsFormLogin(true);
+                                                        }}
                                                     >
                                                         Login
                                                     </Button>

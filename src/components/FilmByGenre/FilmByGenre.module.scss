@@ -25,6 +25,7 @@
     overflow: hidden;
     flex-wrap: wrap;
     padding-top: 10px;
+    padding-left: 10px;
 }
 .child-item {
     margin-right: 16px;
@@ -40,8 +41,9 @@
     &:hover {
         transform: scale(1.05);
     }
-    .child-name {
-        color: green;
+    .child-name,
+    .child-episode {
+        color: var(--primary);
     }
 }
 .img-area {

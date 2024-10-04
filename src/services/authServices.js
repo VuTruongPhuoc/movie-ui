@@ -40,6 +40,13 @@ const getUserRole = () => {
         return payload?.role;
     }
 };
+const getUserName = () => {
+    const token = getToken();
+    if (token) {
+        const payload = jwtDecode(token);
+        return payload?.UserName;
+    }
+};
 const isLoggedIn = () => {
     const token = getToken();
     if (token) {
@@ -50,4 +57,4 @@ const isLoggedIn = () => {
     return false;
 };
 
-export { login, register, setToken, getToken, removeToken, getUserRole, isLoggedIn };
+export { login, register, setToken, getToken, removeToken, getUserRole, getUserName, isLoggedIn };

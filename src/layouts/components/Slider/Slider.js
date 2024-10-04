@@ -75,7 +75,7 @@ const Slider = () => {
                                 </div>
                                 <div className={cx('film-info-detail')}>
                                     <div className={cx('rate')}>
-                                        <FontAwesomeIcon icon={faStar} /> 8.0
+                                        <FontAwesomeIcon icon={faStar} /> {films[imageIndex].review.avgRate.toFixed(1)}
                                     </div>
                                     <div className={cx('year')}>{films[imageIndex].year}</div>
                                     <div className={cx('film-type')}>Phim bộ</div>

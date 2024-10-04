@@ -1,16 +1,19 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import classNames from 'classnames/bind';
-import styles from './Button.module.scss';
 import { Link } from 'react-router-dom';
+
+import styles from './Button.module.scss';
+import { propTypes } from 'react-bootstrap/esm/Image';
 
 const cx = classNames.bind(styles);
 
 const Button = ({
     to,
     href,
-    ref,
     primary,
+    option,
+    cancel,
     disabled = false,
     text = false,
     children,
@@ -38,6 +41,8 @@ const Button = ({
     const classes = cx('wrapper', {
         [className]: className,
         primary,
+        cancel,
+        option,
         disabled,
         text,
     });
@@ -53,4 +58,17 @@ const Button = ({
     );
 };
 
+Button.propTypes = {
+    // to: propTypes.string,
+    href: PropTypes.string,
+    primary: PropTypes.bool,
+    option: PropTypes.bool,
+    cancel: PropTypes.bool,
+    disabled: PropTypes.bool,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.string,
+    leftIcon: PropTypes.node,
+    rightIcon: PropTypes.node,
+    onClick: PropTypes.func,
+};
 export default Button;

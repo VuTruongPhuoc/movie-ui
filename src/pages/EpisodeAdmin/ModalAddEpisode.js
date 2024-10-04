@@ -11,7 +11,7 @@ import styles from './EpisodeAdmin.module.scss';
 const cx = classNames.bind(styles);
 
 function AddEpisodeModal(props) {
-    const { show, handleClose, handleUpdateData } = props;
+    const { show, handleClose } = props;
     const [name, setName] = useState('');
     const [slug, setSlug] = useState('');
     const [link, setLink] = useState('');

@@ -1,18 +1,14 @@
 import classNames from 'classnames/bind';
-import styles from './RowSlider.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight, faStar } from '@fortawesome/free-solid-svg-icons';
 import { useEffect, useRef, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import styles from './RowSlider.module.scss';
 import config from '~/config';
 
 const cx = classNames.bind(styles);
-
-// let length = filmsList.length;
-// let filmsFirstHalfList = filmsList.slice(-length, -length + 8);
-// let firmsSecondHalfList = filmsList.slice(-length + 8);
-
-// filmsList = [...firmsSecondHalfList, ...filmsList, , ...filmsFirstHalfList];
 
 const RowSlider = ({ title, filmsList }) => {
     const [imageIndex, setImageIndex] = useState(0);
@@ -113,6 +109,11 @@ const RowSlider = ({ title, filmsList }) => {
             </div>
         </div>
     );
+};
+
+RowSlider.propTypes = {
+    title: PropTypes.string,
+    filmsList: PropTypes.array,
 };
 
 export default RowSlider;

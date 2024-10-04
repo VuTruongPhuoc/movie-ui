@@ -23,7 +23,8 @@
     position: absolute;
     width: 100%;
     height: 100%;
-    box-shadow: 25px 25px 50px 65px #2d2d2d inset, -25px -25px 50px 50px #2d2d2d inset;
+    // box-shadow: 25px 25px 50px 65px #2d2d2d inset, -25px -25px 50px 50px #2d2d2d inset;
+    box-shadow: 0px -20px 20px 0px #2d2d2d inset;
     z-index: 1;
 }
 .image-content {
@@ -58,6 +59,7 @@
 }
 
 .left-arrow {
+    z-index: 2;
     position: absolute;
     top: 35%;
     left: 2rem;
@@ -65,6 +67,7 @@
 }
 
 .right-arrow {
+    z-index: 2;
     position: absolute;
     top: 35%;
     right: 2rem;

@@ -42,9 +42,13 @@
 }
 
 .nav-element {
-    margin-right: 10px;
+    margin: 0 10px;
     color: #fff;
     background-color: transparent;
+
+    &:hover {
+        cursor: pointer;
+    }
 }
 
 //account menu tippy
@@ -77,35 +81,36 @@
 //account tippy
 .account {
 }
+
+.follow-icon,
+.history-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+}
 .user-icon {
     width: 2.6rem;
     height: 2.6rem;
+}
+.login-content {
+    width: 220px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
 }
 .text {
     display: block;
     margin: 8px 16px;
 }
-.login-content {
-    margin-top: 5px;
-    width: 220px;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    justify-content: space-between;
-    position: relative;
-}
+
 .login-btn {
     text-align: center;
-    position: absolute;
-    bottom: 15%;
-    left: 50%;
-    transform: translateX(-50%);
+    padding: 8px 0 16px 0;
 }
 
 //The loai tippy
 .genres-list-tippy {
     position: absolute;
-    top: 8px;
+    top: 4px;
 }
 .genres-list {
     color: var(--text-color);
@@ -117,8 +122,9 @@
     flex-wrap: wrap;
 }
 .genre-item {
-    text-align: center;
+    // text-align: center;
     padding: 5px 10px;
+    width: calc(100% / 3);
 
     &:hover {
         color: #b3b3b3;

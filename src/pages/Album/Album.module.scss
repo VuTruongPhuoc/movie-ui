@@ -255,3 +255,39 @@
 .episode-name {
     font-weight: 500;
 }
+
+//button follow
+.btn-follow {
+}
+.btn-followed {
+    background-color: var(--bs-red);
+}
+//modal-review
+.btn-review {
+    background-color: var(--bs-cyan);
+}
+
+.active {
+    color: var(--bs-yellow);
+}
+.rated-star {
+    justify-content: center;
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+
+    .star-item {
+        font-size: 24px;
+        color: #d3d3d3;
+        transition: color 0.2s, transform 0.2s;
+
+        &.active {
+            color: #ffd700;
+        }
+
+        &:hover {
+            color: #ffd700;
+            transform: scale(1.4);
+        }
+    }
+}

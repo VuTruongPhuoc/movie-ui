@@ -19,13 +19,45 @@
     border-radius: 4px;
     outline: none;
     border: none;
-    padding: 8px 32px;
+    padding: 8px 16px;
     text-align: center;
 
     &:hover {
         opacity: 0.8;
     }
 }
+.cancel {
+    background-color: var(--gray);
+    font-size: 1.6rem;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    margin-right: 8px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
+.option {
+    background-color: var(--bs-teal);
+    font-size: 1.6rem;
+    font-weight: 500;
+    border-radius: 4px;
+    outline: none;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    margin-left: 8px;
+
+    &:hover {
+        opacity: 0.8;
+    }
+}
+
 .disabled {
     opacity: 0.5;
     cursor: not-allowed;

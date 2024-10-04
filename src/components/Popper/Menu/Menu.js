@@ -1,7 +1,8 @@
 import classNames from 'classnames/bind';
-import styles from './Menu.module.scss';
 import Tippy from '@tippyjs/react/headless';
+import PropTypes from 'prop-types';
 import { PopperWrapper } from '..';
+import styles from './Menu.module.scss';
 import MenuItem from './MenuItem';
 
 const cx = classNames.bind(styles);
@@ -28,6 +29,11 @@ const Menu = ({ children, items = [] }) => {
             </Tippy>
         </div>
     );
+};
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.any,
 };
 
 export default Menu;

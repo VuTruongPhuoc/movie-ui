@@ -1,5 +1,7 @@
 import { createContext, useState } from 'react';
 import { toast } from 'react-toastify';
+import PropTypes from 'prop-types';
+
 import * as authServices from '~/services/authServices';
 
 const AuthContext = createContext({});
@@ -33,6 +35,10 @@ export const AuthProvider = ({ children }) => {
     };
 
     return <AuthContext.Provider value={{ currentUser, accessToken, login, logout }}>{children}</AuthContext.Provider>;
+};
+
+AuthProvider.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default AuthContext;
