@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { faBars, faClockRotateLeft, faGear, faList } from '@fortawesome/free-solid-svg-icons';
+import { faGear, faList } from '@fortawesome/free-solid-svg-icons';
 
 import config from '~/config';
 import Menu, { MenuItem } from './Menu';
@@ -23,13 +23,6 @@ function SideBar() {
                         to={config.privateroutes.account}
                         icon={<FontAwesomeIcon icon={faGear} />}
                     />
-                    <MenuItem
-                        title="Lịch sử"
-                        to={config.privateroutes.history}
-                        icon={<FontAwesomeIcon icon={faClockRotateLeft} />}
-                    />
-
-                    {/* <MenuItem title="Profile" to="/@hoaa" icon="hhi"></MenuItem> */}
                 </Menu>
             </aside>
         </>

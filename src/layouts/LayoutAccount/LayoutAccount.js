@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import styles from './LayoutAccount.module.scss';
 import Sidebar from '~/layouts/components/Sidebar';
 import DefaultLayout from '../DefaultLayout';
-import { chain } from 'lodash';
 
 const cx = classNames.bind(styles);
 

@@ -1,13 +1,13 @@
 import { useContext, useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { faHistory, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import Menu from '~/components/Popper/Menu';
-import Search from '~/components/Search';
+import Search from '~/layouts/components/Search';
 import Button from '~/components/Button';
 import config from '~/config';
 import styles from './Header.module.scss';
@@ -82,7 +82,6 @@ const Header = () => {
                         <NavLink className={cx('menu-trigger')}>Browse</NavLink>
                     </div>
                     <NavItem title="Trang chủ" to={config.routes.home} />
-                    <NavItem title="Phim mới" to={config.routes.latest} />
 
                     <NavItem title="Phim bộ" to={config.routes.tvshows} />
 
@@ -101,9 +100,13 @@ const Header = () => {
                                         {genres &&
                                             genres.map((item, index) => {
                                                 return (
-                                                    <div className={cx('genre-item')} key={item.id}>
-                                                        {item.name}
-                                                    </div>
+                                                    <Link
+                                                        to={`${config.routes.genre}/${item.id}`}
+                                                        className={cx('genre-link')}
+                                                        key={item.id}
+                                                    >
+                                                        <div className={cx('genre-item')}>{item.name}</div>
+                                                    </Link>
                                                 );
                                             })}
                                     </div>
@@ -143,9 +146,11 @@ const Header = () => {
                                 </div>
                             )}
                         >
-                            <div className={cx('history')}>
-                                <FontAwesomeIcon icon={faHistory} className={cx('history-icon')} />
-                            </div>
+                            <Link to={config.routes.history} style={{ color: 'var(--white)' }}>
+                                <div className={cx('history')}>
+                                    <FontAwesomeIcon icon={faHistory} className={cx('history-icon')} />
+                                </div>
+                            </Link>
                         </Tippy>
                     </div>
                     <div className={cx('nav-element')}>
@@ -165,9 +170,11 @@ const Header = () => {
                                 </div>
                             )}
                         >
-                            <div className="follow">
-                                <FontAwesomeIcon icon={faBookmark} className={cx('follow-icon')} />
-                            </div>
+                            <Link to={config.routes.follow} style={{ color: 'var(--white)' }}>
+                                <div className="follow">
+                                    <FontAwesomeIcon icon={faBookmark} className={cx('follow-icon')} />
+                                </div>
+                            </Link>
                         </Tippy>
                     </div>
                     <div className={cx('nav-element')}>

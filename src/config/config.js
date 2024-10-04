@@ -6,13 +6,14 @@ const routes = {
     latest: '/latest',
     album: '/album',
     watch: `/watch`,
+    history: '/history',
+    follow: '/follow',
     genre: `/genre`,
     search: `search`,
     noaccess: '/no-access',
 };
 const privateroutes = {
     profile: '/profile',
-    history: '/profile/history',
     track: '/track',
     account: '/profile/account',
 };

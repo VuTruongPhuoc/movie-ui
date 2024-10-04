@@ -23,6 +23,7 @@ import EpisodeAdmin from '~/pages/EpisodeAdmin';
 import Album from '~/pages/Album';
 import Genre from '~/pages/Genre';
 import Search from '~/pages/Search';
+import Follow from '~/pages/Follow';
 
 //Public routes
 const publicroutes = [
@@ -32,14 +33,15 @@ const publicroutes = [
     { path: config.routes.latest, component: Latest },
     { path: config.routes.album + '/:slug', component: Album },
     { path: config.routes.watch + '/:slug/:episode', component: Watch },
-    { path: config.routes.genre, component: Genre },
+    { path: config.routes.genre + '/:categoryId', component: Genre },
     { path: config.routes.search, component: Search },
     { path: config.routes.nopage, component: NoPage },
     { path: config.routes.noaccess, component: NoAccess },
+    { path: config.routes.history, component: History },
+    { path: config.routes.follow, component: Follow },
 ];
 const privateroutes = [
     { path: config.privateroutes.profile, component: Profile, doublelayout: Sidebar },
-    { path: config.privateroutes.history, component: History, doublelayout: Sidebar },
     { path: config.privateroutes.track, component: Track },
     { path: config.privateroutes.account, component: Account, doublelayout: Sidebar },
 ];

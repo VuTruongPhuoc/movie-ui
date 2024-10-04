@@ -291,3 +291,115 @@
         }
     }
 }
+@media (max-width: 1024px) {
+    .col-left {
+        width: 100%;
+        margin-top: 50px;
+        padding-right: 64px;
+    }
+
+    .col-right {
+        width: 100%;
+        margin-right: 64px;
+    }
+
+    .film-info-title h1 {
+        font-size: 3rem;
+    }
+
+    .film-info-detail {
+        font-size: 1.4rem;
+    }
+
+    .film-img {
+        height: 500px;
+    }
+
+    .left-layer {
+        width: 20%;
+    }
+
+    .bottom-layer {
+        height: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .row {
+        flex-direction: column;
+    }
+
+    .col-left,
+    .col-right {
+        width: 100%;
+    }
+
+    .film-info-title h1 {
+        font-size: 2.5rem;
+    }
+
+    .film-info-detail {
+        font-size: 1.2rem;
+    }
+
+    .film-img {
+        height: 400px;
+    }
+
+    .left-layer {
+        width: 30%;
+    }
+
+    .bottom-layer {
+        height: 45%;
+    }
+
+    .film-episode-item {
+        width: calc(100% / 2 - 16px);
+    }
+}
+
+@media (max-width: 480px) {
+    .wrapper {
+        margin-top: 0;
+    }
+
+    .film-banner {
+        margin: 0 0 0 20px;
+    }
+
+    .film-info-title h1 {
+        font-size: 2rem;
+    }
+
+    .film-info-detail {
+        font-size: 1rem;
+    }
+
+    .film-img {
+        height: 300px;
+    }
+
+    .left-layer {
+        width: 0%;
+    }
+
+    .bottom-layer {
+        height: 40%;
+    }
+
+    .film-episode-item {
+        width: 100%;
+        margin: 0px 8px 24px 8px;
+    }
+
+    .nav-item {
+        padding: 10px;
+        margin-right: 20px;
+    }
+
+    .nav {
+        border-bottom: 1px solid var(--gray);
+        margin-bottom: 1rem;
+    }
+}

@@ -46,7 +46,6 @@ function Album() {
     useEffect(() => {
         const fetchFilmData = async () => {
             const result = await filmServices.getbyslug(slug);
-            console.log(result.film);
             setFilm(result.film);
             setEpisodes(result.episodes);
         };
@@ -103,7 +102,7 @@ function Album() {
                                         <span className={cx('key')}>Thể loại: </span>
                                         {film.categories.map((item, index) => (
                                             <Fragment key={index}>
-                                                <Link to="">{item.name}</Link>
+                                                <Link to={`${config.routes.genre}/${item.id}`}>{item.name}</Link>
                                                 {index < film.categories.length - 1 ? ', ' : ''}
                                             </Fragment>
                                         ))}
