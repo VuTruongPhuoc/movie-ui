@@ -3,16 +3,14 @@ import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
+import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import * as countryServices from '~/services/countryServices';
 import styles from './CountryAdmin.module.scss';
 import formatDate from '~/utils/formatDate';
-import useDebounce from '~/hooks/useDebounce';
-import Pagination from '~/components/Pagination';
 import ModalAddCountry from './ModalAddCountry';
 import ModalUpdateCountry from './ModalUpdateCountry';
-import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDeleteCountry from './ModalDeleteCountry';
 
 const cx = classNames.bind(styles);
@@ -20,7 +18,6 @@ const cx = classNames.bind(styles);
 function CountryAdmin() {
     const [countries, setCountries] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const debouncedValue = useDebounce(searchValue, 500);
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);
@@ -42,17 +39,17 @@ function CountryAdmin() {
         setCountries([data, ...countries]);
     };
     const handleUpdateFromModal = (data) => {
-        let clonecountries = _.cloneDeep(countries);
+        let cloneCountries = _.cloneDeep(countries);
         let index = countries.findIndex((item) => item.id === data.id);
-        clonecountries[index].name = data.name;
-        clonecountries[index].isActive = data.isActive;
+        cloneCountries[index].name = data.name;
+        cloneCountries[index].isActive = data.isActive;
 
-        setCountries(clonecountries);
+        setCountries(cloneCountries);
     };
     const handleDeleteFromModal = (data) => {
-        let clonecountries = _.cloneDeep(countries);
-        clonecountries = clonecountries.filter((item) => item.id !== data.id);
-        setCountries(clonecountries);
+        let cloneCountries = _.cloneDeep(countries);
+        cloneCountries = cloneCountries.filter((item) => item.id !== data.id);
+        setCountries(cloneCountries);
     };
     return (
         <div className={cx('wrapper')}>

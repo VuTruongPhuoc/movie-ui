@@ -1,11 +1,10 @@
+import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import classNames from 'classnames/bind';
 
 import * as followServices from '~/services/followServices';
 import * as filmServices from '~/services/filmServices';
 import styles from './Follow.module.scss';
-import { useEffect, useState } from 'react';
-import FilmByGenre from '~/components/FilmByGenre';
-import { Link } from 'react-router-dom';
 import config from '~/config';
 
 const cx = classNames.bind(styles);

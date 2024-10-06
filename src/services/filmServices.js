@@ -49,7 +49,17 @@ const changeFilmPoster = async (id, posterFile) => {
     console.log(response);
     return response;
 };
-
+const getByType = async (pagenumber, pagesize, typeId) => {
+    try {
+        const response = await httpRequest.get(`film/getbytype/${typeId}`, {
+            params: {
+                pagenumber: pagenumber,
+                pagesize: pagesize,
+            },
+        });
+        return response;
+    } catch (error) {}
+};
 const getByCategory = async (pagenumber, pagesize, categoryId) => {
     try {
         const response = await httpRequest.get(`film/getbycategory/${categoryId}`, {
@@ -73,19 +83,31 @@ const search = async (pagenumber, pagesize, name) => {
         return response.data;
     } catch (error) {}
 };
-const filter = async (pagenumber, pagesize, name, countryId, categoryId) => {
+const filter = async (page, pageSize, year, categoryId, countryId) => {
     try {
         const response = await httpRequest.get(`film/filter`, {
             params: {
-                pagenumber: pagenumber,
-                pagesize: pagesize,
-                name: name,
+                pagenumber: page,
+                pagesize: pageSize,
+                year: year,
+                category: categoryId,
                 country: countryId,
-                categoryId: categoryId,
             },
         });
-        return response.data;
+        return response;
     } catch (error) {}
 };
 
-export { getall, getbyslug, add, update, del, changeFilmImage, changeFilmPoster, getByCategory, search, filter };
+export {
+    getall,
+    getbyslug,
+    add,
+    update,
+    del,
+    changeFilmImage,
+    changeFilmPoster,
+    getByType,
+    getByCategory,
+    search,
+    filter,
+};

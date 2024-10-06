@@ -1,4 +1,4 @@
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { Link, NavLink } from 'react-router-dom';
@@ -107,6 +107,7 @@ const Header = () => {
                     <NavItem title="Phim bộ" to={config.routes.tvshows} />
 
                     <NavItem title="Phim lẻ" to={config.routes.movies} />
+                    <NavItem title="Lọc phim" to={config.routes.filter} />
 
                     <Tippy
                         interactive={true}

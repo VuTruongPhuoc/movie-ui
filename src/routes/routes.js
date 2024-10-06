@@ -24,6 +24,7 @@ import Album from '~/pages/Album';
 import Genre from '~/pages/Genre';
 import Search from '~/pages/Search';
 import Follow from '~/pages/Follow';
+import Filter from '~/pages/Filter/Filter';
 
 //Public routes
 const publicroutes = [
@@ -39,6 +40,7 @@ const publicroutes = [
     { path: config.routes.noaccess, component: NoAccess },
     { path: config.routes.history, component: History },
     { path: config.routes.follow, component: Follow },
+    { path: config.routes.filter, component: Filter },
 ];
 const privateroutes = [
     { path: config.privateroutes.profile, component: Profile, doublelayout: Sidebar },

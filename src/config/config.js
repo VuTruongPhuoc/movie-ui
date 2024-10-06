@@ -9,12 +9,12 @@ const routes = {
     history: '/history',
     follow: '/follow',
     genre: `/genre`,
-    search: `search`,
+    search: `/search`,
+    filter: `/filter`,
     noaccess: '/no-access',
 };
 const privateroutes = {
     profile: '/profile',
-    track: '/track',
     account: '/profile/account',
 };
 const adminroutes = {

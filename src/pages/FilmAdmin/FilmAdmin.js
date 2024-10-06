@@ -2,15 +2,14 @@ import classNames from 'classnames/bind';
 import Table from 'react-bootstrap/Table';
 import _ from 'lodash';
 import Button from 'react-bootstrap/Button';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import * as filmServices from '~/services/filmServices';
 import styles from './FilmAdmin.module.scss';
-import useDebounce from '~/hooks/useDebounce';
 import ModalAddFilm from './ModalAddFilm';
 import ModalUpdateFilm from './ModalUpdateFilm';
-import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import ModalDeleteFilm from './ModalDeleteFilm';
 import ModalChangeFilmImage from '~/components/Modal/ModalChangeFilmImage';
 import ModalCustom from '~/components/Modal';
@@ -21,7 +20,6 @@ const cx = classNames.bind(styles);
 function FilmAdmin() {
     const [films, setFilms] = useState([]);
     const [searchValue, setSearchValue] = useState('');
-    const debouncedValue = useDebounce(searchValue, 500);
 
     const [showAddModal, setShowAddModal] = useState(false);
     const [showUpdateModal, setShowUpdateModal] = useState(false);

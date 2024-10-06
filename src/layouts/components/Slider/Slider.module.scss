@@ -193,3 +193,38 @@
 }
 .film-info-btn {
 }
+@media (max-width: 1200px) {
+    .child-item {
+        min-width: calc(20% - 10px);
+    }
+}
+
+@media (max-width: 992px) {
+    .film-info-title h1 {
+        font-size: 3rem;
+    }
+    .film-info-content {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .film-info-title h1 {
+        font-size: 2.5rem;
+    }
+    .film-info-detail {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .child-item {
+        width: calc((100% - 30px) / 3);
+    }
+}
+
+@media (max-width: 576px) {
+    .child-item {
+        width: calc(100% - 30px);
+    }
+}

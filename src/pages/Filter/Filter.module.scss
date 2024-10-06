@@ -1,0 +1,138 @@
+.wrapper {
+    padding: 0 4%;
+    color: var(--white);
+    margin: 20px 0 40px 0;
+}
+
+.filter-header {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.filter-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.dropdowns-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.dropdowns-container span {
+    margin-right: 15px;
+    font-size: 16px;
+}
+
+.dropdowns {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.dropdown {
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #444;
+    color: var(--white);
+    flex: 1;
+    min-width: 150px;
+}
+
+.filter-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.content-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.film-item {
+    display: block;
+    width: calc((100% - 102px) / 6);
+    text-decoration: none;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.2s;
+}
+
+.film-item:hover {
+    transform: scale(1.05);
+    color: var(--primary);
+}
+
+.img-area {
+    position: relative;
+}
+
+.film-img {
+    width: 100%;
+    height: 280px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.film-episode {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    // color: var(--white);
+    padding: 5px;
+    border-radius: 4px;
+}
+
+.film-name {
+    display: block;
+    padding: 10px;
+    font-weight: bold;
+    // color: var(--white);
+}
+
+/* Media Queries cho tính responsive */
+@media (max-width: 1200px) {
+    .film-item {
+        width: calc((100% - 75px) / 5);
+    }
+}
+
+@media (max-width: 992px) {
+    .film-item {
+        width: calc((100% - 50px) / 4);
+    }
+
+    .dropdown {
+        flex: 1;
+        min-width: 120px;
+    }
+}
+
+@media (max-width: 768px) {
+    .film-item {
+        width: calc((100% - 30px) / 3);
+    }
+
+    .filter-header {
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 576px) {
+    .film-item {
+        width: calc(100% - 30px);
+    }
+
+    .dropdown {
+        flex: 1;
+        min-width: 100%;
+        margin-bottom: 10px;
+    }
+}

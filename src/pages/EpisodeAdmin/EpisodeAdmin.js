@@ -6,10 +6,8 @@ import { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAdd, faPen, faSearch, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-import * as episodeServices from '~/services/episodeServices';
 import * as filmServices from '~/services/filmServices';
 import styles from './EpisodeAdmin.module.scss';
-import useDebounce from '~/hooks/useDebounce';
 import ModalAddEpisode from './ModalAddEpisode';
 import ModalUpdateEpisode from './ModalUpdateEpisode';
 import ModalDeleteEpisode from './ModalDeleteEpisode';
@@ -19,7 +17,6 @@ const cx = classNames.bind(styles);
 function EpisodeAdmin() {
     const [episodes, setEpisodes] = useState();
     const [searchValue, setSearchValue] = useState('');
-    const debouncedValue = useDebounce(searchValue, 500);
     const [slugFilm, setSlugFilm] = useState('dao-hai-tac');
     const [films, setFilms] = useState();
 
@@ -78,7 +75,6 @@ function EpisodeAdmin() {
                     </div>
                 </div>
                 <div>
-                    {/* <label>Chọn phim: </label> */}
                     <select className={cx('input-add')} onChange={(e) => setSlugFilm(e.target.value)}>
                         {films &&
                             films.map((item) => {

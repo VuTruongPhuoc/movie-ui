@@ -1,6 +1,7 @@
 .wrapper {
     margin: 0 auto;
     color: var(--white);
+    min-width: 576px;
 }
 .header {
     position: fixed;
