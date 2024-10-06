@@ -7,6 +7,7 @@ import Button from '../Button';
 import styles from './Modal.module.scss';
 import AuthContext from '~/context/AuthProvider';
 import * as authServices from '~/services/authServices';
+import ModalCustom from './ModalCustom';
 
 const cx = classNames.bind(styles);
 

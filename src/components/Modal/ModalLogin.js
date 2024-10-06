@@ -1,6 +1,6 @@
 import { useState, useContext, forwardRef } from 'react';
 import classNames from 'classnames/bind';
-import { Link, Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 import styles from './Modal.module.scss';
 import Button from '../Button';
@@ -8,7 +8,7 @@ import AuthContext from '~/context/AuthProvider';
 
 const cx = classNames.bind(styles);
 
-const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
+const ModalLogin = forwardRef(({ onClickRegister, onClickForgotPassword }, ref) => {
     const { login } = useContext(AuthContext);
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -16,7 +16,6 @@ const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
         e.preventDefault();
         await login(username, password);
     };
-
     return (
         <div className={cx('modal-login')}>
             <header className={cx('login-header')}>
@@ -46,7 +45,13 @@ const ModalLogin = forwardRef(({ onClickRegister }, ref) => {
                             placeholder="Nhập mật khẩu"
                         />
                         <div className={cx('modal-content-btn')}>
-                            <Link className={cx('forgot-password')}>Quên mật khẩu?</Link>
+                            <Link
+                                className={cx('forgot-password')}
+                                onClick={onClickForgotPassword}
+                                style={{ fontSize: '1.4rem' }}
+                            >
+                                Quên mật khẩu?
+                            </Link>
                             <Button primary className={cx('modal-btn')}>
                                 Xác nhận
                             </Button>

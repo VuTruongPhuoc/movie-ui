@@ -20,6 +20,12 @@ const register = async (email, username, displayname, password) => {
     );
 };
 
+const forgotPassword = async (email) => {
+    return await httpRequest.post(`/account/forgotpassword?email=${email}`, {
+        headers: { 'Content-Type': 'application/json' },
+    });
+};
+
 const setToken = (token) => {
     localStorage.setItem(process.env.REACT_APP_TOKEN_NAME, token);
 };
@@ -57,4 +63,4 @@ const isLoggedIn = () => {
     return false;
 };
 
-export { login, register, setToken, getToken, removeToken, getUserRole, getUserName, isLoggedIn };
+export { login, register, forgotPassword, setToken, getToken, removeToken, getUserRole, getUserName, isLoggedIn };

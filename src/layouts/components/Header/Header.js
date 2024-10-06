@@ -17,6 +17,7 @@ import ModalCustom, { ModalLogin, ModalRegister } from '~/components/Modal';
 import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
 import * as categoryServices from '~/services/categoryServices';
+import ModalForgotPassword from '~/components/Modal/ModalForgotPassword';
 
 const cx = classNames.bind(styles);
 const Header = () => {
@@ -45,8 +46,10 @@ const Header = () => {
         },
     ];
     const [isCurrentUser, setIsCurrentUser] = useState(false);
-    const [isShowFormLogin, setIsShowFormLogin] = useState(false);
-    const [isFormLogin, setIsFormLogin] = useState(true);
+    const [isShowModalLogin, setIsShowModalLogin] = useState(false);
+    const [isModalLogin, setIsModalLogin] = useState(true);
+    const [isModalRegister, setIsModalRegister] = useState(false);
+    const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
     const [genres, setGenres] = useState();
 
     useEffect(() => {
@@ -61,15 +64,33 @@ const Header = () => {
         currentUser = localStorage.getItem(process.env.REACT_APP_CURRENT_USER);
     }
     jwtTokenHandler();
-    const formRef = useRef();
 
     useEffect(() => {
-        setIsShowFormLogin(false);
+        setIsShowModalLogin(false);
         setIsCurrentUser(!!currentUser);
     }, [currentUser]);
-    const CloseFormLogin = () => {
-        setIsShowFormLogin(false);
-        setIsFormLogin(true);
+    const CloseModalLogin = () => {
+        setIsShowModalLogin(false);
+        setIsModalForgotPassword(false);
+        setIsModalRegister(false);
+        setIsModalLogin(true);
+    };
+    const handleClickRegister = () => {
+        setIsModalLogin(false);
+        setIsModalRegister(true);
+        // setIsModalForgotPassword(false);
+    };
+    const handleClickForgotPassword = () => {
+        setIsModalLogin(false);
+        setIsModalForgotPassword(true);
+    };
+    const handleClickLogin = () => {
+        setIsModalRegister(false);
+        setIsModalLogin(true);
+    };
+    const handleClickBack = () => {
+        setIsModalForgotPassword(false);
+        setIsModalLogin(true);
     };
     return (
         <div className={cx('wrapper')}>
@@ -205,8 +226,8 @@ const Header = () => {
                                                     <Button
                                                         primary
                                                         onClick={() => {
-                                                            setIsShowFormLogin(true);
-                                                            setIsFormLogin(true);
+                                                            setIsShowModalLogin(true);
+                                                            setIsModalLogin(true);
                                                         }}
                                                     >
                                                         Login
@@ -225,13 +246,16 @@ const Header = () => {
                     </div>
                 </div>
             </div>
-            {isShowFormLogin && (
-                <ModalCustom onClose={CloseFormLogin}>
-                    {isFormLogin ? (
-                        <ModalLogin onClickRegister={() => setIsFormLogin(false)} ref={formRef} />
-                    ) : (
-                        <ModalRegister onClickLogin={() => setIsFormLogin(true)} />
+            {isShowModalLogin && (
+                <ModalCustom onClose={CloseModalLogin}>
+                    {isModalLogin && (
+                        <ModalLogin
+                            onClickRegister={handleClickRegister}
+                            onClickForgotPassword={handleClickForgotPassword}
+                        />
                     )}
+                    {isModalRegister && <ModalRegister onClickLogin={handleClickLogin} />}
+                    {isModalForgotPassword && <ModalForgotPassword onClickBack={handleClickBack} />}
                 </ModalCustom>
             )}
         </div>

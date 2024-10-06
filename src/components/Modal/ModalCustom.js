@@ -6,7 +6,7 @@ import styles from './Modal.module.scss';
 
 const cx = classNames.bind(styles);
 
-const Modal = ({ children, onClose, title }) => {
+const ModalCustom = ({ children, onClose, title }) => {
     return (
         <div className={cx('wrapper')}>
             <div className={cx('global-modal')}>
@@ -25,8 +25,8 @@ const Modal = ({ children, onClose, title }) => {
     );
 };
 
-Modal.propTypes = {
+ModalCustom.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
-export default Modal;
+export default ModalCustom;
