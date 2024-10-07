@@ -13,7 +13,14 @@
     align-items: center;
     padding: 0 4%;
 }
-
+.mobile-menu {
+    padding: 4px;
+    margin-right: 6px;
+    display: none;
+    &:hover {
+        cursor: pointer;
+    }
+}
 .logo {
     margin-right: 25px;
     color: red;
@@ -131,5 +138,110 @@
     &:hover {
         color: #b3b3b3;
         cursor: pointer;
+    }
+}
+//menu box
+.menu-box {
+    position: fixed;
+    display: block;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    opacity: 0;
+}
+
+.menu-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+.menu-user {
+    background-image: url(https://dongphim.ch/themes/iqiyi/img/background.png);
+    padding: 22px 24px;
+}
+.user-info {
+}
+.user-content {
+}
+.user-avatar {
+    width: 40px;
+    height: 40px;
+}
+.user-name {
+}
+
+.menu-content {
+    position: absolute;
+    left: 0px;
+    width: 220px;
+    height: 100%;
+    transition: left 0.3s;
+    background: rgb(35, 37, 43);
+}
+
+.menu-item {
+    padding: 22px 24px;
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;
+    transition: color 0.3s;
+    color: var(--text-color);
+}
+
+.menu-item:hover {
+    color: var(--primary);
+    opacity: 0.8;
+}
+
+@media (max-width: 1200px) {
+    .child-item {
+        min-width: calc(20% - 10px);
+    }
+    .show-menu .menu-background {
+        height: 100%;
+        width: 100%;
+    }
+    .show-menu {
+        z-index: 100;
+        width: 100%;
+        opacity: 1;
+    }
+}
+
+@media (max-width: 992px) {
+    .film-info-title h1 {
+        font-size: 3rem;
+    }
+    .film-info-content {
+        display: none;
+    }
+    .mobile-menu {
+        display: block;
+    }
+}
+
+@media (max-width: 768px) {
+    .primary-nav,
+    .element-history,
+    .element-follow {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .child-item {
+        width: calc((100% - 30px) / 3);
+    }
+}
+
+@media (max-width: 576px) {
+    .child-item {
+        width: calc(100% - 30px);
     }
 }

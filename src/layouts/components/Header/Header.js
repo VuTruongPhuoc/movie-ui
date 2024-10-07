@@ -1,10 +1,10 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import Tippy from '@tippyjs/react/headless';
 import classNames from 'classnames/bind';
 import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark, faUserCircle } from '@fortawesome/free-regular-svg-icons';
-import { faHistory, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faHistory, faSignOut, faUser } from '@fortawesome/free-solid-svg-icons';
 
 import Menu from '~/components/Popper/Menu';
 import Search from '~/layouts/components/Search';
@@ -18,6 +18,7 @@ import jwtTokenHandler from '~/utils/jwtTokenHandler';
 import AuthContext from '~/context/AuthProvider';
 import * as categoryServices from '~/services/categoryServices';
 import ModalForgotPassword from '~/components/Modal/ModalForgotPassword';
+import MenuBox from './MenuBox';
 
 const cx = classNames.bind(styles);
 const Header = () => {
@@ -45,12 +46,15 @@ const Header = () => {
             },
         },
     ];
+    const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
     const [isCurrentUser, setIsCurrentUser] = useState(false);
     const [isShowModalLogin, setIsShowModalLogin] = useState(false);
     const [isModalLogin, setIsModalLogin] = useState(true);
     const [isModalRegister, setIsModalRegister] = useState(false);
     const [isModalForgotPassword, setIsModalForgotPassword] = useState(false);
     const [genres, setGenres] = useState();
+
+    const menuContentRef = useRef();
 
     useEffect(() => {
         const fetchData = async () => {
@@ -92,20 +96,38 @@ const Header = () => {
         setIsModalForgotPassword(false);
         setIsModalLogin(true);
     };
+    const handleClickMobileMenu = () => {
+        if (menuContentRef.current) {
+            setIsOpenMobileMenu(!isOpenMobileMenu);
+        }
+    };
+    const handleClickOutside = (e) => {
+        if (menuContentRef.current && !menuContentRef.current.contains(e.target)) {
+            setIsOpenMobileMenu(false);
+        }
+    };
+    useEffect(() => {
+        if (isOpenMobileMenu) {
+            document.addEventListener('mousedown', handleClickOutside);
+        } else {
+            document.removeEventListener('mousedown', handleClickOutside);
+        }
+        return () => {
+            document.removeEventListener('mousedown', handleClickOutside);
+        };
+    }, [isOpenMobileMenu]);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('main-header')}>
+                <div className={cx('mobile-menu')} onClick={handleClickMobileMenu}>
+                    <FontAwesomeIcon icon={faBars} />
+                </div>
                 <NavLink className={cx('logo')} to={config.routes.home}>
                     <div style={{ fontWeight: 700, fontSize: '1.8rem' }}>PMovie</div>
                 </NavLink>
                 <Nav>
-                    <div className={cx('nav-menu')}>
-                        <NavLink className={cx('menu-trigger')}>Browse</NavLink>
-                    </div>
                     <NavItem title="Trang chủ" to={config.routes.home} />
-
                     <NavItem title="Phim bộ" to={config.routes.tvshows} />
-
                     <NavItem title="Phim lẻ" to={config.routes.movies} />
                     <NavItem title="Lọc phim" to={config.routes.filter} />
 
@@ -147,11 +169,12 @@ const Header = () => {
                         </NavItem>
                     </Tippy>
                 </Nav>
+                <MenuBox isOpen={isOpenMobileMenu} ref={menuContentRef} />
                 <div className={cx('secondary-nav')}>
                     <div className={cx('nav-element')}>
                         <Search />
                     </div>
-                    <div className={cx('nav-element')}>
+                    <div className={cx('nav-element', 'element-history')}>
                         <Tippy
                             interactive={true}
                             delay={[100, 300]}
@@ -175,7 +198,7 @@ const Header = () => {
                             </Link>
                         </Tippy>
                     </div>
-                    <div className={cx('nav-element')}>
+                    <div className={cx('nav-element', 'element-follow')}>
                         <Tippy
                             interactive={true}
                             delay={[100, 300]}
